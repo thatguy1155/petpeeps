@@ -1,12 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import authModule from './modules/authModule'
+
 // import axios from 'axios'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  state: {
+const state = {
     bizList: [
       {
         title: 'test',
@@ -26,14 +21,9 @@ export default new Vuex.Store({
         placeDescription: 'where all the nirvana fans hang'
       }
     ]
-  },
-  mutations: {
-    changeBizList(state, payload) {
-      console.log('this is coming from mutations', payload)
-      state.bizList = payload
-    }
-  },
-  actions: {
+  }
+
+  const actions = {
     getBizList({ commit}, val) {
       console.log('this is coming from actions', val)
       console.log('make request with axios')
@@ -123,8 +113,17 @@ export default new Vuex.Store({
 
       // }).catch(err => console.log(err))
     }
-  },
-  modules: {
-    authModule
   }
-})
+
+  const mutations = {
+    changeBizList(state, payload) {
+      console.log('this is coming from mutations', payload)
+      state.bizList = payload
+    }
+  }
+
+export default {
+  state,
+  mutations,
+  actions
+}

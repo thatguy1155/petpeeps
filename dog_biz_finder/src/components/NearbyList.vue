@@ -64,6 +64,9 @@ export default {
       username: 'authModule/user'
     })
   },
+  created(){
+    this.bizList
+  },
   mounted() {
     console.log(this.bizList, this.username)
   },

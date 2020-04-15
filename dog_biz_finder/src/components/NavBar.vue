@@ -64,7 +64,7 @@ export default {
           linkTo: '/profile',
           iconName: 'mdi-paw'
         }, {
-          linkTo: '/about',
+          linkTo: '/contact',
           iconName: 'mdi-phone'
         }]
     }

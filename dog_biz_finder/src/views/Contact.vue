@@ -1,8 +1,8 @@
 <template>
-  <div class="about">
+  <div class="contact">
       <div>
     <ul>
-      <li>about</li>
+      <li>contact</li>
       <li>about</li>
       <li>about</li>
       <li>about</li>
