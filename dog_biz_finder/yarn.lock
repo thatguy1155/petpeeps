@@ -8050,6 +8050,11 @@ vue-eslint-parser@^7.0.0:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
+vue-firebase@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/vue-firebase/-/vue-firebase-1.0.8.tgz#d88eea44789dbe39646c254268f9a0a107d26afd"
+  integrity sha512-nfOB8U+zdC+aibziTGx1ncxLP7Mji6HppgPIOXR2MwoglckS1gGkyqzfjGFQU1TTCnqeJv1ksHumHrz5rj1p1w==
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

@@ -11,16 +11,14 @@
             lazy-validation
             >
                 <v-text-field
-                v-model="name"
-                :rules="nameRules"
-                label="Name"
+                v-model="email"
+                label="Email"
                 required
                 ></v-text-field>
 
                 <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
+                v-model="password"
+                label="Password"
                 required
                 ></v-text-field>
 
@@ -29,19 +27,12 @@
                 :disabled="!valid"
                 color="success"
                 class="mr-4 mb-1"
-                @click="validate"
+                @click="login"
                 >
                     Validate
                 </v-btn>
 
 
-                <v-btn
-                    color="warning"
-                    class="mb-1"
-                    @click="resetValidation"
-                    >
-                    Reset
-                </v-btn>
             </v-form>
         </v-col>
     </v-row>
@@ -49,36 +40,29 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
-    data: () => ({
-      valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        //v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      select: null,
-      items: [
-        'Dog Parent',
-        'Business',
-      ],
-      checkbox: false,
-    }),
-
-    methods: {
-      validate () {
-        this.$refs.form.validate()
-      },
-      
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
+  name:'Login',
+    data: function () {
+        return{
+            email: '',
+            password: ''
+        }
     },
+    //this is the function that actually does the registering via firebase
+    methods: {
+        login: function(e) {
+            firebase.auth().signInWithEmailAndPassword(this.email,this.password)
+                .then(user => {
+                    alert(`you are logged in as ${user.email}`)
+                    this.$router.push('/');
+                },
+                err => {
+                    alert(err.message)
+                })
+            e.preventDefault();
+        }
+    }
   }
 </script>
 
