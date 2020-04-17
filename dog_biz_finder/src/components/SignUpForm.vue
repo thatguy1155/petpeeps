@@ -28,6 +28,9 @@
                 v-model="password"
                 :rules="passRules"
                 label="Password"
+                :append-icon="password ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="() => (password = !password)"
+                :type="password ? 'password' : 'text'"
                 required
                 ></v-text-field>
 
@@ -96,8 +99,8 @@ export default {
         register: function(e) {
             if (this.$refs.form.validate()){
                 firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
-                .then(user => {
-                    alert(`account creater for ${user.email}`)
+                .then(() => {
+                    alert(`account created for ${this.email}`)
                     this.$router.push('/');
                 },
                 err => {
