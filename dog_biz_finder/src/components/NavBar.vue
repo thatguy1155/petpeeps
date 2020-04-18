@@ -8,7 +8,7 @@
       <!-- this is the hamburger menu button on the top left -->
       <v-app-bar-nav-icon />
       <!-- this is our title goes -->
-      <v-toolbar-title>Dog Biz Finder</v-toolbar-title>
+      <v-toolbar-title>DogPeeps</v-toolbar-title>
       <!-- this is the spacer between title and icon buttons -->
       <v-spacer />
       <!-- ***** these are the buttons on the right side of the navbar ***** -->

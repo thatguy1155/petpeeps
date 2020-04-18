@@ -1,24 +1,18 @@
 <template>
   <div>
-    <ul>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-      <li>test</li>
-    </ul>
+    <Account />
   </div>
 </template>
 
 <script>
+import Account from '@/components/Account'
+
 export default {
   created() {
     console.log('this', this, 'profile')
+  },
+  components: {
+    Account
   }
 }
 </script>
