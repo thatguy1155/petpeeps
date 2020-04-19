@@ -16,8 +16,12 @@
             height="200"
           >
             <v-card-title>
-              Account info
+              {{ this.user.name }}
             </v-card-title>
+            <v-card-text class="d-flex justify-start">
+              <p>Email: {{ this.user.email }}</p>
+              <p>Type of account: {{ this.user.accountType }}</p>
+            </v-card-text>
             <v-card-actions>
                <v-btn text @click="showAccountOptions">Account settings</v-btn>
             </v-card-actions>
@@ -32,17 +36,37 @@
 </template>
 
 <script>
-    export default {
-      name: 'Account',
-      data: () => ({
-        accountOptions: false
+  import { mapState, mapActions } from 'vuex'
+
+  export default {
+    name: 'Account',
+    data: () => ({
+      accountOptions: false
+    }),
+    methods: {
+      ...mapActions({
+        'getUser': 'profileModule/getUser'
       }),
-      methods: {
-        showAccountOptions() {
-          this.accountOptions = true
-        }
+      showAccountOptions() {
+        this.accountOptions = true
+      },
+      changePassword() {
+        return;
+      },
+      deleteAccount() {
+        return;
       }
+    },
+    computed: {
+      ...mapState('profileModule', {
+        user: state => state.user
+      })
+    },
+    created() {
+      this.getUser();
+      this.user;
     }
+  }
 </script>
 
 <style lang="scss" scoped>

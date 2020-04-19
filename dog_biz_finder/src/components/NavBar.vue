@@ -5,8 +5,6 @@
       dense
       dark
     >
-      <!-- this is the hamburger menu button on the top left -->
-      <v-app-bar-nav-icon />
       <!-- this is our title goes -->
       <v-toolbar-title>DogPeeps</v-toolbar-title>
       <!-- this is the spacer between title and icon buttons -->

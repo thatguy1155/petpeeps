@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import authModule from './modules/authModule'
+import profileModule from './modules/profileModule'
 // import axios from 'axios'
 
 Vue.use(Vuex)
@@ -125,6 +126,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    authModule
+    authModule,
+    profileModule
   }
 })
