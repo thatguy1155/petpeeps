@@ -6,7 +6,7 @@
     <v-card>
       <v-container>
         <v-row>
-          <v-col cols="12">
+          <v-col cols="8">
             <v-text-field
               :append-icon="showCurrPw ? 'mdi-eye' : 'mdi-eye-off'"
               :type="showCurrPw ? 'text' : 'password'"
@@ -18,7 +18,7 @@
               @click:append="showCurrPw = !showCurrPw"
             ></v-text-field>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="6">
             <v-text-field
               :append-icon="showNewPw ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
@@ -32,7 +32,7 @@
               @click:append="showNewPw = !showNewPw"
             ></v-text-field>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="6">
             <v-text-field
               :append-icon="showConfirmPw ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.pwMatch]"
