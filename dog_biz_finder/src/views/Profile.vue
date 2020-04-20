@@ -2,6 +2,8 @@
   <div>
     <account-options v-show="emptyAccountType" />
     <account />
+    <v-divider :inset="inset" horizontal color="brown" width="95%" align="center" cols="12"
+        md="8"></v-divider>
     <add-animal />
     <add-biz />
   </div>
@@ -22,7 +24,10 @@ export default {
     AddBiz
   },
   data: () => ({
-    emptyAccountType: false
+    emptyAccountType: false,
+    inset: false,
+    items: ["default", "vertical"],
+    variant: "default"
   }),
   methods: {
     ...mapActions({

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-dialog v-model="animal" persistent max-width="600px">
+      <v-dialog v-model="animal" persistent max-width="1000px">
         <template v-slot:activator="{ on }">
           <v-btn id="animalButton" color="primary" dark v-on="on">+ Add A Pet</v-btn>
         </template>
@@ -85,6 +85,7 @@ export default {
 <style>
 #animalButton {
    margin-right: 2%;
+   float: left;
  }
 </style>
 
