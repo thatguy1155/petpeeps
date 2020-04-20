@@ -13,23 +13,27 @@
                         <v-container>
                             <v-row>
                                 <v-file-input :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="Pick an Photo" prepend-icon="mdi-camera" label="Pet Photo"></v-file-input>
-                                <v-col cols="12" sm="6" md="4">
+                                <v-flex xs12></v-flex>
+                                
                                     <v-text-field label="Name" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
+                                     <v-flex xs12></v-flex>
+                                
                                     <v-text-field label="Breed/Species" hint="We like parrots, lizards, and other exotic animals"></v-text-field>
-                                </v-col>
+                                <v-flex xs12></v-flex>
+                                
 
                                 <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px">
                                     <template v-slot:activator="{ on }">
                                         <v-text-field v-model="date" label="Birthday date" prepend-icon="" readonly v-on="on"></v-text-field>
+                                         <v-flex xs12></v-flex>
                                     </template>
                                     <v-date-picker ref="picker" v-model="date" :max="new Date().toISOString().substr(0, 10)" min="1950-01-01" @change="save"></v-date-picker>
                                 </v-menu>
 
-                                <v-col cols="12" sm="6">
+                               
                                     <v-autocomplete :items="['Large', 'Medium', 'Small']" label="Animal Size"></v-autocomplete>
-                                </v-col>
+                                    <v-flex xs12></v-flex>
+                                
                             </v-row>
                         </v-container>
                     </v-card-text>
@@ -53,34 +57,32 @@
                         <v-container>
                             <v-row>
                                 <v-file-input :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="+ Add Pictures" prepend-icon="mdi-camera" label="Business Photo"></v-file-input>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Name" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Business Type" hint="cafe, bar, restaurant, and etc"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Business Hours" hint=""></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Address" hint=""></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Telephone" hint=""></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Website" hint=""></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                    <v-text-field label="Social Media" hint=""></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
+                                <v-flex xs12></v-flex>
 
-                                   
-                                    <v-col cols="20" sm="15" md="25">
-                                        <v-textarea filled auto-grow label="BIO" rows="5" row-height="30" shaped></v-textarea>
-                                    </v-col>
-                                </v-col>
+                                <v-text-field label="Name" required></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Business Type" hint="cafe, bar, restaurant, and etc"></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Business Hours" hint=""></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Address" hint=""></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Telephone" hint=""></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Website" hint=""></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-text-field label="Social Media" hint=""></v-text-field>
+                                <v-flex xs12></v-flex>
+
+                                <v-textarea filled auto-grow label="BIO" rows="5" row-height="30" shaped></v-textarea>
+                                <v-flex xs12></v-flex>
+
                                 <v-col cols="25" sm="21" md="30">
                                     <br>
 
