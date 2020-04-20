@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import firebase from 'firebase'
 Vue.use(Vuex);
 
 export default {
@@ -8,25 +9,25 @@ export default {
     user: {
       name: "",
       email: "",
-      accountType: ""
-    }
+      accountType: "",
+    },
   },
   mutations: {
-    loadUser(state, payload) {
+    LOAD_USER(state, payload) {
       state.user = payload;
       console.log("loading user in mutations");
-      console.log(state.user);
     }
   },
   actions: {
-    getUser({ commit }) {
-      let currentUser = {
-        name: "Joe",
-        email: "joe@gmail.com",
-        accountType: "personal"
-      };
-      commit("loadUser", currentUser);
-    }
+    getCurrentUser({ commit }) {
+      let currUser = firebase.auth().currentUser
+      console.log(currUser)
+      commit('LOAD_USER', {
+        name: 'schmoejoe',
+        email: currUser.email,
+        accountType: 'personal'
+      })     
+    },
   },
-  getters: {}
+  getters: {},
 };

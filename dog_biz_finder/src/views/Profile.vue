@@ -1,6 +1,6 @@
 <template>
   <div>
-    <account-options v-show="emptyAccountType" />
+    <account-options v-show="!!accountType" />
     <account />
   </div>
 </template>
@@ -16,17 +16,12 @@ export default {
     AccountOptions
   },
   data: () => ({
-    emptyAccountType: false
+    accountType: this.user.accountType
   }),
   methods: {
     ...mapActions({
-      'getUser': 'profileModule/getUser'
-    }),
-    checkAccountTypeStatus() {
-      if (this.user.accountType === '') {
-        this.emptyAccountType = true;
-      }
-    }
+      'getCurrentUser': 'profileModule/getCurrentUser'
+    })
   },
   computed: {
     ...mapState('profileModule', {
@@ -34,8 +29,9 @@ export default {
     })
   },
   created() {
-    this.getUser();
-    this.checkAccountTypeStatus();
+    console.log('this components', this)
+    this.getCurrentUser();
+    
   }
 }
 </script>

@@ -46,6 +46,6 @@ export default {
 
 <style lang="scss" scoped>
     #accountTypeSelect {
-        background-color: rgb(204, 156, 83) !important;
+        background-color: rgba(165, 42, 42, 0.274) !important;
     }
 </style>

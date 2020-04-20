@@ -6,7 +6,7 @@
       dark
     >
       <!-- this is our title goes -->
-      <v-toolbar-title>DogPeeps</v-toolbar-title>
+      <v-toolbar-title>PetPeeps</v-toolbar-title>
       <!-- this is the spacer between title and icon buttons -->
       <v-spacer />
       <!-- ***** these are the buttons on the right side of the navbar ***** -->
