@@ -14,26 +14,24 @@
                             <v-row>
                                 <v-file-input :rules="rules" accept="image/png, image/jpeg, image/bmp" placeholder="Pick an Photo" prepend-icon="mdi-camera" label="Pet Photo"></v-file-input>
                                 <v-flex xs12></v-flex>
-                                
-                                    <v-text-field label="Name" required></v-text-field>
-                                     <v-flex xs12></v-flex>
-                                
-                                    <v-text-field label="Breed/Species" hint="We like parrots, lizards, and other exotic animals"></v-text-field>
+
+                                <v-text-field label="Name" required></v-text-field>
                                 <v-flex xs12></v-flex>
-                                
+
+                                <v-text-field label="Breed/Species" hint="We like parrots, lizards, and other exotic animals"></v-text-field>
+                                <v-flex xs12></v-flex>
 
                                 <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="290px">
                                     <template v-slot:activator="{ on }">
+                                        <v-flex xs12></v-flex>
                                         <v-text-field v-model="date" label="Birthday date" prepend-icon="" readonly v-on="on"></v-text-field>
-                                         <v-flex xs12></v-flex>
                                     </template>
                                     <v-date-picker ref="picker" v-model="date" :max="new Date().toISOString().substr(0, 10)" min="1950-01-01" @change="save"></v-date-picker>
                                 </v-menu>
 
-                               
-                                    <v-autocomplete :items="['Large', 'Medium', 'Small']" label="Animal Size"></v-autocomplete>
-                                    <v-flex xs12></v-flex>
-                                
+                                <v-autocomplete :items="['Large', 'Medium', 'Small']" label="Animal Size"></v-autocomplete>
+                                <v-flex xs12></v-flex>
+
                             </v-row>
                         </v-container>
                     </v-card-text>
@@ -84,7 +82,6 @@
                                 <v-flex xs12></v-flex>
 
                                 <v-col cols="25" sm="21" md="30">
-                                    <br>
 
                                     <v-data-table :headers="headers" :items="menu" sort-by="price ₩" class="elevation-1">
                                         <template v-slot:top>
