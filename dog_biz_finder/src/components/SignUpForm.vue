@@ -97,7 +97,7 @@ export default {
             if (this.$refs.form.validate()){
                 firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
                 .then(user => {
-                    alert(`account creater for ${user.email}`)
+                    alert(`account creater for ${user.email}`);
                     this.$router.push('/');
                 },
                 err => {

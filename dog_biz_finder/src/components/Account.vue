@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import UpdatePwForm from '@/components/UpdatePwForm'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: "Account",
@@ -48,8 +48,8 @@ export default {
     accountOptions: false,
   }),
   methods: {
-    ...mapActions({
-      getCurrentUser: "profileModule/getCurrentUser"
+     ...mapActions({
+      'getCurrentUser': 'profileModule/getCurrentUser'
     }),
     showAccountOptions() {
       this.accountOptions = true;
@@ -58,13 +58,13 @@ export default {
       return;
     }
   },
-  computed: {
-    ...mapState("profileModule", {
+   computed: {
+    ...mapState('profileModule', {
       user: state => state.user
     })
   },
   created() {
-    this.getCurrentUser();
+    this.getCurrentUser();  
   }
 };
 </script>

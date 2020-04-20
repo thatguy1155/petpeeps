@@ -8,16 +8,13 @@
 <script>
 import Account from '@/components/Account'
 import AccountOptions from '@/components/AccountOptions'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     Account,
     AccountOptions
   },
-  data: () => ({
-    accountType: this.user.accountType
-  }),
   methods: {
     ...mapActions({
       'getCurrentUser': 'profileModule/getCurrentUser'
@@ -26,12 +23,13 @@ export default {
   computed: {
     ...mapState('profileModule', {
       user: state => state.user
+    }),
+    ...mapGetters({
+      accountType: 'profileModule/accountType'
     })
   },
   created() {
-    console.log('this components', this)
-    this.getCurrentUser();
-    
+    this.getCurrentUser();  
   }
 }
 </script>

@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "UpdatePwForm",
   data: function() {
@@ -72,17 +74,27 @@ export default {
       newPw: "",
       confirmPw: "",
       rules: {
-        required: value => !!value || "Required.",
-        min: value => value.length >= 8 || "Min 8 characters",
-        pwMatch: value => this.newPw === value || "The passwords you entered don't match"
-        }
-    }
+        required: (value) => !!value || "Required.",
+        min: (value) => value.length >= 8 || "Min 8 characters",
+        pwMatch: (value) =>
+          this.newPw === value || "The passwords you entered don't match",
+      },
+    };
   },
   methods: {
     updatePw() {
-      return;
-    }
-  }
+      let currUser = firebase.auth().currentUser;
+      currUser
+        .updatePassword(this.confirmPw)
+        .then(() => {
+          console.log("Password update successful");
+          this.$router.push("/login");
+        })
+        .catch(function(error) {
+          console.log("Password update unsuccessful ", error);
+        });
+    },
+  },
 };
 </script>
 

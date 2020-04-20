@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import firebase from 'firebase'
+import firebase from 'firebase';
 Vue.use(Vuex);
 
 export default {
@@ -10,12 +10,11 @@ export default {
       name: "",
       email: "",
       accountType: "",
-    },
+    }
   },
   mutations: {
     LOAD_USER(state, payload) {
       state.user = payload;
-      console.log("loading user in mutations");
     }
   },
   actions: {
@@ -29,5 +28,7 @@ export default {
       })     
     },
   },
-  getters: {},
+  getters: {
+    accountType: state => state.accountType
+  }
 };
