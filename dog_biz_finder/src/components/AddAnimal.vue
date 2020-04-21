@@ -84,8 +84,8 @@ export default {
 
 <style>
 #animalButton {
-   margin-right: 2%;
-   float: left;
+   /* margin-right: 2%;
+   float: left; */
  }
 </style>
 

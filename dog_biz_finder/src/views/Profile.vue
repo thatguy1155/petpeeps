@@ -4,9 +4,13 @@
     <account />
 
     <v-divider :inset="inset" horizontal color="brown" width="100%"></v-divider>
-  
-    <add-animal id="animalButton"/>
-     <v-layout row justify-center>
+
+      <div id="buttonContainer">
+        <add-biz id="bizButton" />
+        <add-animal id="animalButton" />
+      </div>
+
+    <!-- <v-layout row justify-center>
       <v-flex xs2>
         <v-card dark color="primary">
           <v-card-text>one</v-card-text>
@@ -22,9 +26,7 @@
           <v-card-text>three</v-card-text>
         </v-card>
       </v-flex>
-    </v-layout>
-    <add-biz id="bizButton"/>
-    
+    </v-layout>-->
   </div>
 </template>
 
@@ -72,12 +74,18 @@ export default {
 
 <style>
 #animalButton {
-  float: left;
-
+  /* height: 100%; */
+  /* width: 100%; */
 }
 #bizButton {
-  float: right;
+  /* height: 100%;
+  width: 100%; */
+}
+#buttonContainer {
+display: flex;
+flex: 1;
 
 }
+
 </style>
 
