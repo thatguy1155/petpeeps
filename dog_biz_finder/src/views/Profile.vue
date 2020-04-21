@@ -53,7 +53,7 @@
             <v-col align-self="start" class="pa-0" cols="12">
               <v-avatar class="profile" color="grey" size="164" tile>
                 <v-img
-                  src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"
+                  src="https://favy-inbound-singapore.s3.amazonaws.com/uploads/topic/image/1515/Untitled_design__10_.jpg"
                 ></v-img>
               </v-avatar>
             </v-col>
@@ -129,7 +129,10 @@ export default {
 
 <style>
 .v-application--is-ltr .v-responsive__sizer ~ .v-responsive__content {
-  margin-right: 45%;
+    margin-right: 65%;
+}
+.v-application--is-ltr .v-responsive__sizer ~ .v-responsive__content {
+    margin-left: -31%;
 }
 #animalContainer {
   justify-content: space-between;
