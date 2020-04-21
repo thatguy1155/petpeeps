@@ -22,7 +22,14 @@
         icon
         @click='goTo(l.linkTo)'
       >
-        <v-icon>{{ l.iconName }}</v-icon>
+        <v-icon v-if="isLoggedIn">{{ l.iconName }}</v-icon>
+      </v-btn>
+
+      <v-btn 
+        icon
+        @click='logout'
+      >
+        <v-icon v-if="isLoggedIn">{{ logoutIcon }}</v-icon>
       </v-btn>
       <!-- ***************************************************************** -->
 
@@ -51,6 +58,7 @@
   </div>
 </template>
 <script>
+import firebase from 'firebase'
 export default {
   data() {
     return {
@@ -64,13 +72,29 @@ export default {
         }, {
           linkTo: '/contact',
           iconName: 'mdi-phone'
-        }]
+        }],
+        logoutIcon: 'mdi-logout',
+        isLoggedIn:false,
+        currentUser:false
+    }
+  },
+  created() {
+    if(firebase.auth().currentUser){
+      this.isLoggedIn = true;
+      this.currentUser = firebase.auth().currentUser.email;
+      console.log(firebase.auth().currentUser)
     }
   },
   methods: {
     goTo(path) {
       this.$router.push(path)
+    },
+    logout: function() {
+      firebase.auth().signOut().then(() => {
+        this.$router.go({path: this.$router.path});
+      })
     }
+    
   }
 }
 </script>
