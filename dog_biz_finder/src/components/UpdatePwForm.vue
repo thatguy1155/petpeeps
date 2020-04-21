@@ -82,18 +82,50 @@ export default {
     };
   },
   methods: {
+    //Update the current user's password, after first reauthenticating the user 
     updatePw() {
-      let currUser = firebase.auth().currentUser;
-      currUser
-        .updatePassword(this.confirmPw)
+      let currentUser = firebase.auth().currentUser;
+      //Pass on reauthResult(Boolean); if true (reauthentication successful) then update password
+      this.reauthenticateUser().then((reauthResult) => {
+        if (reauthResult) {
+          currentUser
+            .updatePassword(this.confirmPw)
+            .then(() => {
+              console.log("Password update successful");
+              this.logout();
+            })
+            .catch(function(error) {
+              console.log("Password update unsuccessful ", error);
+            });
+        }
+      });
+    },
+    //Reauthenticate the current user's password before carrying out security-sensitive actions
+    reauthenticateUser() {
+      let currentUser = firebase.auth().currentUser;
+      let credential = firebase.auth.EmailAuthProvider.credential(
+        currentUser.email,
+        this.currentPw
+      );
+      //Return true if credentials are correct and pass the value 
+      return currentUser
+        .reauthenticateWithCredential(credential)
         .then(() => {
-          console.log("Password update successful");
-          this.$router.push("/login");
+          console.log("reauthentication success");
+          return true;
         })
-        .catch(function(error) {
-          console.log("Password update unsuccessful ", error);
+        .catch((error) => {
+          console.log("reauthentication failed", error);
+          return false;
         });
     },
+    //Log current user out
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$router.go({path: this.$router.path});
+        console.log('signout successful');
+      })
+    }
   },
 };
 </script>

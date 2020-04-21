@@ -22,7 +22,7 @@ export default {
       let currUser = firebase.auth().currentUser
       console.log(currUser)
       commit('LOAD_USER', {
-        name: 'schmoejoe',
+        name: currUser.displayName,
         email: currUser.email,
         accountType: 'personal'
       })     
