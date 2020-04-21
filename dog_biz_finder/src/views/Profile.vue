@@ -2,10 +2,12 @@
   <div>
     <account-options v-show="emptyAccountType" />
     <account />
-    <v-divider :inset="inset" horizontal color="brown" width="95%" align="center" cols="12"
-        md="8"></v-divider>
-    <add-animal />
-    <add-biz />
+
+    <v-divider :inset="inset" horizontal color="brown" width="100%"></v-divider>
+  
+    <add-animal id="animalButton"/>
+    <add-biz id="bizButton"/>
+    
   </div>
 </template>
 
@@ -51,5 +53,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#animalButton {
+  float: left;
+
+}
+#bizButton {
+  float: right;
+
+}
+</style>
 
