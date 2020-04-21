@@ -18,17 +18,17 @@ export default {
     }
   },
   actions: {
+    // Get current user objet from firbase 
     getCurrentUser({ commit }) {
       let currUser = firebase.auth().currentUser
-      console.log(currUser)
       commit('LOAD_USER', {
         name: currUser.displayName,
         email: currUser.email,
-        accountType: 'personal'
+        accountType: 'business'
       })     
     },
   },
   getters: {
-    accountType: state => state.accountType
+    accountType: state => state.user.accountType
   }
 };
