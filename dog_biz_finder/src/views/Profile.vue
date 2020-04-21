@@ -14,7 +14,7 @@
     </v-flex>-->
 
     <!-- <div id="animalContainer"> -->
-      <v-flex> 
+    <v-flex>
       <v-card class="mx-auto" max-width="434" tile>
         <v-img height="100%" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
           <v-row align="end" class="fill-height">
@@ -44,9 +44,9 @@
           </v-card-text>
         </v-flex>
       </v-layout>
-       </v-flex>
+    </v-flex>
 
-             <v-flex> 
+    <v-flex>
       <v-card class="mx-auto" max-width="434" tile>
         <v-img height="100%" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
           <v-row align="end" class="fill-height">
@@ -60,8 +60,10 @@
             <v-col class="py-0">
               <v-list-item color="rgba(0, 0, 0, .4)" dark>
                 <v-list-item-content>
-                  <v-list-item-title class="title">Name: Fido</v-list-item-title>
-                  <v-list-item-subtitle>Breed: Puppy</v-list-item-subtitle>
+                  <v-list-item-title class="title">Name: Fido's Cafe</v-list-item-title>
+                  <v-list-item-title class="title">Business Type: 24/7</v-list-item-title>
+                  <v-list-item-title class="title">Open time: 24/7</v-list-item-title>
+                  <v-list-item-title class="title">Address:11 Nonhyeon-ro 151-gil, Sinsa-dong, Gangnam-gu, Seoul</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-col>
@@ -76,7 +78,7 @@
           </v-card-text>
         </v-flex>
       </v-layout>
-       </v-flex>
+    </v-flex>
     <!-- </div> -->
   </div>
 </template>
