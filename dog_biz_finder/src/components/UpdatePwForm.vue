@@ -84,7 +84,7 @@ export default {
         required: (value) => !!value || "Required.",
         min: (value) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(value) || "Min 8 characters, mixed case with at least one digit",
         pwMatch: (value) =>
-          this.newPw === value || "The passwords you entered don't match",
+          this.newPw === value || "The passwords you entered don't match"
       },
     };
   },

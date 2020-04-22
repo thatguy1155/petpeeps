@@ -50,7 +50,6 @@ function reauthenticate(currentPw) {
     currentUser.email,
     currentPw
   );
-
   //Return true if credentials are correct and pass the value
   return currentUser
     .reauthenticateWithCredential(credential)
@@ -60,6 +59,12 @@ function reauthenticate(currentPw) {
     })
     .catch((error) => {
       console.log("reauthentication failed", error);
+      // if password is incorrect, notify the user so they know to try and reenter current pw
+      if (error.code === "auth/wrong-password") {
+        alert('You\'ve entered the wrong password. Please try again.');
+      } else if (error.code === "auth/too-many-requests") {
+        alert('You\'ve had too many attempts. Try again in a bit! :)');
+      }
       return false;
     });
 }
