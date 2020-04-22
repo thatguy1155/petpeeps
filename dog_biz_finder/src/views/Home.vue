@@ -1,22 +1,40 @@
 <template>
   <div>
     <search-bar />
-    <carousel />
+    <google-map />
+    <!-- <gmap-map
+      :center="center"
+      :zoom="14"
+      style="width:100%;  height: 600px;"
+    >
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        @click="center=m.position"
+      ></gmap-marker>
+    </gmap-map> -->
     <nearby-list />
   </div>
 </template>
 <script>
-import Carousel from '@/components/Carousel'
 import SearchBar from '@/components/SearchBar'
 import NearbyList from '@/components/NearbyList'
+import GoogleMap from '@/components/GoogleMap'
+
 export default {
   components: {
-    Carousel,
     SearchBar,
-    NearbyList
+    NearbyList,
+    GoogleMap
   },
-  mounted() {
-    console.log(this)
-  }
+  data() {
+    return {
+    };
+  },
+  computed: {
+    },
 }
 </script>
+<style scoped>
+</style>
