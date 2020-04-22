@@ -64,6 +64,7 @@
 //var firebaseui = require('firebaseui');
 //var ui = new firebaseui.auth.AuthUI(firebase.auth());
 import firebase from 'firebase'
+import axios from 'axios'
 export default {
   name:'Login',
     data: function () {
@@ -83,7 +84,11 @@ export default {
             firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                 .then(() => {
                     alert(`you are logged in as ${this.email}`)
-                    this.$router.push('/')
+                    axios.get('http://localhost:8080/lhapi/backend_router.php?action=showUserInfo')
+                      .then(res => {this.answer=res.data;
+                      console.log(this.answer)})//for each letter in the returned word, append a new object to letters with the display of [that letter] and found value of false
+                      .catch(err => console.log(err))
+                    //this.$router.push('/')
                     //this.$router.go({path: this.$router.path});
                 },
                 err => {
