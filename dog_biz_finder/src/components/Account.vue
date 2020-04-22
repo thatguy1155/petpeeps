@@ -27,7 +27,7 @@
           </v-card-actions>
           <v-card-actions v-show="accountOptions">
             <update-pw-form />
-            <v-btn text @click="deleteAccount">Delete account</v-btn>
+            <delete-account-form />
           </v-card-actions>
         </v-card>
       </v-col>
@@ -36,36 +36,35 @@
 </template>
 
 <script>
-import UpdatePwForm from '@/components/UpdatePwForm'
-import { mapState, mapActions } from 'vuex'
+import UpdatePwForm from "@/components/UpdatePwForm";
+import DeleteAccountForm from "@/components/DeleteAccountForm";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Account",
   components: {
-    UpdatePwForm
+    UpdatePwForm,
+    DeleteAccountForm
   },
   data: () => ({
     accountOptions: false,
   }),
   methods: {
-     ...mapActions({
-      'getCurrentUser': 'profileModule/getCurrentUser'
+    ...mapActions({
+      getCurrentUser: "profileModule/getCurrentUser"
     }),
     showAccountOptions() {
       this.accountOptions = true;
-    },
-    deleteAccount() {
-      return;
     }
   },
-   computed: {
-    ...mapState('profileModule', {
-      user: state => state.user
-    })
+  computed: {
+    ...mapState("profileModule", {
+      user: (state) => state.user,
+    }),
   },
   created() {
-    this.getCurrentUser();  
-  }
+    this.getCurrentUser();
+  },
 };
 </script>
 

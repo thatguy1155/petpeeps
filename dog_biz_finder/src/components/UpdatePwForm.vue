@@ -50,7 +50,12 @@
             <v-btn color="blue darken-1" text @click="updatePwDialog = false"
               >Close</v-btn
             >
-            <v-btn color="blue darken-1" text @click="updatePw">Save</v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="updateUserPw"
+              >Save</v-btn
+            >
           </v-card-actions>
         </v-row>
       </v-container>
@@ -59,7 +64,7 @@
 </template>
 
 <script>
-import firebase from "firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "UpdatePwForm",
@@ -69,7 +74,6 @@ export default {
       showCurrPw: false,
       showNewPw: false,
       showConfirmPw: false,
-      password: "Password",
       currentPw: "",
       newPw: "",
       confirmPw: "",
@@ -82,51 +86,18 @@ export default {
     };
   },
   methods: {
-    //Update the current user's password, after first reauthenticating the user 
-    updatePw() {
-      let currentUser = firebase.auth().currentUser;
-      //Pass on reauthResult(Boolean); if true (reauthentication successful) then update password
-      this.reauthenticateUser().then((reauthResult) => {
-        if (reauthResult) {
-          currentUser
-            .updatePassword(this.confirmPw)
-            .then(() => {
-              console.log("Password update successful");
-              this.logout();
-            })
-            .catch(function(error) {
-              console.log("Password update unsuccessful ", error);
-            });
-        }
-      });
-    },
-    //Reauthenticate the current user's password before carrying out security-sensitive actions
-    reauthenticateUser() {
-      let currentUser = firebase.auth().currentUser;
-      let credential = firebase.auth.EmailAuthProvider.credential(
-        currentUser.email,
-        this.currentPw
-      );
-      //Return true if credentials are correct and pass the value 
-      return currentUser
-        .reauthenticateWithCredential(credential)
-        .then(() => {
-          console.log("reauthentication success");
-          return true;
-        })
-        .catch((error) => {
-          console.log("reauthentication failed", error);
-          return false;
-        });
-    },
-    //Log current user out
-    logout() {
-      firebase.auth().signOut().then(() => {
-        this.$router.go({path: this.$router.path});
-        console.log('signout successful');
-      })
-    }
-  },
+    ...mapActions({
+      updatePw: "profileModule/updatePw",
+    }),
+    updateUserPw() {
+      let updatePwParams = {
+        currentPw: this.currentPw,
+        confirmPw: this.confirmPw,
+        router: this.$router,
+      };
+      this.updatePw(updatePwParams);
+    } 
+  }
 };
 </script>
 

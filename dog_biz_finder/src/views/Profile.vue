@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      'getCurrentUser': 'profileModule/getCurrentUser'
+      'getCurrentUser': 'profileModule/getCurrentUser',
     })
   },
   computed: {
