@@ -16,6 +16,7 @@
               v-model="currentPw"
               class="input-group--focused"
               @click:append="showCurrPw = !showCurrPw"
+              @keyup.enter="updateUserPw"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
@@ -25,11 +26,12 @@
               :type="showNewPw ? 'text' : 'password'"
               name="input-10-2"
               label="New Password"
-              hint="At least 8 characters"
+              hint="At least 8 characters; mixed cased with at least one digit"
               value=""
               v-model="newPw"
               class="input-group--focused"
               @click:append="showNewPw = !showNewPw"
+              @keyup.enter="updateUserPw"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
@@ -43,6 +45,7 @@
               v-model="confirmPw"
               class="input-group--focused"
               @click:append="showConfirmPw = !showConfirmPw"
+              @keyup.enter="updateUserPw"
             ></v-text-field>
           </v-col>
           <v-card-actions>
@@ -79,7 +82,7 @@ export default {
       confirmPw: "",
       rules: {
         required: (value) => !!value || "Required.",
-        min: (value) => value.length >= 8 || "Min 8 characters",
+        min: (value) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(value) || "Min 8 characters, mixed case with at least one digit",
         pwMatch: (value) =>
           this.newPw === value || "The passwords you entered don't match",
       },
