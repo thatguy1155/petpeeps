@@ -9,13 +9,14 @@ const state = {
     name: "",
     email: "",
     accountType: "",
-  },
+    signInMethod: ""
+  }
 };
 
 const mutations = {
   LOAD_USER(state, payload) {
     state.user = payload;
-  },
+  }
 };
 
 const actions = {
@@ -26,16 +27,19 @@ const actions = {
 
 const getters = {
   accountType: (state) => state.user.accountType,
+  signInMethod: (state) => state.user.signInMethod
 };
 
 
 //Get current user objet from firbase
 function getCurrentUser({ commit }) {
   let currUser = firebase.auth().currentUser;
+  console.log(currUser.providerData[0].providerId);
   commit("LOAD_USER", {
     name: currUser.displayName,
     email: currUser.email,
     accountType: "business",
+    signInMethod: currUser.providerData[0].providerId
   });
 }
 
@@ -61,7 +65,7 @@ function reauthenticate(currentPw) {
 }
 
 //Update the current user's password, after first reauthenticating the user
-function updatePw({}, parameters) {
+function updatePw(a, parameters) {
   let currentUser = firebase.auth().currentUser;
   //Call reauthenticate, pass on reauthResult(Boolean); if true (reauthentication successful) then update password
   reauthenticate(parameters.currentPw).then((reauthResult) => {
@@ -78,11 +82,10 @@ function updatePw({}, parameters) {
         });
     }
   });
-  // commit('UPDATE_PW');
 }
 
 //Delete user's account, after first reauthenticating the user
-function deleteUser({}, parameters) {
+function deleteUser(a, parameters) {
   let currUser = firebase.auth().currentUser;
   console.log('deleteUser() params', parameters)
   //Call reauthenticate, pass on reauthResult(Boolean); if true (reauthentication successful) then delete account
@@ -100,7 +103,6 @@ function deleteUser({}, parameters) {
         });
     }
   });
-  // commit('DELETE_USER');
 }
 
 //Log current user out

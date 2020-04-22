@@ -26,7 +26,8 @@
             <v-btn text @click="showAccountOptions">Account settings</v-btn>
           </v-card-actions>
           <v-card-actions v-show="accountOptions">
-            <update-pw-form />
+            <!-- only if the sign up method is through email/password, show option to change pw -->
+            <update-pw-form v-if="user.signInMethod === 'password'"/>
             <delete-account-form />
           </v-card-actions>
         </v-card>
@@ -47,11 +48,11 @@ export default {
     DeleteAccountForm
   },
   data: () => ({
-    accountOptions: false,
+    accountOptions: false
   }),
   methods: {
     ...mapActions({
-      getCurrentUser: "profileModule/getCurrentUser"
+      getCurrentUser: "profileModule/getCurrentUser",
     }),
     showAccountOptions() {
       this.accountOptions = true;
@@ -60,10 +61,11 @@ export default {
   computed: {
     ...mapState("profileModule", {
       user: (state) => state.user,
-    }),
+    })
   },
   created() {
     this.getCurrentUser();
+    console.log(this.user.signInMethod);
   },
 };
 </script>
