@@ -1,6 +1,7 @@
 <template>
   <div>
-    <account-options v-show="emptyAccountType" />
+    <!-- if there is no account type data in the current user, show the component to select a type -->
+    <account-options v-show="!accountType" />
     <account />
 
     <!-- ADD A ANIMAL MODAL/PROFILE START-->
@@ -104,32 +105,27 @@ export default {
     AddAnimal,
     AddBiz
   },
-
-  data: () => ({
-    justify: ["space-around"],
-    emptyAccountType: false,
-    inset: false,
-    items: ["default", "vertical"],
-    variant: "default"
-  }),
+  data: () => {
+    return {
+    }
+  },
   methods: {
     ...mapActions({
-      getUser: "profileModule/getUser"
-    }),
-    checkAccountTypeStatus() {
-      if (this.user.accountType === "") {
-        this.emptyAccountType = true;
-      }
-    }
+      'getCurrentUser': 'profileModule/getCurrentUser',
+    })
   },
   computed: {
     ...mapState("profileModule", {
       user: state => state.user
+    }),
+    // Get the current user's account type from store 
+    ...mapGetters({
+      accountType: 'profileModule/accountType'
     })
   },
   created() {
-    this.getUser();
-    this.checkAccountTypeStatus();
+    // Get current user when the component is created 
+    this.getCurrentUser(); 
   }
 };
 </script>

@@ -18,6 +18,7 @@
                 ></v-text-field>
 
                 <v-text-field
+                type='password'
                 v-model="password"
                 label="Password"
                 :append-icon="password ? 'mdi-eye' : 'mdi-eye-off'"

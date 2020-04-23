@@ -14,20 +14,21 @@
       <v-col :cols="8">
         <v-card shaped outlined height="240">
           <v-card-title class="mb-4">
-            {{ this.user.name }}
+            {{ user.name }}
           </v-card-title>
           <v-card-subtitle class="d-flex justify-start">
-            Account type: {{ this.user.accountType }}
+            Account type: {{ user.accountType }}
           </v-card-subtitle>
           <v-card-text class="d-flex justify-start">
-            Email: {{ this.user.email }}
+            Email: {{ user.email }}
           </v-card-text>
           <v-card-actions>
             <v-btn text @click="showAccountOptions">Account settings</v-btn>
           </v-card-actions>
           <v-card-actions v-show="accountOptions">
-            <update-pw-form />
-            <v-btn text @click="deleteAccount">Delete account</v-btn>
+            <!-- only if the sign up method is through email/password, show option to change pw -->
+            <update-pw-form v-if="user.signInMethod === 'password'"/>
+            <delete-account-form />
           </v-card-actions>
         </v-card>
       </v-col>
@@ -36,36 +37,36 @@
 </template>
 
 <script>
+import UpdatePwForm from "@/components/UpdatePwForm";
+import DeleteAccountForm from "@/components/DeleteAccountForm";
 import { mapState, mapActions } from "vuex";
-import UpdatePwForm from '@/components/UpdatePwForm'
 
 export default {
   name: "Account",
   components: {
-    UpdatePwForm
+    UpdatePwForm,
+    DeleteAccountForm
   },
   data: () => ({
-    accountOptions: false,
+    accountOptions: false
   }),
   methods: {
     ...mapActions({
-      getUser: "profileModule/getUser"
+      getCurrentUser: "profileModule/getCurrentUser",
     }),
     showAccountOptions() {
       this.accountOptions = true;
-    },
-    deleteAccount() {
-      return;
     }
   },
   computed: {
     ...mapState("profileModule", {
-      user: state => state.user
+      user: (state) => state.user,
     })
   },
   created() {
-    this.getUser();
-  }
+    this.getCurrentUser();
+    console.log(this.user.signInMethod);
+  },
 };
 </script>
 
