@@ -119,9 +119,9 @@ export default {
       user: state => state.user
     }),
     // Get the current user's account type from store 
-    ...mapGetters({
-      accountType: 'profileModule/accountType'
-    })
+    // ...mapGetters({
+    //   accountType: 'profileModule/accountType'
+    // })
   },
   created() {
     // Get current user when the component is created 
