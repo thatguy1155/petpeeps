@@ -96,7 +96,7 @@ import Account from "@/components/Account";
 import AccountOptions from "@/components/AccountOptions";
 import AddAnimal from "@/components/AddAnimal";
 import AddBiz from "@/components/AddBiz";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions,mapGetters } from "vuex";
 
 export default {
   components: {
@@ -118,10 +118,12 @@ export default {
     ...mapState("profileModule", {
       user: state => state.user
     }),
+
     // Get the current user's account type from store 
-    // ...mapGetters({
-    //   accountType: 'profileModule/accountType'
-    // })
+
+    ...mapGetters({
+      accountType: 'profileModule/accountType'
+    })
   },
   created() {
     // Get current user when the component is created 

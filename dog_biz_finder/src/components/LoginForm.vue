@@ -9,12 +9,12 @@
         <v-text-field v-model="email" label="Email" required></v-text-field>
 
         <v-text-field
-          type="password"
+        
           v-model="password"
           label="Password"
           :append-icon="password ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="() => (password = !password)"
-         
+          :type="password ? 'password' : 'text'"
           required
         ></v-text-field>
 
