@@ -1,10 +1,9 @@
 <template>
   <div>
     <v-row justify="center">
-      
       <v-dialog v-model="business" persistent max-width="600px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark v-on="on">+ Add A Business</v-btn>
+          <v-btn id="bizButton" color="brown" dark v-on="on">+ Add A Business</v-btn>
         </template>
         <v-card>
           <v-card-title>

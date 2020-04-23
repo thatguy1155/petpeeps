@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-dialog v-model="animal" persistent max-width="1000px">
         <template v-slot:activator="{ on }">
-          <v-btn id="animalButton" color="primary" dark v-on="on">+ Add A Pet</v-btn>
+          <v-btn id="animalButton" color="brown" dark v-on="on">+ Add A Pet</v-btn>
         </template>
         <v-card>
           <v-card-title>
@@ -42,7 +42,7 @@
                     <v-flex xs12></v-flex>
                     <v-text-field
                       v-model="date"
-                      label="Birthday date"
+                      label="Birthday"
                       prepend-icon
                       readonly
                       v-on="on"
@@ -64,8 +64,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="animal = false">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="animal = false">Edit/Add</v-btn>
+            <v-btn color="brown darken-1" text @click="animal = false">Cancel</v-btn>
+            <v-btn color="brown darken-1" text @click="animal = false">Edit/Add</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -83,9 +83,6 @@ export default {
 </script>
 
 <style>
-#animalButton {
-   /* margin-right: 2%;
-   float: left; */
- }
+
 </style>
 
