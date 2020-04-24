@@ -34,7 +34,7 @@ export default {
   name: "AccountOptions",
   methods: {
       selectBusiness() {
-          return;
+          return ;
       },
       selectPersonal() {
           return;

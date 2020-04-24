@@ -40,13 +40,7 @@
                 >
                   <template v-slot:activator="{ on }">
                     <v-flex xs12></v-flex>
-                    <v-text-field
-                      v-model="date"
-                      label="Birthday"
-                      prepend-icon
-                      readonly
-                      v-on="on"
-                    ></v-text-field>
+                    <v-text-field v-model="date" label="Birthday" prepend-icon readonly v-on="on"></v-text-field>
                   </template>
                   <v-date-picker
                     ref="picker"
@@ -69,7 +63,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-
     </v-row>
   </div>
 </template>
@@ -77,12 +70,11 @@
 <script>
 export default {
   data: () => ({
-    animal: false,
+    animal: false
   })
 };
 </script>
 
 <style>
-
 </style>
 

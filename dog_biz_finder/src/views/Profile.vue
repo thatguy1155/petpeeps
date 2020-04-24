@@ -5,31 +5,30 @@
     <account />
 
     <!-- ADD A ANIMAL MODAL/PROFILE START-->
-
-    <div class="grid1x1">
+    <div v-if="accountType === 'Personal'" class="grid1x1">
       <!-- <div class="box box1"> -->
-        <div>
-          <v-card class="mx-auto" max-width="434" tile>
-            <v-img height="100%" src>
-              <v-row align="end" class="fill-height">
-                <v-col align-self="start" class="pa-0" cols="12">
-                  <v-avatar id="profilePic" class="profile" color="grey" size="164" tile>
-                    <v-img
-                      src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"
-                    ></v-img>
-                  </v-avatar>
-                  <v-col class="py-0">
-                    <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                      <v-list-item-content id="animalFont">
-                        <v-list-item-title id="animalFont" class="title">Name: Fido</v-list-item-title>
-                        <v-list-item-subtitle id="animalFont">Breed: Puppy</v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
+      <div>
+        <v-card class="mx-auto" max-width="434" tile>
+          <v-img height="100%" src>
+            <v-row align="end" class="fill-height">
+              <v-col align-self="start" class="pa-0" cols="12">
+                <v-avatar id="profilePic" class="profile" color="grey" size="164" tile>
+                  <v-img
+                    src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"
+                  ></v-img>
+                </v-avatar>
+                <v-col class="py-0">
+                  <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                    <v-list-item-content id="animalFont">
+                      <v-list-item-title id="animalFont" class="title">Name: Fido</v-list-item-title>
+                      <v-list-item-subtitle id="animalFont">Breed: Puppy</v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
                 </v-col>
-              </v-row>
-            </v-img>
-          </v-card>
+              </v-col>
+            </v-row>
+          </v-img>
+        </v-card>
         <!-- </div> -->
       </div>
       <div class="box box2">
@@ -45,36 +44,36 @@
 
     <!-- ADD A BUSINESS MODAL/PROFILE START-->
 
-    <div class="grid1x1">
+    <div v-show="accountType === 'Business'" class="grid1x1">
       <!-- <div class="box box1"> -->
-        <div>
-          <v-card class="mx-auto" max-width="434" tile>
-            <v-img height="100%" src>
-              <v-row align="end" class="fill-height">
-                <v-col align-self="start" class="pa-0" cols="12">
-                  <v-avatar id="profilePic" class="profile" color="grey" size="164" tile>
-                    <v-img
-                      src="https://favy-inbound-singapore.s3.amazonaws.com/uploads/topic/image/1515/Untitled_design__10_.jpg"
-                    ></v-img>
-                  </v-avatar>
-                  <v-col class="py-0">
-                    <v-list-item color="rgba(0, 0, 0, .4)" dark>
-                      <v-list-item-content id="bizFont">
-                        <v-list-item-title id="bizFont">Name: Fido's Cafe</v-list-item-title>
-                        <v-list-item-title id="bizFont">Business Type: 24/7</v-list-item-title>
-                        <v-list-item-title id="bizFont">Open time: 24/7</v-list-item-title>
-                        <v-list-item-title id="addressFont">
-                          Address:11 Nonhyeon-ro 151-gil,
-                          <br />Sinsa-dong, Gangnam-gu, Seoul
-                        </v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
+      <div>
+        <v-card class="mx-auto" max-width="434" tile>
+          <v-img height="100%" src>
+            <v-row align="end" class="fill-height">
+              <v-col align-self="start" class="pa-0" cols="12">
+                <v-avatar id="profilePic" class="profile" color="grey" size="164" tile>
+                  <v-img
+                    src="https://favy-inbound-singapore.s3.amazonaws.com/uploads/topic/image/1515/Untitled_design__10_.jpg"
+                  ></v-img>
+                </v-avatar>
+                <v-col class="py-0">
+                  <v-list-item color="rgba(0, 0, 0, .4)" dark>
+                    <v-list-item-content id="bizFont">
+                      <v-list-item-title id="bizFont">Name: Fido's Cafe</v-list-item-title>
+                      <v-list-item-title id="bizFont">Business Type: 24/7</v-list-item-title>
+                      <v-list-item-title id="bizFont">Open time: 24/7</v-list-item-title>
+                      <v-list-item-title id="addressFont">
+                        Address:11 Nonhyeon-ro 151-gil,
+                        <br />Sinsa-dong, Gangnam-gu, Seoul
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
                 </v-col>
-              </v-row>
-            </v-img>
-          </v-card>
-        </div>
+              </v-col>
+            </v-row>
+          </v-img>
+        </v-card>
+      </div>
       <!-- </div> -->
 
       <div class="box box2">
@@ -87,7 +86,6 @@
     </div>
 
     <!-- ADD A BUSINESS MODAL/PROFILE END-->
-
   </div>
 </template>
 
@@ -96,7 +94,7 @@ import Account from "@/components/Account";
 import AccountOptions from "@/components/AccountOptions";
 import AddAnimal from "@/components/AddAnimal";
 import AddBiz from "@/components/AddBiz";
-import { mapState, mapActions,mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -106,12 +104,11 @@ export default {
     AddBiz
   },
   data: () => {
-    return {
-    }
+    return {};
   },
   methods: {
     ...mapActions({
-      'getCurrentUser': 'profileModule/getCurrentUser',
+      getCurrentUser: "profileModule/getCurrentUser"
     })
   },
   computed: {
@@ -119,15 +116,15 @@ export default {
       user: state => state.user
     }),
 
-    // Get the current user's account type from store 
+    // Get the current user's account type from store
 
     ...mapGetters({
-      accountType: 'profileModule/accountType'
+      accountType: "profileModule/accountType"
     })
   },
   created() {
-    // Get current user when the component is created 
-    this.getCurrentUser(); 
+    // Get current user when the component is created
+    this.getCurrentUser();
   }
 };
 </script>
