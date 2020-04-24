@@ -6,7 +6,14 @@ import vuetify from './plugins/vuetify';
 import router from './router'
 import firebase from 'firebase'
 import './components/firebaseInit'
+import * as VueGoogleMaps from "vue2-google-maps"
 
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: "AIzaSyBDlux-TzG5b5g25-isLrSQWIA6HX-mjU8",
+    libraries: "places", // necessary for places input
+  }
+});
 
 Vue.config.productionTip = false
 

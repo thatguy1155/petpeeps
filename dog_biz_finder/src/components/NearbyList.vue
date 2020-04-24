@@ -4,9 +4,8 @@
       v-for='(i, index) in this.bizList'
       :key='index'
       :title='i.title'
-      :subtitle='i.subtitle'
-      :placeName='i.placeName'
       :placeDescription='i.placeDescription'
+      :address='i.address'
     />
     <!-- <v-col 
       v-for='(i, index) in this.bizList'
@@ -57,9 +56,10 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'bizList'
-    ]),
+    ...mapState('resultModule', {
+      bizList: state => state.bizList
+    }),
+
     ...mapGetters({
       username: 'authModule/user'
     })
@@ -68,7 +68,6 @@ export default {
     this.bizList
   },
   mounted() {
-    console.log(this.bizList, this.username)
   },
 }
 </script>
