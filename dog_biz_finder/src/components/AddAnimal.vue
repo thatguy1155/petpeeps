@@ -78,7 +78,15 @@
 export default {
   data: () => ({
     animal: false,
-  })
+    rules:'',
+    menu: [],
+    date: ''
+  }),
+  methods: {
+    save() {
+      
+    },
+  }
 };
 </script>
 
