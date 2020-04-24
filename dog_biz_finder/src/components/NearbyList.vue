@@ -56,9 +56,10 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'bizList'
-    ]),
+    ...mapState('resultModule', {
+      bizList: state => state.bizList
+    }),
+
     ...mapGetters({
       username: 'authModule/user'
     })
@@ -67,7 +68,6 @@ export default {
     this.bizList
   },
   mounted() {
-    console.log(this.bizList, this.username)
   },
 }
 </script>

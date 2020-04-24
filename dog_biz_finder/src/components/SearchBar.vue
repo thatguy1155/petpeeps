@@ -43,15 +43,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      'dongList': 'dongs'
+      'dongList': 'resultModule/dongs'
     })
   },
   methods: {
     ...mapActions({
-      'getBizList': 'getBizList',
-      'getDongList': 'getDongList',
-      'addGu': 'addGu',
-      'addDong': 'addDong'
+      'getBizList': 'resultModule/getBizList',
+      'getDongList': 'resultModule/getDongList',
+      'addGu': 'resultModule/addGu',
+      'addDong': 'resultModule/addDong'
     }),
     dongListPopulate() {
       this.guList.forEach(i => {
@@ -66,7 +66,6 @@ export default {
       this.addDong({ searchedDong: this.dongCategory })
       this.getBizList()
     }
-     // this.getBizList({ searchedAddr: this.searchedAddr })
   }
 }
 </script>
