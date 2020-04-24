@@ -84,11 +84,11 @@ export default {
             firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                 .then(() => {
                     alert(`you are logged in as ${this.email}`)
-                    axios.get('http://localhost:8080/lhapi/backend_router.php?action=showUserInfo')
+                    axios.get('http://dogpeeps?action=getUserInfo&uid=Ip4PfKfU4sdqcD0AkBD4uCF8A8K2')
                       .then(res => {this.answer=res.data;
-                      console.log(this.answer)})//for each letter in the returned word, append a new object to letters with the display of [that letter] and found value of false
+                      console.log(this.answer['login'])})//for each letter in the returned word, append a new object to letters with the display of [that letter] and found value of false
                       .catch(err => console.log(err))
-                    //this.$router.push('/')
+                    this.$router.push('/')
                     //this.$router.go({path: this.$router.path});
                 },
                 err => {
