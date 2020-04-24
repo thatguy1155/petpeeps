@@ -9,90 +9,90 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import firebase from 'firebase'
 
+
 Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      requiresAuth: true
+const routes = [{
+        path: '/',
+        name: 'Home',
+        component: Home,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/contact',
+        name: 'Contact',
+        component: Contact
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login,
+        meta: {
+            requiresGuest: true
+        }
+    },
+    {
+        path: '/signup',
+        name: 'Signup',
+        component: Signup,
+        meta: {
+            requiresGuest: true
+        }
     }
-  },
-  {
-    path: '/contact',
-    name: 'Contact',
-    component: Contact
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login,
-    meta: {
-      requiresGuest: true
-    }
-  },
-  {
-    path: '/signup',
-    name: 'Signup',
-    component: Signup,
-    meta: {
-      requiresGuest: true
-    }
-  }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 
 //nav guards
 router.beforeEach((to, from, next) => {
-  //check for requiredAuth guard
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    //check if NOT logged in to firebase
-    if(!firebase.auth().currentUser) {
-      //go to login page
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
+    //check for requiredAuth guard
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        //check if NOT logged in to firebase
+        if (!firebase.auth().currentUser) {
+            //go to login page
+            next({
+                path: '/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+        } else {
+            //proceed to route
+            next();
         }
-      })
-    } else {
-      //proceed to route
-      next();
-    }
-  } else if (to.matched.some(record => record.meta.requiresGuest)) {
-      //check if user Is logged in to firebase
-      if(firebase.auth().currentUser) {
-        //go to home page
-        next({
-          path: '/',
-          query: {
-            redirect: to.fullPath
-          }
-        })
-      } else {
-        //proceed to route
-        next();
-      }
+    } else if (to.matched.some(record => record.meta.requiresGuest)) {
+        //check if user Is logged in to firebase
+        if (firebase.auth().currentUser) {
+            //go to home page
+            next({
+                path: '/',
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+        } else {
+            //proceed to route
+            next();
+        }
 
-  } else {
-    next();
-  }
+    } else {
+        next();
+    }
 })
 
 
