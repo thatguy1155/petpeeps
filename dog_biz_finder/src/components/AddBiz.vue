@@ -125,6 +125,7 @@
 export default {
   data: () => ({
     business: false,
+    rules: '',
     headers: [
       {
         text: "Menu Item",
