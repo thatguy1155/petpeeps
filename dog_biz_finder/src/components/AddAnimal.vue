@@ -12,23 +12,26 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-file-input
+                <v-flex xs12>
+                  <!-- <v-file-input
                   :rules="rules"
                   accept="image/png, image/jpeg, image/bmp"
                   placeholder="Pick an Photo"
                   prepend-icon="mdi-camera"
                   label="Pet Photo"
-                ></v-file-input>
-                <v-flex xs12></v-flex>
+                  ></v-file-input>-->
+                </v-flex>
 
-                <v-text-field label="Name" required></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Name" required></v-text-field>
+                </v-flex>
 
-                <v-text-field
-                  label="Breed/Species"
-                  hint="We like parrots, lizards, and other exotic animals"
-                ></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="Breed/Species"
+                    hint="We like parrots, lizards, and other exotic animals"
+                  ></v-text-field>
+                </v-flex>
 
                 <v-menu
                   ref="menu"
@@ -39,7 +42,6 @@
                   min-width="290px"
                 >
                   <template v-slot:activator="{ on }">
-                    <v-flex xs12></v-flex>
                     <v-text-field v-model="date" label="Birthday" prepend-icon readonly v-on="on"></v-text-field>
                   </template>
                   <v-date-picker
@@ -51,8 +53,9 @@
                   ></v-date-picker>
                 </v-menu>
 
-                <v-autocomplete :items="['Large', 'Medium', 'Small']" label="Animal Size"></v-autocomplete>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-autocomplete :items="['Large', 'Medium', 'Small']" label="Animal Size"></v-autocomplete>
+                </v-flex>
               </v-row>
             </v-container>
           </v-card-text>

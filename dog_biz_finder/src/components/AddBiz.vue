@@ -12,38 +12,47 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-file-input
+                <v-flex xs12>
+                  <!-- <v-file-input
                   :rules="rules"
                   accept="image/png, image/jpeg, image/bmp"
                   placeholder="+ Add Pictures"
                   prepend-icon="mdi-camera"
                   label="Business Photo"
-                ></v-file-input>
-                <v-flex xs12></v-flex>
+                  ></v-file-input>-->
+                </v-flex>
 
-                <v-text-field label="Name" required></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Name" required></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Business Type" hint="cafe, bar, restaurant, and etc"></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Business Type" hint="cafe, bar, restaurant, and etc"></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Business Hours" hint></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Business Hours" hint></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Address" hint></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Address" hint></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Telephone" hint></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Telephone" hint></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Website" hint></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Website" hint></v-text-field>
+                </v-flex>
 
-                <v-text-field label="Social Media" hint></v-text-field>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-text-field label="Social Media" hint></v-text-field>
+                </v-flex>
 
-                <v-textarea filled auto-grow label="BIO" rows="5" row-height="30" shaped></v-textarea>
-                <v-flex xs12></v-flex>
+                <v-flex xs12>
+                  <v-textarea filled auto-grow label="BIO" rows="5" row-height="30" shaped></v-textarea>
+                </v-flex>
 
                 <v-col cols="25" sm="21" md="30">
                   <v-data-table
@@ -69,19 +78,13 @@
                             <v-card-text>
                               <v-container>
                                 <v-row>
-                                  <v-col cols="12" sm="6" md="4">
+                                  <v-flex xs12>
                                     <v-text-field v-model="editedItem.name" label="Menu Item"></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                                  </v-col>
+                                  </v-flex>
 
-                                  <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="4">
-                                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                                  </v-col>
+                                  <v-flex xs12>
+                                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                                  </v-flex>
                                 </v-row>
                               </v-container>
                             </v-card-text>
@@ -131,16 +134,13 @@ export default {
       },
       {
         text: "Price ₩",
+        value: "price"
+      },
+      {
+        text: "Calories",
         value: "calories"
       },
-      {
-        text: "Carbs (g)",
-        value: "carbs"
-      },
-      {
-        text: "Protein (g)",
-        value: "protein"
-      },
+
       {
         text: "Actions",
         value: "actions",
@@ -151,17 +151,11 @@ export default {
     editedIndex: -1,
     editedItem: {
       name: "",
-      calories: 0,
-
-      carbs: 0,
-      protein: 0
+      price: 0
     },
     defaultItem: {
       name: "",
-      calories: 0,
-
-      carbs: 0,
-      protein: 0
+      calories: 0
     }
   }),
 
@@ -186,63 +180,53 @@ export default {
       this.menu = [
         {
           name: "Frozen Yogurt",
-          calories: 2000,
-          carbs: 433,
-          protein: 4.0
+          price: 2000,
+          calories: 123
         },
         {
           name: "Ice cream sandwich",
-          calories: 5200,
-          carbs: 453,
-          protein: 4.3
+          price: 5200,
+          calories: 123
         },
         {
           name: "Eclair",
-          calories: 6530,
-          carbs: 234,
-          protein: 6.0
+          price: 6530,
+          calories: 123
         },
         {
           name: "Cupcake",
-          calories: 7309,
-          carbs: 435,
-          protein: 4.3
+          price: 7309,
+          calories: 123
         },
         {
           name: "Gingerbread",
-          calories: 3562,
-          carbs: 497,
-          protein: 3.9
+          price: 3562,
+          calories: 123
         },
         {
           name: "Jelly bean",
-          calories: 7236,
-          carbs: 948,
-          protein: 546
+          price: 7236,
+          calories: 123
         },
         {
           name: "Lollipop",
-          calories: 3925,
-          carbs: 989,
-          protein: 234
+          price: 3925,
+          calories: 123
         },
         {
           name: "Honeycomb",
-          calories: 4082,
-          carbs: 872,
-          protein: 6.5
+          price: 4082,
+          calories: 123
         },
         {
           name: "Donut",
-          calories: 4526,
-          carbs: 514,
-          protein: 4.9
+          price: 4526,
+          calories: 123
         },
         {
           name: "KitKat",
-          calories: 5000,
-          carbs: 655,
-          protein: 7
+          price: 5000,
+          calories: 123
         }
       ];
     },
