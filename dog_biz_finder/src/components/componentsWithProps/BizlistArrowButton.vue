@@ -1,11 +1,14 @@
 <template>
-  <button class="btn">
+  <div>
+    <button class="btn" @click='showNewItem'>
     <img
       class="icon"
       :src="require(`@/assets/${arrowType}.svg`)"
       :alt="arrowType + ' arrow'"
     />
   </button>
+</div>
+  
 </template>
 
 <script>
@@ -13,7 +16,13 @@ export default {
   name: "BizlistArrowButton",
   props: {
     arrowType: String,
+    onSelected: Function
   },
+  methods: {
+    showNewItem() {
+      this.$emit('show-new-item');
+    }
+  }
 };
 </script>
 

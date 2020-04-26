@@ -8,7 +8,7 @@
     >
       <button
         class="indicator-btn"
-        @click="showElement(index)"
+        @click="showItem(index)"
         :disabled="currentItemIndex === index"
       />
     </li>
@@ -20,9 +20,13 @@ export default {
   name: "BizlistIndicators",
   props: {
     items: Array,
-    currentItemIndex: Number,
-    showElement: Function,
+    currentItemIndex: Number
   },
+  methods: {
+    showItem(index) {
+      this.$emit('show-item', index);
+    }
+  }
 };
 </script>
 

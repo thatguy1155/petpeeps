@@ -3,11 +3,10 @@
     <div id="bizList">
       <bizlist-arrow-button
         arrowType="left"
-        @click.native="showPrevItem"
-        :disabled="this.reachedMaxLeft"
+        @show-new-item="showPrevItem"
+        :disabled="reachedMaxLeft"
       />
       <biz-card-item
-        class="current-item"
         :bizName="currentItem.bizName"
         :bizType="currentItem.bizType"
         :hours="currentItem.hours"
@@ -15,14 +14,15 @@
       />
       <bizlist-arrow-button
         arrowType="right"
-        @click.native="showNextItem"
-        :disabled="this.reachedMaxRight"
+        arrowEventName= 'show-next-item'
+        @show-new-item="showNextItem"
+        :disabled="reachedMaxRight"
       />
     </div>
     <bizlist-indicators
-      :items="this.bizList"
-      :currentItemIndex="this.currentItemIndex"
-      :showItem="this.showItem"
+      :items="bizList"
+      :currentItemIndex="currentItemIndex"
+      @show-item="showItem"
     />
   </div>
 </template>
@@ -58,15 +58,15 @@ export default {
     },
   },
   methods: {
+    showItem(itemIndex) {
+      this.currentItemIndex = itemIndex;
+    },
     showNextItem() {
       this.currentItemIndex++;
     },
     showPrevItem() {
       this.currentItemIndex--;
-    },
-    showItem(itemIndex) {
-      this.currentItemIndex = itemIndex;
-    },
+    }
   },
 };
 </script>
