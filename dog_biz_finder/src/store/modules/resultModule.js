@@ -100,12 +100,6 @@ export default ({
           address: '서울특별시 중구 을지로7가 2-1'
         }, 
         {
-          bizName: 'Meow Restaurant',
-          bizType: 'Restaurant',
-          hours: '12:00 ~ 22:00',
-          address: '서울특별시 중구 을지로7가 2-1'
-        }, 
-        {
           bizName: 'Safari',
           bizType: 'Restaurant',
           hours: '7:00 ~ 00:00',

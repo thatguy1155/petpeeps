@@ -59,9 +59,10 @@ export default {
                   lat: results[0].geometry.location.lat(),
                   lng: results[0].geometry.location.lng(),
                 };
-                this.markers.push({ position: marker });
+                this.markers.push({ position: marker, address: this.bizList[i].address });
+                console.log('markers', this.markers);
 
-                this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng,)
+                this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng)
 
               }
             }
