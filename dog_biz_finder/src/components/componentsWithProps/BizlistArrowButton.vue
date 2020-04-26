@@ -1,6 +1,10 @@
 <template>
   <div>
-    <button class="btn" @click='showNewItem'>
+    <button 
+      class="btn" 
+      @click='showNewItem'
+      :disabled="disabled"
+    >
     <img
       class="icon"
       :src="require(`@/assets/${arrowType}.svg`)"
@@ -16,7 +20,7 @@ export default {
   name: "BizlistArrowButton",
   props: {
     arrowType: String,
-    onSelected: Function
+    disabled: Boolean
   },
   methods: {
     showNewItem() {

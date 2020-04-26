@@ -1,10 +1,10 @@
 <template>
   <div v-if="bizList.length > 0">
-    <div id="bizList">
+    <div class="bizList">
       <bizlist-arrow-button
         arrowType="left"
-        @show-new-item="showPrevItem"
         :disabled="reachedMaxLeft"
+        @show-new-item="showPrevItem"
       />
       <biz-card-item
         :bizName="currentItem.bizName"
@@ -14,9 +14,9 @@
       />
       <bizlist-arrow-button
         arrowType="right"
-        arrowEventName= 'show-next-item'
-        @show-new-item="showNextItem"
         :disabled="reachedMaxRight"
+        @show-new-item="showNextItem"
+       
       />
     </div>
     <bizlist-indicators
@@ -47,33 +47,44 @@ export default {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
     }),
+    // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
     currentItem() {
         return this.bizList[this.currentItemIndex];
     },
+    // Return true when the current business card is the first business item in the list - disable the left arrow 
     reachedMaxLeft() {
-      return this.currentItemIndex === 0;
+      console.log(this.currentItemIndex);
+      return this.currentItemIndex === 0
     },
+    // Return true when the current business card is the last business item in the list - disable the right arrow 
     reachedMaxRight() {
       return this.currentItemIndex === this.bizList.length - 1;
     },
   },
   methods: {
+    // Show the clicked item from the indicator dots 
     showItem(itemIndex) {
       this.currentItemIndex = itemIndex;
     },
+    // Show next item when you click the right arrow button
     showNextItem() {
       this.currentItemIndex++;
     },
+    // Show previous item when you click the left arrow button
     showPrevItem() {
       this.currentItemIndex--;
     }
   },
+  created() {
+    console.log('reachedMaxLeft', this.reachedMaxLeft);
+  }
 };
 </script>
 
 <style>
-#bizList {
+/* Place the bizlist results on top of the map, for the map to be displayed full size */
+.bizList {
   z-index: 1;
-  margin-top: -285px;
+  margin-top: -386px;
 }
 </style>

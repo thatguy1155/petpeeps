@@ -1,13 +1,12 @@
 <template>
   <v-col
-    cols="12" xs="12" sm="12" md="12" xl="12"
+    cols="10" xs="10" sm="10" md="10" xl="10" 
   >
-    <v-card>
+    <v-card class="d-flex row align-center m-0">
       <v-card-title>{{ bizName }}</v-card-title>
       <v-card-text class="d-flex flex-column align-start">
         <div>   
-          <v-icon color="#8D6E63" v-show="bizType === 'Cafe'">mdi-coffee</v-icon>
-          <v-icon color="#8D6E63" v-show="bizType === 'Restaurant'">mdi-silverware-fork-knife</v-icon>
+          <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
           {{ bizType }}
         </div>
         <br />
@@ -46,6 +45,17 @@ export default {
       type: String,
       default: 'address'
     },
+  },
+  computed: {
+    bizTypeIcon() {
+      if (this.bizType === 'Cafe') {
+        return 'mdi-coffee';
+      } else if (this.bizType === 'Restaurant') {
+        return 'mdi-silverware-fork-knife';
+      } else {
+        return '';
+      }
+    }
   }
 }
 </script>
