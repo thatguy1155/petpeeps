@@ -1,22 +1,28 @@
 <template>
   <v-col
-    cols="12" xs="12" sm="12" md="6" xl="6"
+    cols="12" xs="12" sm="12" md="12" xl="12"
   >
     <v-card>
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      >
-        <v-card-title>{{ title }}</v-card-title>
-      </v-img>
-      <v-card-text class="text--primary">
-        <div>{{ placeDescription }}</div>
-        <div>{{ address}}</div>
+      <v-card-title>{{ bizName }}</v-card-title>
+      <v-card-text class="d-flex flex-column align-start">
+        <div>   
+          <v-icon color="#8D6E63" v-show="bizType === 'Cafe'">mdi-coffee</v-icon>
+          <v-icon color="#8D6E63" v-show="bizType === 'Restaurant'">mdi-silverware-fork-knife</v-icon>
+          {{ bizType }}
+        </div>
+        <br />
+        <div>
+          <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
+          {{ hours }}
+        </div>
+        <br />
+        <div>
+          <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+          {{ address }}
+        </div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="orange" text>Share</v-btn>
-        <v-btn color="orange" text>Explore</v-btn>
+      <v-card-actions class="d-flex justify-end">
+        <v-btn color="orange" text>More Details</v-btn>
       </v-card-actions>
     </v-card>
   </v-col>
@@ -24,17 +30,21 @@
 <script>
 export default {
   props: {
-    title: {
+    bizName: {
       type: String,
-      default: 'test'
+      default: 'name of business'
     },
-    placeDescription: {
+    bizType: {
       type: String,
-      default: 'place description'
+      default: 'type of business'
+    },
+    hours: {
+      type: String,
+      default: 'hours'
     },
     address: {
       type: String,
-      default: 'address of place'
+      default: 'address'
     },
   }
 }

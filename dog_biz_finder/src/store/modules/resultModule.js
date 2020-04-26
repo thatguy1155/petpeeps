@@ -94,38 +94,51 @@ export default ({
       console.log('get data and call mutations with cleaned up data')
       let cleanList = [
         {
-          title: 'test',
-          placeDescription: 'where all the nirvana fans hang',
+          bizName: 'Woof Cafe',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 중구 을지로7가 2-1'
         }, 
         {
-          title: 'another place',
-          placeDescription: 'place where all the losers are',
+          bizName: 'Meow Restaurant',
+          bizType: 'Restaurant',
+          hours: '12:00 ~ 22:00',
+          address: '서울특별시 중구 을지로7가 2-1'
+        }, 
+        {
+          bizName: 'Safari',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
           address: '서울특별시 중구 을지로6가 18-17'
         },  
         {
-          title: 'another place',
-          placeDescription: 'place where all the losers are',
+          bizName: 'The Jungle',
+          bizType: 'Restaurant',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 중구 광휘동 58-1'
         },  
         {
-          title: 'this is another place',
-          placeDescription: 'place where all the cool kids hang',
+          bizName: 'Archipelago',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 동대문구 청량리동 207-42'
         },
         {
-          title: 'this is another place2',
-          placeDescription: 'place where all drinking kids hang',
+          bizName: 'Dogs & Friends',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 성북구 안암동5가 산2-1'
         },
         {
-          title: 'this is another place3',
-          placeDescription: 'place where all less cool kids hang',
+          bizName: 'Mungi\'s',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 동대문구 회기동 1-5'
         },
         {
-          title: 'this is another place5',
-          placeDescription: 'place where all cool kids eat',
+          bizName: 'Tropicana',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 강남구 신사동 563-21'
         }
       ]

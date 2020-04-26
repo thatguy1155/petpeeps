@@ -1,16 +1,17 @@
 <template>
   <v-row id="bizList">
     <biz-card-item
-      v-for="(i, index) in this.bizList"
+      v-for="(biz, index) in bizList"
       :key="index"
-      :title="i.title"
-      :placeDescription="i.placeDescription"
-      :address="i.address"
+      :bizName="biz.bizName"
+      :bizType="biz.bizType"
+      :hours="biz.hours"
+      :address="biz.address"
     />
   </v-row>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import BizCardItem from "./componentsWithProps/BizCardItem";
 export default {
   components: {
@@ -22,11 +23,7 @@ export default {
   computed: {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
-    }),
-
-    ...mapGetters({
-      username: "authModule/user",
-    }),
+    })
   },
   created() {
     this.bizList;
@@ -38,6 +35,6 @@ export default {
 <style>
   #bizList {
     z-index: 1;
-    margin-top: -342px;
+    margin-top: -285px;
   }
 </style>

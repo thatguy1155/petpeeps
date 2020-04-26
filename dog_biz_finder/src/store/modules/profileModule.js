@@ -34,7 +34,6 @@ const getters = {
 //Get current user objet from firbase
 function getCurrentUser({ commit }) {
     let currUser = firebase.auth().currentUser;
-    console.log(currUser.providerData[0].providerId);
     commit("LOAD_USER", {
         name: currUser.displayName,
         email: currUser.email,
