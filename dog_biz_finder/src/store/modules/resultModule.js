@@ -104,6 +104,11 @@ export default ({
           address: '서울특별시 중구 을지로6가 18-17'
         },  
         {
+          title: 'another place',
+          placeDescription: 'place where all the losers are',
+          address: '서울특별시 중구 광휘동 58-1'
+        },  
+        {
           title: 'this is another place',
           placeDescription: 'place where all the cool kids hang',
           address: '서울특별시 동대문구 청량리동 207-42'

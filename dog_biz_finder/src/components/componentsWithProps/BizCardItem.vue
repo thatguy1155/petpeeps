@@ -10,7 +10,6 @@
       >
         <v-card-title>{{ title }}</v-card-title>
       </v-img>
-      <!-- <v-card-subtitle class="pb-0">{{ subtitle }}</v-card-subtitle> -->
       <v-card-text class="text--primary">
         <div>{{ placeDescription }}</div>
         <div>{{ address}}</div>
@@ -29,10 +28,6 @@ export default {
       type: String,
       default: 'test'
     },
-    // subtitle: {
-    //   type: String,
-    //   default: 'subtitle test'
-    // },
     placeDescription: {
       type: String,
       default: 'place description'
@@ -44,3 +39,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

@@ -38,7 +38,7 @@ function getCurrentUser({ commit }) {
     commit("LOAD_USER", {
         name: currUser.displayName,
         email: currUser.email,
-        accountType: "",
+        accountType: "personal",
         signInMethod: currUser.providerData[0].providerId
     });
 }
