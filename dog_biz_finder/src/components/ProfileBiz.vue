@@ -4,7 +4,7 @@
       <!-- <v-img height="100%" src> -->
       <v-row align="end" class="fill-height">
         <v-col align-self="start" class="pa-0" cols="12" xs="12" sm="12" md="6" xl="6">
-          <v-avatar id="profilePic" class="profile" color="grey" size="164" tile>
+          <v-avatar id="profilePicBiz" class="profile" color="grey" size="164" tile>
             <!-- <v-img
               src="https://favy-inbound-singapore.s3.amazonaws.com/uploads/topic/image/1515/Untitled_design__10_.jpg"
             ></v-img> -->
@@ -57,7 +57,9 @@
   font-size: 20px !important;
   display: inline-block;
 }
-#profilePic {
-  float: left;
+#profilePicBiz {
+  /* float: left; */
+  
+  justify-content: left;
 }
 </style>

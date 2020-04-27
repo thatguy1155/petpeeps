@@ -6,8 +6,8 @@
     <account />
 
     <!-- ADD A (ANIMAL) MODAL/PROFILE START-->
-    <!-- <div class="grid1x1" v-if="accountType === 'personal'"> -->
-      <div class="grid1x1">
+    <div class="grid1x1" v-if="accountType === 'personal'">
+      <!-- <div class="grid1x1"> -->
       <profile-animal />
       <div>
         <v-flex xs2>
