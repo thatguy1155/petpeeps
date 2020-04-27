@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="indicators">
     <li
       v-for="(item, index) in items"
       class="dot"
@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style scoped>
+.indicators {
+  display: flex;
+  justify-content: center;
+}
+
 .dot {
   height: 10px;
   width: 10px;
@@ -39,6 +44,7 @@ export default {
   opacity: 0.2;
   cursor: pointer;
   position: relative;
+  margin: -7px 4px;
 }
 
 .dot-selected {

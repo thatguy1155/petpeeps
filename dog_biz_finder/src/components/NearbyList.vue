@@ -53,7 +53,6 @@ export default {
     },
     // Return true when the current business card is the first business item in the list - disable the left arrow 
     reachedMaxLeft() {
-      console.log(this.currentItemIndex);
       return this.currentItemIndex === 0
     },
     // Return true when the current business card is the last business item in the list - disable the right arrow 
@@ -85,6 +84,8 @@ export default {
 /* Place the bizlist results on top of the map, for the map to be displayed full size */
 .bizList {
   z-index: 1;
-  margin-top: -386px;
+  margin-top: -282px;
+  display: flex;
+
 }
 </style>

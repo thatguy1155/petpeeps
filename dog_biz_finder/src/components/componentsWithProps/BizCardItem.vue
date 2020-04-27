@@ -1,6 +1,7 @@
 <template>
   <v-col
-    cols="10" xs="10" sm="10" md="10" xl="10" 
+    cols="10" xs="10" sm="10" md="10" xl="10"
+    class="ml-8"
   >
     <v-card class="d-flex row align-center m-0">
       <v-card-title>{{ bizName }}</v-card-title>
@@ -20,7 +21,7 @@
           {{ address }}
         </div>
       </v-card-text>
-      <v-card-actions class="d-flex justify-end">
+      <v-card-actions class="d-flex row justify-end mr-2">
         <v-btn color="orange" text>More Details</v-btn>
       </v-card-actions>
     </v-card>
