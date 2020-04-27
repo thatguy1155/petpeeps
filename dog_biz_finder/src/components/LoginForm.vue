@@ -32,39 +32,41 @@
 //var firebase = require('firebase');
 //var firebaseui = require('firebaseui');
 //var ui = new firebaseui.auth.AuthUI(firebase.auth());
-import firebase from "firebase";
+import firebase from 'firebase'
+import axios from 'axios'
 export default {
-  name: "Login",
-  data: function() {
-    return {
-      valid: true,
-      email: "",
-      password: "",
-      registerPath: "/signup"
-    };
-  },
-  //this is the function that actually does the registering via firebase
-  methods: {
-    goTo(path) {
-      this.$router.push(path);
+  name:'Login',
+    data: function () {
+        return{
+            valid: true,
+            email: '',
+            password: '',
+            registerPath: '/signup'
+        }
     },
-    login: function(e) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          () => {
-            alert(`you are logged in as ${this.email}`);
-            this.$router.push("/");
-            //this.$router.go({path: this.$router.path});
-          },
-          err => {
-            alert(err.message);
-          }
-        );
-      e.preventDefault();
-    }
-  },
+    //this is the function that actually does the registering via firebase
+    methods: {
+        goTo(path) {
+          this.$router.push(path)
+        },
+        login: function(e) {
+            firebase.auth().signInWithEmailAndPassword(this.email,this.password)
+                .then(() => {
+                    alert(`you are logged in as ${this.email}`)
+                    axios.get('http://dogpeeps?action=getUserInfo&uid=Ip4PfKfU4sdqcD0AkBD4uCF8A8K2')
+                      .then(res => {this.answer=res.data;
+                      console.log(this.answer['login'])})
+                      .catch(err => console.log(err))
+                    this.$router.push('/')
+                    //this.$router.go({path: this.$router.path});
+                },
+                err => {
+                    alert(err.message)
+                })
+            e.preventDefault();
+        }
+    },
+    
   mounted() {
     const firebase = require("firebase");
     const firebaseui = require("firebaseui");
