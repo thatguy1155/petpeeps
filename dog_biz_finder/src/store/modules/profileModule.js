@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
+import axios from 'axios'
 
 Vue.use(Vuex);
 
@@ -9,37 +10,93 @@ const state = {
         name: "",
         email: "",
         accountType: "",
-        signInMethod: ""
+        signInMethod: "",
+        uid: ""
     }
 };
 
 const mutations = {
     LOAD_USER(state, payload) {
         state.user = payload;
+        console.log(payload)
     }
 };
 
 const actions = {
     getCurrentUser,
     updatePw,
-    deleteUser
+    deleteUser,
+    updateAccountType,
+    createUser
 };
 
 const getters = {
     accountType: (state) => state.user.accountType,
-    signInMethod: (state) => state.user.signInMethod
+    signInMethod: (state) => state.user.signInMethod,
+    getUid: (state) => state.user.uid
 };
 
+//get the accountType from the db if any
+function getAccountType(user){
+    let uid = user.uid
+    //take the uid returned from firebase go find a user with the uid in db and return their user type if any
+    let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
+        .then(res => {
+            console.log(res.data['user_type'])
+            return res.data['user_type'] 
+        })
+        .catch(err => console.log(err))   
+        return accountTypeResponse
+         
+}
+
+
+
+
+//____________DO YOU NEED TO EDIT/UPDATE THE DB? CHECK THIS OUT__________________________
+
+//for some reason axios kinda sucks when it comes to posting things to the db in a 
+//form-like fashion. The default syntax for axios.post that I saw online had us posting a simple js object
+//where "params" is now
+
+//that generated no errors in js but php was like "what object? I don't see shit"
+//oddly enough passing these objects through a URLSearchParams object made the parameters visible to php
+//my understanding is that URLSearchParams translates it into a format similar to URL parameters.
+
+//this function updates the user type when you click on the business/personal box
+
+function updateAccountType(bullshitObjectThatVuexDumpsInHereThatIDontNeed,accountParams) {
+    const params = new URLSearchParams();
+    params.append('action', 'updateAccountType');
+    params.append('accType', accountParams.accType);
+    params.append('uid', accountParams.uid);
+    let accountTypeResponse = axios.post('http://dogpeeps',params)//)
+        .then(res => {
+            console.log(res.data)  
+        })
+        .catch(err => console.log(err))
+}
+
+
+
+
+//here I made this an async function and use "await"
+// this is because it was committing "LOAD_USER" before it got the account type
+// from the backend. "await" tells the function to chill until it gets the axios Response
+// in getAccountType. 
+//it's the same as putting the commit(LOAD_USER) in a .then()
 
 //Get current user objet from firbase
-function getCurrentUser({ commit }) {
+async function getCurrentUser({ commit }) {
     let currUser = firebase.auth().currentUser;
+    let accountTypeResult = await getAccountType(currUser)
     console.log(currUser.providerData[0].providerId);
     commit("LOAD_USER", {
         name: currUser.displayName,
         email: currUser.email,
-        accountType: "",
-        signInMethod: currUser.providerData[0].providerId
+        accountType: accountTypeResult,
+        signInMethod: currUser.providerData[0].providerId,
+        uid: currUser.uid
     });
 }
 
@@ -89,6 +146,42 @@ function updatePw(a, parameters) {
     });
 }
 
+//create a user
+
+function createUser(a,creationParams){
+    console.log(creationParams.email)
+    //make the user
+    firebase.auth().createUserWithEmailAndPassword(creationParams.email,creationParams.password)
+        //after you make the user, then update their display name
+        .then(() => {
+            let currUser = firebase.auth().currentUser;
+            currUser.updateProfile({
+                displayName : creationParams.username
+            })
+            //after you update their display name send the other details to the backend
+            .then(() =>{
+                const params = new URLSearchParams();
+                params.append('action', 'createUser');
+                params.append('login', currUser.displayName);
+                params.append('email', creationParams.email);
+                params.append('uid', currUser.uid);
+                axios.post('http://dogpeeps',params)//)
+                    //after the db has the new member, send the user to the home page
+                    .then(res => {
+                    console.log(res.data)
+                    alert(`account created for ${creationParams.email}`)
+                    creationParams.router.push('/'); 
+                    })
+                    .catch(err => console.log(err))
+            })
+              
+    
+        },
+        err => {
+            alert(err.message)
+        })
+}
+
 //Delete user's account, after first reauthenticating the user
 function deleteUser(a, parameters) {
     let currUser = firebase.auth().currentUser;
@@ -99,7 +192,14 @@ function deleteUser(a, parameters) {
             currUser
                 .delete()
                 .then(function() {
-                    console.log("Delete user successful");
+                    const params = new URLSearchParams();
+                    params.append('action', 'removeAccount');
+                    params.append('uid', currUser.uid);
+                    let accountTypeResponse = axios.post('http://dogpeeps',params)//)
+                        .then(res => {
+                            console.log(res.data)  
+                        })
+                        .catch(err => console.log(err))
                     //After deleting the account, log the user out 
                     logout(parameters.router);
                 })
@@ -109,6 +209,8 @@ function deleteUser(a, parameters) {
         }
     });
 }
+
+
 
 //Log current user out
 function logout(router) {
