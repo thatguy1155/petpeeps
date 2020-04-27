@@ -6,28 +6,28 @@
     <account />
 
     <!-- ADD A (ANIMAL) MODAL/PROFILE START-->
-    <div class="grid1x1" v-if="accountType === 'personal'">
-      <!-- <div class="grid1x1"> -->
+    <!-- <div class="grid1x1" v-if="accountType === 'personal'"> -->
+      <div class="grid1x1">
       <profile-animal />
       <div>
         <v-flex xs2>
-          <v-card-text>
+          <!-- <v-card-text> -->
             <add-animal id="animalButton" />
-          </v-card-text>
+          <!-- </v-card-text> -->
         </v-flex>
       </div>
     </div>
     <!-- ADD A (ANIMAL) MODAL/PROFILE END-->
 
     <!-- ADD A (BUSINESS) MODAL/PROFILE START-->
-    <div class="grid1x1" v-if="accountType === 'business'">
-      <!--<div class="grid1x1">-->
+    <!-- <div class="grid1x1" v-if="accountType === 'business'"> -->
+      <div class="grid1x1">
       <profile-biz />
       <div>
         <v-flex xs2>
-          <v-card-text>
+          <!-- <v-card-text> -->
             <add-biz id="bizButton" />
-          </v-card-text>
+          <!-- </v-card-text> -->
         </v-flex>
       </div>
     </div>
