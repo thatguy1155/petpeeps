@@ -55,7 +55,7 @@ export default {
                     alert(`you are logged in as ${this.email}`)
                     axios.get('http://dogpeeps?action=getUserInfo&uid=Ip4PfKfU4sdqcD0AkBD4uCF8A8K2')
                       .then(res => {this.answer=res.data;
-                      console.log(this.answer['login'])})//for each letter in the returned word, append a new object to letters with the display of [that letter] and found value of false
+                      console.log(this.answer['login'])})
                       .catch(err => console.log(err))
                     this.$router.push('/')
                     //this.$router.go({path: this.$router.path});
@@ -67,7 +67,6 @@ export default {
         }
     },
     
-  },
   mounted() {
     const firebase = require("firebase");
     const firebaseui = require("firebaseui");

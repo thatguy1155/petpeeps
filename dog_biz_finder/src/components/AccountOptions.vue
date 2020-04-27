@@ -30,15 +30,47 @@
 </template>
 
 <script>
+import { mapState, mapActions,mapGetters } from "vuex";
 export default {
   name: "AccountOptions",
   methods: {
-      selectBusiness() {
-          return;
+      async selectBusiness() {
+        let accountParams = {
+          accType:"business",
+          uid:this.uid
+        }
+        //wait for the backend to update the account type
+        await this.updateAccountType(accountParams)
+        location.reload()
+
+
       },
-      selectPersonal() {
-          return;
-      }
+      async selectPersonal() {
+        let accountParams = {
+          accType:"personal",
+          uid:this.uid
+        }
+          await this.updateAccountType(accountParams)
+          location.reload()
+      },
+    ...mapActions({
+      'getCurrentUser': 'profileModule/getCurrentUser',
+      'updateAccountType':'profileModule/updateAccountType'
+    })
+  },
+  computed: {
+    ...mapState("profileModule", {
+      user: (state) => state.user
+    }),
+    // Get the current user's account type from store 
+
+    ...mapGetters({
+      uid: 'profileModule/getUid'
+    })
+  },
+  created() {
+    // Get current user when the component is created 
+    this.getCurrentUser(); 
   }
 };
 
