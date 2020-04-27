@@ -34,14 +34,6 @@
                 required
                 ></v-text-field>
 
-                <v-select
-                    v-model="select"
-                    :items="items"
-                    :rules="[v => !!v || 'Item is required']"
-                    label="Item"
-                    required
-                ></v-select>
-
 
                 <v-btn
                 :disabled="!valid"
@@ -67,7 +59,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import { mapActions } from "vuex";
 export default {
     data: () => ({
       valid: true,
@@ -87,28 +79,30 @@ export default {
         v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password should be mixed cased with at least one digit and 8 or more characters',
       ],
       
-      select: null,
-      items: [
-        'Dog Parent',
-        'Business',
-      ],
+      
       checkbox: false,
     }),
 
     methods: {
         register: function(e) {
             if (this.$refs.form.validate()){
-                firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
-                .then(() => {
-                    alert(`account created for ${this.email}`)
-                    this.$router.push('/');
-                },
-                err => {
-                    alert(err.message)
-                })
+                console.log(this.email)
+                const creationParams = {
+                  email: this.email,
+                  password: this.password,
+                  username: this.username,
+                  router: this.$router
+                }
+                
+                this.createUser(creationParams)
+                
             e.preventDefault();
             }
         },
+      ...mapActions({
+        'createUser': 'profileModule/createUser',
+        
+      }),
     //   validate () {
     //     this.$refs.form.validate()
     //   },
