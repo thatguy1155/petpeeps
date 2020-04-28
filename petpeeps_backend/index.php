@@ -4,7 +4,7 @@ require("./controller/controller.php");
 try {
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
     $uid = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : '';
-echo $action;    
+    
 
     
     if (isset($_REQUEST['action'])) {
