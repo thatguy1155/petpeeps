@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gmap-map :center="center" :zoom="14" style="height: 750px;">
+    <gmap-map :center="center" :zoom="14" class="gmap">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
@@ -85,4 +85,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.gmap {
+  height: 84vh;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .gmap {
+    height: 75vh;
+  }
+}
+
+
+</style>

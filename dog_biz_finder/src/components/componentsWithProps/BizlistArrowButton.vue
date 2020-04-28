@@ -60,4 +60,5 @@ export default {
   height: 63px;
   width: auto;
 }
+
 </style>

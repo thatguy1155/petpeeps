@@ -2,16 +2,24 @@
   <v-container 
     class="bizList"
   >
-    <v-row>
+    <v-row justify="center">
       <v-col 
         cols="12"
+        xs="6" sm="8" md="10" lg="12" xl="12"
         v-if="bizList.length > 0"
       >
-        <v-row>
+        <v-row justify="center">
           <bizlist-arrow-button
             arrowType="left"
             :disabled="reachedMaxLeft"
             @show-new-item="showPrevItem"
+          />
+          <bizlist-arrow-button
+            class="hidden-sm-and-up"
+            arrowType="right"
+            :disabled="reachedMaxRight"
+            @show-new-item="showNextItem"
+          
           />
           <biz-card-item
             :bizName="currentItem.bizName"
@@ -20,6 +28,7 @@
             :address="currentItem.address"
           />
           <bizlist-arrow-button
+            class="hidden-sm-and-down"
             arrowType="right"
             :disabled="reachedMaxRight"
             @show-new-item="showNextItem"
@@ -94,5 +103,11 @@ export default {
 .bizList {
   z-index: 1;
   margin-top: -298px;
+}
+
+@media screen and (max-width: 959px) {
+  .bizList {
+    margin-top: -392px;
+  }
 }
 </style>

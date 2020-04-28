@@ -1,5 +1,5 @@
 <template>
-    <v-card class="d-flex row align-center px-12">
+    <v-card class="d-flex row align-center pl-12">
       <v-card-title>{{ bizName }}</v-card-title>
       <v-card-text class="d-flex flex-column align-start">
         <div>   
@@ -17,7 +17,7 @@
           {{ address }}
         </div>
       </v-card-text>
-      <v-card-actions class="d-flex row justify-end mr-2">
+      <v-card-actions class="d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start">
         <v-btn color="orange" text>More Details</v-btn>
       </v-card-actions>
     </v-card>
