@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="arrowButton">
     <button 
       class="btn" 
       @click='showNewItem'
@@ -31,6 +31,11 @@ export default {
 </script>
 
 <style scoped>
+.arrowButton {
+  z-index: 1;
+  background-color: white;
+}
+
 .btn {
   cursor: pointer;
   opacity: 0.5;

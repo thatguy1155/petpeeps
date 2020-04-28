@@ -37,17 +37,17 @@ const getters = {
 };
 
 //get the accountType from the db if any
-function getAccountType(user){
+function getAccountType(user) {
     let uid = user.uid
-    //take the uid returned from firebase go find a user with the uid in db and return their user type if any
+        //take the uid returned from firebase go find a user with the uid in db and return their user type if any
     let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
         .then(res => {
-            console.log(res.data['user_type'])
-            return res.data['user_type'] 
+            console.log(res)
+            return res.data['user_type']
         })
-        .catch(err => console.log(err))   
-        return accountTypeResponse
-         
+        .catch(err => console.log(err))
+    return accountTypeResponse
+
 }
 
 
@@ -65,14 +65,14 @@ function getAccountType(user){
 
 //this function updates the user type when you click on the business/personal box
 
-function updateAccountType(a,accountParams) {
+function updateAccountType(bullshitObjectThatVuexDumpsInHereThatIDontNeed, accountParams) {
     const params = new URLSearchParams();
     params.append('action', 'updateAccountType');
     params.append('accType', accountParams.accType);
     params.append('uid', accountParams.uid);
-    axios.post('http://dogpeeps',params)
+    axios.post('http://dogpeeps', params) //)
         .then(res => {
-            console.log(res.data)  
+            console.log(res.data)
         })
         .catch(err => console.log(err))
 }
@@ -148,42 +148,45 @@ function updatePw(a, parameters) {
 
 //create a user
 
-function createUser(a,creationParams){
+function createUser(a, creationParams) {
     console.log(creationParams.email)
-    //make the user
-    firebase.auth().createUserWithEmailAndPassword(creationParams.email,creationParams.password)
+        //make the user
+    firebase.auth().createUserWithEmailAndPassword(creationParams.email, creationParams.password)
         //after you make the user, then update their display name
         .then(() => {
-            let currUser = firebase.auth().currentUser;
-            currUser.updateProfile({
-                displayName : creationParams.username
-            })
-            //after you update their display name send the other details to the backend
-            .then(() =>{
-                const params = new URLSearchParams();
-                params.append('action', 'createUser');
-                params.append('login', currUser.displayName);
-                params.append('email', creationParams.email);
-                params.append('uid', currUser.uid);
-                axios.post('http://dogpeeps',params)//)
-                    //after the db has the new member, send the user to the home page
-                    .then(res => {
-                    console.log(res.data)
-                    alert(`account created for ${creationParams.email}`)
-                    creationParams.router.push('/'); 
+                let currUser = firebase.auth().currentUser;
+                currUser.updateProfile({
+                        displayName: creationParams.username
                     })
-                    .catch(err => console.log(err))
-            })   
-        },
-        err => {
-            alert(err.message)
-        })
+                    //after you update their display name send the other details to the backend
+                    .then(() => {
+                        const params = new URLSearchParams();
+                        params.append('action', 'createUser');
+                        params.append('login', currUser.displayName);
+                        params.append('email', creationParams.email);
+                        params.append('uid', currUser.uid);
+                        axios.post('http://dogpeeps', params) //)
+                            //after the db has the new member, send the user to the home page
+                            .then(res => {
+                                console.log(res.data)
+                                alert(`account created for ${creationParams.email}`)
+                                creationParams.router.push('/');
+                            })
+                            .catch(err => console.log(err))
+                    })
+
+
+            },
+            err => {
+                alert(err.message)
+            })
 }
 
 //Delete user's account, after first reauthenticating the user
 function deleteUser(a, parameters) {
     let currUser = firebase.auth().currentUser;
-    //Call reauthenticate, pass on reauthResult(Boolean); if true (reauthentication successful) then delete account
+    console.log('deleteUser() params', parameters)
+        //Call reauthenticate, pass on reauthResult(Boolean); if true (reauthentication successful) then delete account
     reauthenticate(parameters.currentPw).then((reauthResult) => {
         if (reauthResult) {
             currUser
@@ -192,12 +195,12 @@ function deleteUser(a, parameters) {
                     const params = new URLSearchParams();
                     params.append('action', 'removeAccount');
                     params.append('uid', currUser.uid);
-                    axios.post('http://dogpeeps',params)
+                    axios.post('http://dogpeeps', params) //)
                         .then(res => {
-                            console.log(res.data)  
+                            console.log(res.data)
                         })
                         .catch(err => console.log(err))
-                    //After deleting the account, log the user out 
+                        //After deleting the account, log the user out 
                     logout(parameters.router);
                 })
                 .catch(function(error) {

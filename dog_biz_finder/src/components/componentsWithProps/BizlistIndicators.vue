@@ -44,7 +44,7 @@ export default {
   opacity: 0.2;
   cursor: pointer;
   position: relative;
-  margin: -7px 4px;
+  margin: -17px 4px;
 }
 
 .dot-selected {
