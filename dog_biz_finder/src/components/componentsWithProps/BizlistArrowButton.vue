@@ -1,5 +1,7 @@
 <template>
-  <div class="arrowButton">
+  <v-col 
+    class="arrowButton"
+  >
     <button 
       class="btn" 
       @click='showNewItem'
@@ -11,7 +13,7 @@
       :alt="arrowType + ' arrow'"
     />
   </button>
-</div>
+</v-col>
   
 </template>
 
@@ -55,7 +57,7 @@ export default {
 }
 
 .icon {
-  height: 90px;
+  height: 63px;
   width: auto;
 }
 </style>
