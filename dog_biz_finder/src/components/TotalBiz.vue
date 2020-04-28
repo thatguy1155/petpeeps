@@ -1,7 +1,7 @@
 <template>
      <!-- ADD A (BUSINESS) MODAL/PROFILE START-->
-    <div class="grid1x1" v-if="accountType === 'business'">
-      <!-- <div class="grid1x1"> -->
+    
+      <div class="grid1x1">
       <profile-biz />
       <div>
         <v-flex xs2>

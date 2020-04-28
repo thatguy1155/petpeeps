@@ -42,7 +42,7 @@ function getAccountType(user) {
         //take the uid returned from firebase go find a user with the uid in db and return their user type if any
     let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
         .then(res => {
-            console.log(res)
+            console.log(res.data['user_type'])
             return res.data['user_type']
         })
         .catch(err => console.log(err))
