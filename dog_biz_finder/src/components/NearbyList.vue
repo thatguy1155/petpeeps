@@ -107,7 +107,7 @@ export default {
 
 @media screen and (max-width: 959px) {
   .bizList {
-    margin-top: -392px;
+    margin-top: -249px;
   }
 }
 </style>

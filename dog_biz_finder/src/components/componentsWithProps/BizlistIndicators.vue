@@ -62,4 +62,14 @@ export default {
   background: transparent;
   border: none;
 }
+
+@media screen and (max-width: 959px) {
+  .dot {
+    height: 8px;    
+    width: 8px;
+  }
+}
+
+
+    
 </style>

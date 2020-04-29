@@ -61,4 +61,15 @@ export default {
   width: auto;
 }
 
+@media screen and (max-width: 959px) {  
+  .icon {
+    height: 26px;
+  }
+
+  .arrowButton {
+    align-self: flex-end;
+    padding: 3px 0 0 0;
+  }
+}
+
 </style>
