@@ -68,6 +68,7 @@ export default {
   computed: {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
+      selectedBiz: (state) => state.selectedBiz
     }),
     // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
     currentItem() {

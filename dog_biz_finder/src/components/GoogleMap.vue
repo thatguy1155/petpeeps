@@ -5,7 +5,10 @@
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
-        @click="m.selectBiz(); setMapCenter(m.position.lat, m.position.lng)"
+        @click="
+          m.selectBiz();
+          center = m.position;
+        "
       ></gmap-marker>
     </gmap-map>
   </div>
@@ -19,7 +22,7 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      // default to Seoul, Gangnam-gu
+      //Default center to Gangnamgu, Seoul
       center: { lat: 37.5326, lng: 127.024612 },
       markers: [],
       places: [],
@@ -39,7 +42,7 @@ export default {
   },
 
   mounted() {
-    this.geolocate();
+    this.setMapCenter();
   },
 
   methods: {
@@ -58,6 +61,7 @@ export default {
                 lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng(),
               };
+              // Create a marker object that has the method selectBiz which sets a selected business object in the Vuex store
               let marker = {
                 position: markerPosition,
                 address: business.address,
@@ -68,26 +72,37 @@ export default {
                   }),
               };
               this.markers.push(marker);
-
-              this.setMapCenter(
-                this.markers[0].position.lat,
-                this.markers[0].position.lng
-              );
+              this.setMapCenter();
             }
           });
         }
       }
     },
+    setMapCenter() {
+      //If there are markers (list of biz) then set the center to the marker position
+      if (this.markers.length > 0) {
+        this.center = {
+          lat: this.markers[0].position.lat,
+          lng: this.markers[0].position.lng,
+        };
+        //If there is a selected business, then the center will be set to the selected biz (this is mainly for when the biz card is selected in the carousel)
+      } else if (this.selectedBiz) {
+        this.center = {
+          lat: this.selectedBiz.markerPosition.lat,
+          lng: this.selectedBiz.markerPosition.lng,
+        };
+      } else {
+        //If there is no selected biz or markers yet, set map center to the current location of user
+        this.geolocate();
+      }
+    },
     geolocate() {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setMapCenter(position.coords.latitude, position.coords.longitude);
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
       });
-    },
-    setMapCenter(latCoords, lngCoords) {
-      this.center = {
-        lat: latCoords,
-        lng: lngCoords,
-      };
     },
   },
 };
