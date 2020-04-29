@@ -16,7 +16,6 @@ export default ({
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
-      console.log('this is coming from mutations', payload)
       state.bizList = payload
     },
     CHANGE_DONG_LIST(state, payload) {
@@ -24,7 +23,6 @@ export default ({
     },
     CREATE_SEARCHED_ADDRESS(state, payload) {
       state.searchedAddr.push(payload)
-      console.log('this is coming from mutations, new adrs ',state.searchedAddr)
     }
   },
   getters: {
@@ -75,7 +73,6 @@ export default ({
         }
         
       }).then(list => {
-        console.log(list)
         commit('CHANGE_DONG_LIST', list.data.jsonList)
       }).catch(err => {
         console.log(err)
@@ -89,9 +86,6 @@ export default ({
      *                         the pre-existing array of addresses for match
      */
     getBizList({ commit, state }) {
-      // console.log('this is coming from actions', val)
-      console.log('make request with axios')
-      console.log('get data and call mutations with cleaned up data')
       let cleanList = [
         {
           bizName: 'Woof Cafe',
@@ -157,27 +151,11 @@ export default ({
       let filteredList = [];
       let searchedAddrStr = state.searchedAddr.join(' ');
 
-      // for (let i=0, c=cleanList.length; i<c; i++) {
-      //   console.log(cleanList[i])
-      //   if (cleanList[i].address.includes(searchedAddrStr)) {
-      //     filteredList.push(cleanList[i]);
-      //   }
-      // }
-
       filteredList = cleanList.filter(item => {
         return item.address.includes(searchedAddrStr)
       })
 
       commit('CHANGE_BIZ_LIST', filteredList)
-      // Axios.get('blah', {
-      //   params: {
-      //     key: val
-      //   }
-      // }).then(data => {
-      //   console.log(data)
-      // commit('changeBizList', data)
-
-      // }).catch(err => console.log(err))
     }
   },
   modules: {}

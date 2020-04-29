@@ -50,7 +50,6 @@ export default {
         this.markers = [];
 
         for (let i = 0; i < this.bizList.length; i++) {
-          console.log("add marker: " + this.bizList[i].address);
           geocoder.geocode(
             { address: this.bizList[i].address },
             (results, status) => {
@@ -60,8 +59,7 @@ export default {
                   lng: results[0].geometry.location.lng(),
                 };
                 this.markers.push({ position: marker, address: this.bizList[i].address });
-                console.log('markers', this.markers);
-
+            
                 this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng)
 
               }
