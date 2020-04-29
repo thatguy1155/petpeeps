@@ -25,7 +25,7 @@
         <br />
         <ul
           class="motto"
-        >All of the "animal lovers" at PetChin value your opinion and are happy to answer any questions you may have about bringing your pets to animal friendly businesses. Our goal is to make connections between humans and animals easier, so please don't hesitate to call, chat, or email us. We'd love to hear from you!</ul>
+        >All of the "animal lovers" at PetPeeps value your opinion and are happy to answer any questions you may have about bringing your pets to animal friendly businesses. Our goal is to make connections between humans and animals easier, so please don't hesitate to call, chat, or email us. We'd love to hear from you!</ul>
         <br />
         <div id="contactCard">
           Reach Us At
