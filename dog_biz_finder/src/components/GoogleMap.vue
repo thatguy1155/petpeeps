@@ -88,12 +88,12 @@ export default {
 <style scoped>
 
 .gmap {
-  height: 84vh;
+  height: 758px;
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
   .gmap {
-    height: 75vh;
+    height: 608px;
   }
 }
 

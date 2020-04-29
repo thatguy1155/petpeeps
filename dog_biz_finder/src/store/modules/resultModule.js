@@ -110,7 +110,25 @@ export default ({
           bizType: 'Restaurant',
           hours: '11:00 ~ 19:00',
           address: '서울특별시 중구 광휘동 58-1'
-        },  
+        },
+        {
+          bizName: 'Animals',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
+          address: '서울특별시 중구 저동2가 수표로 46 2층'
+        }, 
+        {
+          bizName: 'Sanctuary',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
+          address: '서울특별시 중구 명동2가 명동10길 16-1'
+        },
+        {
+          bizName: 'Habitat',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
+          address: '서울특별시 중구 장충동 동호로 249'
+        },      
         {
           bizName: 'Archipelago',
           bizType: 'Cafe',
@@ -124,7 +142,7 @@ export default ({
           address: '서울특별시 성북구 안암동5가 산2-1'
         },
         {
-          bizName: 'Mungi\'s',
+          bizName: 'People Reserve',
           bizType: 'Cafe',
           hours: '11:00 ~ 19:00',
           address: '서울특별시 동대문구 회기동 1-5'

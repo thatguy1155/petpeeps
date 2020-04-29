@@ -10,11 +10,13 @@
       >
         <v-row justify="center">
           <bizlist-arrow-button
+            v-show="bizList.length > 1"
             arrowType="left"
             :disabled="reachedMaxLeft"
             @show-new-item="showPrevItem"
           />
           <bizlist-arrow-button
+            v-show="bizList.length > 1"
             class="hidden-sm-and-up"
             arrowType="right"
             :disabled="reachedMaxRight"
@@ -28,6 +30,7 @@
             :address="currentItem.address"
           />
           <bizlist-arrow-button
+            v-show="bizList.length > 1"
             class="hidden-sm-and-down"
             arrowType="right"
             :disabled="reachedMaxRight"
@@ -36,6 +39,7 @@
           />
         </v-row>
         <bizlist-indicators
+          v-show="bizList.length < 6 && bizList.length > 1"
           :items="bizList"
           :currentItemIndex="currentItemIndex"
           @show-item="showItem"
@@ -92,9 +96,6 @@ export default {
       this.currentItemIndex--;
     }
   },
-  created() {
-    console.log('reachedMaxLeft', this.reachedMaxLeft);
-  }
 };
 </script>
 
@@ -102,12 +103,12 @@ export default {
 /* Place the bizlist results on top of the map, for the map to be displayed full size */
 .bizList {
   z-index: 1;
-  margin-top: -298px;
+  margin-top: -248px;
 }
 
-@media screen and (max-width: 959px) {
+/* @media screen and (max-width: 959px) {
   .bizList {
     margin-top: -249px;
-  }
-}
+  } */
+/* } */
 </style>

@@ -1,6 +1,6 @@
 <template>
     <v-card 
-      class="bizCard d-flex row align-center pl-12"
+      class="bizCard d-flex row align-center"
     >
       <v-card-title>{{ bizName }}</v-card-title>
       <v-card-text class="d-flex flex-column align-start">
