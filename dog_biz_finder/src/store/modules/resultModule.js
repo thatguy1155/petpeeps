@@ -34,7 +34,7 @@ export default ({
   }, 
   actions: {
     setSelectedBiz({commit}, selectedBizParams) {
-      console.log(selectedBizParams)
+      console.log(selectedBizParams);
       commit('SET_SELECTED_BIZ', selectedBizParams);
     },
     /**

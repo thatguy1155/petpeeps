@@ -1,11 +1,13 @@
 <template>
-  <v-container 
-    class="bizList"
-  >
+  <v-container class="bizList">
     <v-row justify="center">
-      <v-col 
+      <v-col
         cols="12"
-        xs="6" sm="8" md="10" lg="12" xl="12"
+        xs="6"
+        sm="8"
+        md="10"
+        lg="12"
+        xl="12"
         v-if="bizList.length > 0"
       >
         <v-row justify="center">
@@ -21,7 +23,6 @@
             arrowType="right"
             :disabled="reachedMaxRight"
             @show-new-item="showNextItem"
-          
           />
           <biz-card-item
             :bizName="currentItem.bizName"
@@ -35,7 +36,6 @@
             arrowType="right"
             :disabled="reachedMaxRight"
             @show-new-item="showNextItem"
-          
           />
         </v-row>
         <bizlist-indicators
@@ -62,29 +62,36 @@ export default {
   },
   data() {
     return {
-      currentItemIndex: 0,
+      currentItemIndex: 0
     };
   },
   computed: {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
-      selectedBiz: (state) => state.selectedBiz
+      selectedBiz: (state) => state.selectedBiz,
     }),
     // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
     currentItem() {
+      if (this.selectedBiz) {
+        let matchedBizIndex = this.bizList.indexOf(this.selectedBiz.business);
+        // I get the difference between the matched index and the current item index so that the current item will still be dynamic based on the currentItemIndex, which change according to the arrows/indicators
+        // let indexDifference = matchedBizIndex - this.currentItemIndex;
+        return this.bizList[matchedBizIndex];
+      } else {
         return this.bizList[this.currentItemIndex];
+      }
     },
-    // Return true when the current business card is the first business item in the list - disable the left arrow 
+    // Return true when the current business card is the first business item in the list - disable the left arrow
     reachedMaxLeft() {
-      return this.currentItemIndex === 0
+      return this.currentItemIndex === 0;
     },
-    // Return true when the current business card is the last business item in the list - disable the right arrow 
+    // Return true when the current business card is the last business item in the list - disable the right arrow
     reachedMaxRight() {
       return this.currentItemIndex === this.bizList.length - 1;
     },
   },
   methods: {
-    // Show the clicked item from the indicator dots 
+    // Show the clicked item from the indicator dots
     showItem(itemIndex) {
       this.currentItemIndex = itemIndex;
     },
