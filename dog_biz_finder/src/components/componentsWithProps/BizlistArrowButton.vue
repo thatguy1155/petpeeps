@@ -67,7 +67,6 @@ export default {
   }
 
   .arrowButton {
-    align-self: flex-end;
     padding: 3px 0 0 0;
   }
 }

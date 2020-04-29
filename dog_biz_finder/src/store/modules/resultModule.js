@@ -12,7 +12,8 @@ export default ({
     dongList: [],
     searchedAddr: [
       '서울특별시',
-    ]
+    ],
+    selectedBiz: null
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
@@ -23,12 +24,19 @@ export default ({
     },
     CREATE_SEARCHED_ADDRESS(state, payload) {
       state.searchedAddr.push(payload)
+    },
+    SET_SELECTED_BIZ(state, payload) {
+      state.selectedBiz = (payload)
     }
   },
   getters: {
     dongs: (state) => state.dongList
   }, 
   actions: {
+    setSelectedBiz({commit}, selectedBizParams) {
+      console.log(selectedBizParams)
+      commit('SET_SELECTED_BIZ', selectedBizParams);
+    },
     /**
      * 
      * @param {obj } { commit } function to call mutation to add gu in searchedAddr in state
@@ -157,6 +165,5 @@ export default ({
 
       commit('CHANGE_BIZ_LIST', filteredList)
     }
-  },
-  modules: {}
+  }
 })
