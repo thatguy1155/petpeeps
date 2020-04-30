@@ -1,6 +1,34 @@
 <template>
   <div>
-    <v-card class="mx-auto" max-width="434" tile>
+
+    <v-card
+      class="mx-auto"
+      width="344"
+      outlined
+    >
+      <v-list-item three-line>
+        <v-list-item-content>
+          <div class="overline mb-4">{{petInfo.breed}}</div>
+          <v-list-item-title class="headline mb-1">{{petInfo.name}}</v-list-item-title>
+          <v-list-item-subtitle>I love this pet</v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-avatar
+          tile
+          size="80"
+        >
+          <v-img src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"></v-img>
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-card-actions>
+        <EditAnimal v-bind:petInfo="petInfo"/>
+        <!-- <v-btn text>Button</v-btn> -->
+      </v-card-actions>
+    </v-card>
+
+
+    <!-- <v-card   tile>
       <v-img height="100%" src>
         <v-row align="end" class="fill-height">
           <v-col align-self="start" class="pa-0" cols="12">
@@ -12,19 +40,28 @@
             <v-col class="py-0">
               <v-list-item color="rgba(0, 0, 0, .4)" dark>
                 <v-list-item-content id="animalFont">
-                  <v-list-item-title id="animalFont" class="title">Name: Fido</v-list-item-title>
-                  <v-list-item-subtitle id="animalFont">Breed: Puppy</v-list-item-subtitle>
+                  <v-list-item-title id="animalFont" class="title">{{petInfo.name}}</v-list-item-title>
+                  <v-list-item-subtitle id="animalFont">{{petInfo.breed}}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+              <EditAnimal v-bind:petInfo="petInfo"/>
             </v-col>
           </v-col>
         </v-row>
       </v-img>
-    </v-card>
+    </v-card> -->
   </div>
 </template>
 
 <script>
+import EditAnimal from "@/components/EditAnimal.vue";
+export default {
+    name: "ProfileAnimal",
+    props: ["petInfo"],
+    components: {
+        EditAnimal
+    }, 
+}
 </script>
 
 <style>
