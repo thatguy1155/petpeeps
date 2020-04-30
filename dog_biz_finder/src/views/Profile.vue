@@ -3,8 +3,12 @@
     <!-- if there is no account type data in the current user, show the component to select a type -->
     <account-options v-show="!accountType" />
     <account />
-    <total-animal />
-    <total-biz />
+    <div v-if="accountType === 'personal'">
+      <total-animal />
+    </div>
+    <div v-else-if="accountType === 'business'">
+      <total-biz />
+    </div>
   </div>
 </template>
 

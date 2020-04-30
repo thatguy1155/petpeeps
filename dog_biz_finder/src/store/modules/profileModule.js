@@ -19,6 +19,10 @@ const mutations = {
     LOAD_USER(state, payload) {
         state.user = payload;
         console.log(payload)
+    },
+    UPDATE_USER_TYPE(state, payload) {
+        state.user.accountType = payload;
+        console.log(payload)
     }
 };
 
@@ -65,16 +69,18 @@ function getAccountType(user) {
 
 //this function updates the user type when you click on the business/personal box
 
-function updateAccountType(bullshitObjectThatVuexDumpsInHereThatIDontNeed, accountParams) {
+async function updateAccountType({ commit }, accountParams) {
     const params = new URLSearchParams();
     params.append('action', 'updateAccountType');
     params.append('accType', accountParams.accType);
     params.append('uid', accountParams.uid);
-    axios.post('http://dogpeeps', params) //)
+    await axios.post('http://dogpeeps', params) //)
         .then(res => {
             console.log(res.data)
+            return accountParams.accType
         })
         .catch(err => console.log(err))
+    commit("UPDATE_USER_TYPE", accountParams.accType)
 }
 
 
