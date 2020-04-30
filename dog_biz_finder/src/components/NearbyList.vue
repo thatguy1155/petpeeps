@@ -49,6 +49,7 @@
   </v-container>
 </template>
 <script>
+import { gmapApi } from "vue2-google-maps";
 import { mapState, mapActions } from "vuex";
 import BizCardItem from "./componentsWithProps/BizCardItem";
 import BizlistArrowButton from "./componentsWithProps/BizlistArrowButton";
@@ -66,6 +67,7 @@ export default {
     };
   },
   computed: {
+    google: gmapApi,
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
       selectedBiz: (state) => state.selectedBiz,
@@ -104,22 +106,72 @@ export default {
     }),
     // Show the clicked item from the indicator dots
     showItem(itemIndex) {
-      this.currentItemIndex = itemIndex;
+      if (this.selectedBiz) {
+        let geocoder = new this.google.maps.Geocoder();
+        geocoder.geocode(
+          { address: this.bizList[itemIndex].address },
+          (results, status) => {
+            if (status === "OK") {
+              let currentItemMarkerPosition = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng(),
+              };
+              this.setSelectedBiz({
+                business: this.bizList[itemIndex],
+                markerPosition: currentItemMarkerPosition,
+              });
+            }
+          }
+        );
+      } else {
+        this.currentItemIndex = itemIndex;
+      }
     },
     // Show next item when you click the right arrow button
     showNextItem() {
       if (this.selectedBiz) {
-        let nextBizitem = this.bizList[this.matchedBizIndex + 1];
-        this.setSelectedBiz({ business: nextBizitem });
+        let nextBizItem = this.bizList[this.matchedBizIndex + 1];
+        let geocoder = new this.google.maps.Geocoder();
+        geocoder.geocode(
+          { address: nextBizItem.address },
+          (results, status) => {
+            if (status === "OK") {
+              let nextBizMarkerPosition = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng(),
+              };
+              this.setSelectedBiz({
+                business: nextBizItem,
+                markerPosition: nextBizMarkerPosition,
+              });
+            }
+          }
+        );
       } else {
         this.currentItemIndex++;
       }
     },
     // Show previous item when you click the left arrow button
     showPrevItem() {
+      console.log('selected biz', this.selectedBiz);
       if (this.selectedBiz) {
-        let prevBizitem = this.bizList[this.matchedBizIndex - 1];
-        this.setSelectedBiz({ business: prevBizitem });
+        let prevBizItem = this.bizList[this.matchedBizIndex - 1];
+        let geocoder = new this.google.maps.Geocoder();
+        geocoder.geocode(
+          { address: prevBizItem.address },
+          (results, status) => {
+            if (status === "OK") {
+              let prevBizMarkerPosition = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng(),
+              };
+              this.setSelectedBiz({
+                business: prevBizItem,
+                markerPosition: prevBizMarkerPosition,
+              });
+            }
+          }
+        );
       } else {
         this.currentItemIndex--;
       }

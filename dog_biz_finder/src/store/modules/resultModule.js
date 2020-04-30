@@ -27,7 +27,10 @@ export default ({
     },
     SET_SELECTED_BIZ(state, payload) {
       state.selectedBiz = (payload)
-    }
+    },
+    // UPDATE_BIZ_LIST(state, payload) {
+    //   state.bizList[payload.index].markerPosition = payload.coords;
+    // }
   },
   getters: {
     dongs: (state) => state.dongList
@@ -164,6 +167,10 @@ export default ({
       })
 
       commit('CHANGE_BIZ_LIST', filteredList)
-    }
+    },
+    // updateBizList({commit}, markerParams) {
+    //   console.log('marker positions', markerParams);
+    //   commit('UPDATE_BIZ_LIST', markerParams);
+    // } 
   }
 })

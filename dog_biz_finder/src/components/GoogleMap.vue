@@ -7,7 +7,10 @@
         :position="m.position"
         @click="
           m.selectBiz();
-          center = m.position;
+          center = {
+          lat: selectedBiz.markerPosition.lat,
+          lng: selectedBiz.markerPosition.lng,
+        }
         "
       ></gmap-marker>
     </gmap-map>
@@ -48,6 +51,7 @@ export default {
   methods: {
     ...mapActions({
       setSelectedBiz: "resultModule/setSelectedBiz",
+      // updateBizList: "resultModule/updateBizList"
     }),
     addMarker() {
       let geocoder = new this.google.maps.Geocoder();
@@ -59,8 +63,11 @@ export default {
             if (status === "OK") {
               let markerPosition = {
                 lat: results[0].geometry.location.lat(),
-                lng: results[0].geometry.location.lng(),
+                lng: results[0].geometry.location.lng()
               };
+
+              // this.updateBizList({ index: i, coords: markerPosition });
+
               // Create a marker object that has the method selectBiz which sets a selected business object in the Vuex store
               let marker = {
                 position: markerPosition,
@@ -85,14 +92,8 @@ export default {
           lat: this.markers[0].position.lat,
           lng: this.markers[0].position.lng,
         };
-        //If there is a selected business, then the center will be set to the selected biz (this is mainly for when the biz card is selected in the carousel)
-      } else if (this.selectedBiz) {
-        this.center = {
-          lat: this.selectedBiz.markerPosition.lat,
-          lng: this.selectedBiz.markerPosition.lng,
-        };
       } else {
-        //If there is no selected biz or markers yet, set map center to the current location of user
+        //If there are no markers yet, set map center to the current location of user
         this.geolocate();
       }
     },
