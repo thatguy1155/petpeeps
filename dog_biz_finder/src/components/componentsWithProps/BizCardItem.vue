@@ -1,46 +1,73 @@
 <template>
-  <v-col
-    cols="12" xs="12" sm="12" md="6" xl="6"
-  >
-    <v-card>
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      >
-        <v-card-title>{{ title }}</v-card-title>
-      </v-img>
-      <!-- <v-card-subtitle class="pb-0">{{ subtitle }}</v-card-subtitle> -->
-      <v-card-text class="text--primary">
-        <div>{{ placeDescription }}</div>
-        <div>{{ address}}</div>
+    <v-card 
+      class="bizCard d-flex row align-center"
+    >
+      <v-card-title>{{ bizName }}</v-card-title>
+      <v-card-text class="d-flex flex-column align-start">
+        <div>   
+          <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
+          {{ bizType }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
+          {{ hours }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+          {{ address }}
+        </div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="orange" text>Share</v-btn>
-        <v-btn color="orange" text>Explore</v-btn>
+      <v-card-actions class="d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start">
+        <v-btn color="orange" text class="moreDetailsBtn">More Details</v-btn>
       </v-card-actions>
     </v-card>
-  </v-col>
 </template>
 <script>
 export default {
   props: {
-    title: {
+    bizName: {
       type: String,
-      default: 'test'
+      default: 'name of business'
     },
-    // subtitle: {
-    //   type: String,
-    //   default: 'subtitle test'
-    // },
-    placeDescription: {
+    bizType: {
       type: String,
-      default: 'place description'
+      default: 'type of business'
+    },
+    hours: {
+      type: String,
+      default: 'hours'
     },
     address: {
       type: String,
-      default: 'address of place'
+      default: 'address'
     },
+  },
+  computed: {
+    bizTypeIcon() {
+      if (this.bizType === 'Cafe') {
+        return 'mdi-coffee';
+      } else if (this.bizType === 'Restaurant') {
+        return 'mdi-silverware-fork-knife';
+      } else {
+        return '';
+      }
+    }
   }
 }
 </script>
+
+<style scoped>
+@media screen and (max-width: 959px) {
+  .v-card__title {
+    font-size: 0.8em;
+    padding: 5px;
+  }
+  .v-card__text {
+    font-size: 0.6em;
+    padding: 0;
+  }
+  .moreDetailsBtn {
+    font-size: 0.7em;
+  }
+}
+</style>

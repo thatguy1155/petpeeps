@@ -65,7 +65,6 @@ export default {
   },
   created() {
     this.getCurrentUser();
-    console.log(this.user.signInMethod);
   },
 };
 </script>

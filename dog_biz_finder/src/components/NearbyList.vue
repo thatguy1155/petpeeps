@@ -1,76 +1,114 @@
 <template>
-  <v-row>
-    <biz-card-item
-      v-for='(i, index) in this.bizList'
-      :key='index'
-      :title='i.title'
-      :placeDescription='i.placeDescription'
-      :address='i.address'
-    />
-    <!-- <v-col 
-      v-for='(i, index) in this.bizList'
-      :key='index'
-      cols="12" xs="12" sm="12" md="12" xl="12" no-gutter style="border: 1px solid black;"
-    >
-      <v-card>
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-          <v-card-title>{{ i.title }}</v-card-title>
-        </v-img>
-        <v-card-subtitle class="pb-0">{{ i.subtitle }}</v-card-subtitle>
-        <v-card-text class="text--primary">
-          <div>{{ i.placeName }}</div>
-          <div>{{ i.placeDescription }}</div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            color="orange"
-            text
-          >
-            Share
-          </v-btn>
-
-          <v-btn
-            color="orange"
-            text
-          >
-            Explore
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col> -->
-  </v-row>
+  <v-container 
+    class="bizList"
+  >
+    <v-row justify="center">
+      <v-col 
+        cols="12"
+        xs="6" sm="8" md="10" lg="12" xl="12"
+        v-if="bizList.length > 0"
+      >
+        <v-row justify="center">
+          <bizlist-arrow-button
+            v-show="bizList.length > 1"
+            arrowType="left"
+            :disabled="reachedMaxLeft"
+            @show-new-item="showPrevItem"
+          />
+          <bizlist-arrow-button
+            v-show="bizList.length > 1"
+            class="hidden-sm-and-up"
+            arrowType="right"
+            :disabled="reachedMaxRight"
+            @show-new-item="showNextItem"
+          
+          />
+          <biz-card-item
+            :bizName="currentItem.bizName"
+            :bizType="currentItem.bizType"
+            :hours="currentItem.hours"
+            :address="currentItem.address"
+          />
+          <bizlist-arrow-button
+            v-show="bizList.length > 1"
+            class="hidden-sm-and-down"
+            arrowType="right"
+            :disabled="reachedMaxRight"
+            @show-new-item="showNextItem"
+          
+          />
+        </v-row>
+        <bizlist-indicators
+          v-show="bizList.length < 6 && bizList.length > 1"
+          :items="bizList"
+          :currentItemIndex="currentItemIndex"
+          @show-item="showItem"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
-import BizCardItem from './componentsWithProps/BizCardItem'
+import { mapState } from "vuex";
+import BizCardItem from "./componentsWithProps/BizCardItem";
+import BizlistArrowButton from "./componentsWithProps/BizlistArrowButton";
+import BizlistIndicators from "./componentsWithProps/BizlistIndicators";
+
 export default {
   components: {
-    BizCardItem
+    BizCardItem,
+    BizlistArrowButton,
+    BizlistIndicators,
   },
   data() {
     return {
-    }
+      currentItemIndex: 0,
+    };
   },
   computed: {
-    ...mapState('resultModule', {
-      bizList: state => state.bizList
+    ...mapState("resultModule", {
+      bizList: (state) => state.bizList,
     }),
-
-    ...mapGetters({
-      username: 'authModule/user'
-    })
+    // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
+    currentItem() {
+        return this.bizList[this.currentItemIndex];
+    },
+    // Return true when the current business card is the first business item in the list - disable the left arrow 
+    reachedMaxLeft() {
+      return this.currentItemIndex === 0
+    },
+    // Return true when the current business card is the last business item in the list - disable the right arrow 
+    reachedMaxRight() {
+      return this.currentItemIndex === this.bizList.length - 1;
+    },
   },
-  created(){
-    this.bizList
+  methods: {
+    // Show the clicked item from the indicator dots 
+    showItem(itemIndex) {
+      this.currentItemIndex = itemIndex;
+    },
+    // Show next item when you click the right arrow button
+    showNextItem() {
+      this.currentItemIndex++;
+    },
+    // Show previous item when you click the left arrow button
+    showPrevItem() {
+      this.currentItemIndex--;
+    }
   },
-  mounted() {
-  },
-}
+};
 </script>
 
 <style>
+/* Place the bizlist results on top of the map, for the map to be displayed full size */
+.bizList {
+  z-index: 1;
+  margin-top: -248px;
+}
+
+/* @media screen and (max-width: 959px) {
+  .bizList {
+    margin-top: -249px;
+  } */
+/* } */
 </style>

@@ -13,7 +13,6 @@
             $err = array('this user doesn\'t exist in our db');
             echo json_encode($err);
         }
-
     }
 
     function updateAccountType($accountType,$uid) { 
