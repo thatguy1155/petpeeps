@@ -4,8 +4,8 @@
       <v-container>
         <h1> my pets </h1>
         <v-row justify="center">
-          <v-col cols="10" lg="8" class="d-flex flex-wrap">
-            <v-card class="mx-2 my-2" v-for="pet in petList" v-bind:key="pet.id" max-width="434">
+          <v-col cols="12" lg="9" m="12" sm="12" xs="6" class="d-flex flex-wrap">
+            <v-card class="mx-10 my-6" v-for="pet in petList" v-bind:key="pet.id" max-width="434">
               <profile-animal v-bind:petInfo="pet" />
             </v-card>
             <div>
@@ -66,7 +66,7 @@ export default {
   min-width: 77px;
   font-size: 40px;
   border-radius: 5px;
-  margin-left: 5px;
-  margin-top: 4px;
+  margin-left: 28px;
+  margin-top: 12px;
 }
 </style>
