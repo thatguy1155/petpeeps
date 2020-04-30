@@ -16,7 +16,6 @@ export default ({
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
-      console.log('this is coming from mutations', payload)
       state.bizList = payload
     },
     CHANGE_DONG_LIST(state, payload) {
@@ -24,7 +23,6 @@ export default ({
     },
     CREATE_SEARCHED_ADDRESS(state, payload) {
       state.searchedAddr.push(payload)
-      console.log('this is coming from mutations, new adrs ',state.searchedAddr)
     }
   },
   getters: {
@@ -75,7 +73,6 @@ export default ({
         }
         
       }).then(list => {
-        console.log(list)
         commit('CHANGE_DONG_LIST', list.data.jsonList)
       }).catch(err => {
         console.log(err)
@@ -89,65 +86,76 @@ export default ({
      *                         the pre-existing array of addresses for match
      */
     getBizList({ commit, state }) {
-      // console.log('this is coming from actions', val)
-      console.log('make request with axios')
-      console.log('get data and call mutations with cleaned up data')
       let cleanList = [
         {
-          title: 'test',
-          placeDescription: 'where all the nirvana fans hang',
+          bizName: 'Woof Cafe',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 중구 을지로7가 2-1'
         }, 
         {
-          title: 'another place',
-          placeDescription: 'place where all the losers are',
+          bizName: 'Safari',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
           address: '서울특별시 중구 을지로6가 18-17'
         },  
         {
-          title: 'this is another place',
-          placeDescription: 'place where all the cool kids hang',
+          bizName: 'The Jungle',
+          bizType: 'Restaurant',
+          hours: '11:00 ~ 19:00',
+          address: '서울특별시 중구 광휘동 58-1'
+        },
+        {
+          bizName: 'Animals',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
+          address: '서울특별시 중구 저동2가 수표로 46 2층'
+        }, 
+        {
+          bizName: 'Sanctuary',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
+          address: '서울특별시 중구 명동2가 명동10길 16-1'
+        },
+        {
+          bizName: 'Habitat',
+          bizType: 'Restaurant',
+          hours: '7:00 ~ 00:00',
+          address: '서울특별시 중구 장충동 동호로 249'
+        },      
+        {
+          bizName: 'Archipelago',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 동대문구 청량리동 207-42'
         },
         {
-          title: 'this is another place2',
-          placeDescription: 'place where all drinking kids hang',
+          bizName: 'Dogs & Friends',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 성북구 안암동5가 산2-1'
         },
         {
-          title: 'this is another place3',
-          placeDescription: 'place where all less cool kids hang',
+          bizName: 'People Reserve',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 동대문구 회기동 1-5'
         },
         {
-          title: 'this is another place5',
-          placeDescription: 'place where all cool kids eat',
+          bizName: 'Tropicana',
+          bizType: 'Cafe',
+          hours: '11:00 ~ 19:00',
           address: '서울특별시 강남구 신사동 563-21'
         }
       ]
       let filteredList = [];
       let searchedAddrStr = state.searchedAddr.join(' ');
 
-      // for (let i=0, c=cleanList.length; i<c; i++) {
-      //   console.log(cleanList[i])
-      //   if (cleanList[i].address.includes(searchedAddrStr)) {
-      //     filteredList.push(cleanList[i]);
-      //   }
-      // }
-
       filteredList = cleanList.filter(item => {
         return item.address.includes(searchedAddrStr)
       })
 
       commit('CHANGE_BIZ_LIST', filteredList)
-      // Axios.get('blah', {
-      //   params: {
-      //     key: val
-      //   }
-      // }).then(data => {
-      //   console.log(data)
-      // commit('changeBizList', data)
-
-      // }).catch(err => console.log(err))
     }
   },
   modules: {}

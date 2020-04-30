@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gmap-map :center="center" :zoom="14" style="width:100%;  height: 550px;">
+    <gmap-map :center="center" :zoom="14" class="gmap">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
@@ -50,7 +50,6 @@ export default {
         this.markers = [];
 
         for (let i = 0; i < this.bizList.length; i++) {
-          console.log("add marker: " + this.bizList[i].address);
           geocoder.geocode(
             { address: this.bizList[i].address },
             (results, status) => {
@@ -59,9 +58,9 @@ export default {
                   lat: results[0].geometry.location.lat(),
                   lng: results[0].geometry.location.lng(),
                 };
-                this.markers.push({ position: marker });
-
-                this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng,)
+                this.markers.push({ position: marker, address: this.bizList[i].address });
+            
+                this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng)
 
               }
             }
@@ -84,4 +83,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+
+.gmap {
+  height: 758px;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .gmap {
+    height: 608px;
+  }
+}
+
+
+</style>
