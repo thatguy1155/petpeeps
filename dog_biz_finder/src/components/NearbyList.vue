@@ -49,7 +49,7 @@
   </v-container>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import BizCardItem from "./componentsWithProps/BizCardItem";
 import BizlistArrowButton from "./componentsWithProps/BizlistArrowButton";
 import BizlistIndicators from "./componentsWithProps/BizlistIndicators";
@@ -85,17 +85,33 @@ export default {
   methods: {
     // Show the clicked item from the indicator dots 
     showItem(itemIndex) {
-      this.currentItemIndex = itemIndex;
+      if (this.selectedBiz) {
+         this.matchedBizIndex = itemIndex
+      } else {
+        this.currentItemIndex = itemIndex;
+      }
     },
     // Show next item when you click the right arrow button
     showNextItem() {
-      this.currentItemIndex++;
+      if (this.selectedBiz) {
+        console.log('matched biz index before increment', this.matchedBizIndex);
+        this.matchedBizIndex++;
+
+
+        console.log('matched biz index after increment', this.matchedBizIndex)
+      } else {
+        this.currentItemIndex++;
+      }
     },
     // Show previous item when you click the left arrow button
     showPrevItem() {
-      this.currentItemIndex--;
-    }
-  },
+       if (this.selectedBiz) {
+        this.matchedBizIndex--;
+      } else {
+        this.currentItemIndex--;
+      }
+    },
+  }
 };
 </script>
 
