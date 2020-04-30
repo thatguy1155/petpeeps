@@ -1,11 +1,13 @@
 <template>
-  <v-container 
-    class="bizList"
-  >
+  <v-container class="bizList">
     <v-row justify="center">
-      <v-col 
+      <v-col
         cols="12"
-        xs="6" sm="8" md="10" lg="12" xl="12"
+        xs="6"
+        sm="8"
+        md="10"
+        lg="12"
+        xl="12"
         v-if="bizList.length > 0"
       >
         <v-row justify="center">
@@ -21,7 +23,6 @@
             arrowType="right"
             :disabled="reachedMaxRight"
             @show-new-item="showNextItem"
-          
           />
           <biz-card-item
             :bizName="currentItem.bizName"
@@ -35,7 +36,6 @@
             arrowType="right"
             :disabled="reachedMaxRight"
             @show-new-item="showNextItem"
-          
           />
         </v-row>
         <bizlist-indicators
@@ -49,7 +49,7 @@
   </v-container>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 import BizCardItem from "./componentsWithProps/BizCardItem";
 import BizlistArrowButton from "./componentsWithProps/BizlistArrowButton";
 import BizlistIndicators from "./componentsWithProps/BizlistIndicators";
@@ -71,47 +71,31 @@ export default {
     }),
     // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
     currentItem() {
-        return this.bizList[this.currentItemIndex];
+      return this.bizList[this.currentItemIndex];
     },
-    // Return true when the current business card is the first business item in the list - disable the left arrow 
+    // Return true when the current business card is the first business item in the list - disable the left arrow
     reachedMaxLeft() {
-      return this.currentItemIndex === 0
+      return this.currentItemIndex === 0;
     },
-    // Return true when the current business card is the last business item in the list - disable the right arrow 
+    // Return true when the current business card is the last business item in the list - disable the right arrow
     reachedMaxRight() {
       return this.currentItemIndex === this.bizList.length - 1;
     },
   },
   methods: {
-    // Show the clicked item from the indicator dots 
+    // Show the clicked item from the indicator dots
     showItem(itemIndex) {
-      if (this.selectedBiz) {
-         this.matchedBizIndex = itemIndex
-      } else {
-        this.currentItemIndex = itemIndex;
-      }
+      this.currentItemIndex = itemIndex;
     },
     // Show next item when you click the right arrow button
     showNextItem() {
-      if (this.selectedBiz) {
-        console.log('matched biz index before increment', this.matchedBizIndex);
-        this.matchedBizIndex++;
-
-
-        console.log('matched biz index after increment', this.matchedBizIndex)
-      } else {
-        this.currentItemIndex++;
-      }
+      this.currentItemIndex++;
     },
     // Show previous item when you click the left arrow button
     showPrevItem() {
-       if (this.selectedBiz) {
-        this.matchedBizIndex--;
-      } else {
-        this.currentItemIndex--;
-      }
+      this.currentItemIndex--;
     },
-  }
+  },
 };
 </script>
 
