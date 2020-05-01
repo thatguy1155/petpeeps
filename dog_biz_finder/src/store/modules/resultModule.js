@@ -13,7 +13,8 @@ export default ({
     searchedAddr: [
       '서울특별시',
     ],
-    selectedBiz: null
+    selectedBiz: null,
+    mapCenter: { lat: 37.5326, lng: 127.024612 }
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
@@ -28,18 +29,21 @@ export default ({
     SET_SELECTED_BIZ(state, payload) {
       state.selectedBiz = (payload)
     },
-    // UPDATE_BIZ_LIST(state, payload) {
-    //   state.bizList[payload.index].markerPosition = payload.coords;
-    // }
+    SET_MAP_CENTER(state, payload) {
+      state.mapCenter = payload
+    }
   },
   getters: {
     dongs: (state) => state.dongList
   }, 
   actions: {
     setSelectedBiz({commit}, selectedBizParams) {
-      console.log(selectedBizParams);
       commit('SET_SELECTED_BIZ', selectedBizParams);
     },
+    setMapCenter({commit}, mapCentercoords) {
+      commit('SET_MAP_CENTER', mapCentercoords);
+    },
+    
     /**
      * 
      * @param {obj } { commit } function to call mutation to add gu in searchedAddr in state

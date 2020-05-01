@@ -71,6 +71,7 @@ export default {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
       selectedBiz: (state) => state.selectedBiz,
+      mapCenter: (state) => state.mapCenter
     }),
     matchedBizIndex() {
       return this.bizList.indexOf(this.selectedBiz.business);
@@ -103,6 +104,7 @@ export default {
   methods: {
     ...mapActions({
       setSelectedBiz: "resultModule/setSelectedBiz",
+      setMapCenter: "resultModule/setMapCenter"
     }),
     // Show the clicked item from the indicator dots
     showItem(itemIndex) {
@@ -116,9 +118,9 @@ export default {
                 lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng(),
               };
+              this.setMapCenter(currentItemMarkerPosition);
               this.setSelectedBiz({
-                business: this.bizList[itemIndex],
-                markerPosition: currentItemMarkerPosition,
+                business: this.bizList[itemIndex]
               });
             }
           }
@@ -140,9 +142,10 @@ export default {
                 lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng(),
               };
+              this.setMapCenter(nextBizMarkerPosition);
               this.setSelectedBiz({
                 business: nextBizItem,
-                markerPosition: nextBizMarkerPosition,
+                // markerPosition: nextBizMarkerPosition,
               });
             }
           }
@@ -165,9 +168,9 @@ export default {
                 lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng(),
               };
+              this.setMapCenter(prevBizMarkerPosition);
               this.setSelectedBiz({
                 business: prevBizItem,
-                markerPosition: prevBizMarkerPosition,
               });
             }
           }
@@ -186,10 +189,4 @@ export default {
   z-index: 1;
   margin-top: -248px;
 }
-
-/* @media screen and (max-width: 959px) {
-  .bizList {
-    margin-top: -249px;
-  } */
-/* } */
 </style>
