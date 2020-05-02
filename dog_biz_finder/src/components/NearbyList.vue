@@ -42,6 +42,7 @@
         <bizlist-indicators
           v-show="bizList.length < 6 && bizList.length > 1"
           :items="bizList"
+          :matchedBizIndex="matchedBizIndex"
           @show-item="showItem"
         />
       </v-col>
@@ -72,7 +73,7 @@ export default {
     matchedBizIndex() {
         return this.bizList.indexOf(this.selectedBiz.business);
     },
-    // Get the current biz to display, which is the selected biz 
+    // Get the current biz to display, which is the selected biz (by default it's the first item in the bizList, check resultModule/getBizList)
     currentItem() {
       return this.bizList[this.matchedBizIndex];
     },
@@ -90,7 +91,7 @@ export default {
       setSelectedBiz: "resultModule/setSelectedBiz",
       setMapCenter: "resultModule/setMapCenter",
     }),
-    // Show the clicked item from the indicator dots
+    // Show the clicked item from the indicator dots, change the map center to the selected biz and set new selected biz
     showItem(itemIndex) {
       if (this.selectedBiz) {
         let geocoder = new this.google.maps.Geocoder();
@@ -111,7 +112,7 @@ export default {
         );
       }
     },
-    // Show next item when you click the right arrow button
+    // Show next item when you click the right arrow button, change the map center to the selected biz and set new selected biz
     showNextItem() {
       let nextBizItem = this.bizList[this.matchedBizIndex + 1];
       let geocoder = new this.google.maps.Geocoder();
@@ -129,7 +130,7 @@ export default {
       });
       // }
     },
-    // Show previous item when you click the left arrow button
+    // Show previous item when you click the left arrow button, change the map center to the selected biz and set new selected biz
     showPrevItem() {
       let prevBizItem = this.bizList[this.matchedBizIndex - 1];
       let geocoder = new this.google.maps.Geocoder();

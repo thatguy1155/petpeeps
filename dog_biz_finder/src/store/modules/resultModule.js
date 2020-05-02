@@ -35,10 +35,19 @@ export default {
     dongs: (state) => state.dongList,
   },
   actions: {
+    /**
+     * 
+     * @param {obj} { commit } function to call mutation to set new selected biz in state 
+     * @param {obj} selectedBizParams is an object that contains the info about the new selected business 
+     */
     setSelectedBiz({ commit }, selectedBizParams) {
-      console.log('selected biz', selectedBizParams.business);
       commit("SET_SELECTED_BIZ", selectedBizParams);
     },
+    /**
+     * 
+     * @param {obj} { commit } function to call mutation to set new map center coordinates in state 
+     * @param {obj} mapCentercoords is an object that contains the lat/lng coordinates of the new map center position
+     */
     setMapCenter({ commit }, mapCentercoords) {
       commit("SET_MAP_CENTER", mapCentercoords);
     },
@@ -172,6 +181,8 @@ export default {
       });
 
       commit("CHANGE_BIZ_LIST", filteredList);
+      
+      //when there is a new biz list, also set the first item on the new list as the selected biz 
       commit("SET_SELECTED_BIZ", { business: filteredList[0] });
     }
   }
