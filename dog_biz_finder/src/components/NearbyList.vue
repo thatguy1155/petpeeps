@@ -25,6 +25,7 @@
             @show-new-item="showNextItem"
           />
           <biz-card-item
+            v-show="bizList.length > 0"
             :bizName="currentItem.bizName"
             :bizType="currentItem.bizType"
             :hours="currentItem.hours"
@@ -41,7 +42,6 @@
         <bizlist-indicators
           v-show="bizList.length < 6 && bizList.length > 1"
           :items="bizList"
-          :currentItemIndex="currentItemIndex"
           @show-item="showItem"
         />
       </v-col>
@@ -61,50 +61,34 @@ export default {
     BizlistArrowButton,
     BizlistIndicators,
   },
-  data() {
-    return {
-      currentItemIndex: 0,
-    };
-  },
   computed: {
     google: gmapApi,
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
       selectedBiz: (state) => state.selectedBiz,
-      mapCenter: (state) => state.mapCenter
+      mapCenter: (state) => state.mapCenter,
     }),
+    // Get the index of the bizList array which matches the selected biz
     matchedBizIndex() {
-      return this.bizList.indexOf(this.selectedBiz.business);
+        return this.bizList.indexOf(this.selectedBiz.business);
     },
-    // Get the main business card to show depending on the current item index, which changes depending on the arrow clicked or the indicator dot selected
+    // Get the current biz to display, which is the selected biz 
     currentItem() {
-      if (this.selectedBiz) {
-        return this.bizList[this.matchedBizIndex];
-      } else {
-        return this.bizList[this.currentItemIndex];
-      }
+      return this.bizList[this.matchedBizIndex];
     },
     // Return true when the current business card is the first business item in the list - disable the left arrow
     reachedMaxLeft() {
-      if (this.selectedBiz) {
-        return this.matchedBizIndex === 0;
-      } else {
-        return this.currentItemIndex === 0;
-      }
+      return this.matchedBizIndex === 0;
     },
     // Return true when the current business card is the last business item in the list - disable the right arrow
     reachedMaxRight() {
-      if (this.selectedBiz) {
-        return this.matchedBizIndex === this.bizList.length - 1;
-      } else {
-        return this.currentItemIndex === this.bizList.length - 1;
-      }
+      return this.matchedBizIndex === this.bizList.length - 1;
     },
   },
   methods: {
     ...mapActions({
       setSelectedBiz: "resultModule/setSelectedBiz",
-      setMapCenter: "resultModule/setMapCenter"
+      setMapCenter: "resultModule/setMapCenter",
     }),
     // Show the clicked item from the indicator dots
     showItem(itemIndex) {
@@ -120,66 +104,49 @@ export default {
               };
               this.setMapCenter(currentItemMarkerPosition);
               this.setSelectedBiz({
-                business: this.bizList[itemIndex]
+                business: this.bizList[itemIndex],
               });
             }
           }
         );
-      } else {
-        this.currentItemIndex = itemIndex;
       }
     },
     // Show next item when you click the right arrow button
     showNextItem() {
-      if (this.selectedBiz) {
-        let nextBizItem = this.bizList[this.matchedBizIndex + 1];
-        let geocoder = new this.google.maps.Geocoder();
-        geocoder.geocode(
-          { address: nextBizItem.address },
-          (results, status) => {
-            if (status === "OK") {
-              let nextBizMarkerPosition = {
-                lat: results[0].geometry.location.lat(),
-                lng: results[0].geometry.location.lng(),
-              };
-              this.setMapCenter(nextBizMarkerPosition);
-              this.setSelectedBiz({
-                business: nextBizItem,
-                // markerPosition: nextBizMarkerPosition,
-              });
-            }
-          }
-        );
-      } else {
-        this.currentItemIndex++;
-      }
+      let nextBizItem = this.bizList[this.matchedBizIndex + 1];
+      let geocoder = new this.google.maps.Geocoder();
+      geocoder.geocode({ address: nextBizItem.address }, (results, status) => {
+        if (status === "OK") {
+          let nextBizMarkerPosition = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+          };
+          this.setMapCenter(nextBizMarkerPosition);
+          this.setSelectedBiz({
+            business: nextBizItem,
+          });
+        }
+      });
+      // }
     },
     // Show previous item when you click the left arrow button
     showPrevItem() {
-      console.log('selected biz', this.selectedBiz);
-      if (this.selectedBiz) {
-        let prevBizItem = this.bizList[this.matchedBizIndex - 1];
-        let geocoder = new this.google.maps.Geocoder();
-        geocoder.geocode(
-          { address: prevBizItem.address },
-          (results, status) => {
-            if (status === "OK") {
-              let prevBizMarkerPosition = {
-                lat: results[0].geometry.location.lat(),
-                lng: results[0].geometry.location.lng(),
-              };
-              this.setMapCenter(prevBizMarkerPosition);
-              this.setSelectedBiz({
-                business: prevBizItem,
-              });
-            }
-          }
-        );
-      } else {
-        this.currentItemIndex--;
-      }
-    },
-  },
+      let prevBizItem = this.bizList[this.matchedBizIndex - 1];
+      let geocoder = new this.google.maps.Geocoder();
+      geocoder.geocode({ address: prevBizItem.address }, (results, status) => {
+        if (status === "OK") {
+          let prevBizMarkerPosition = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng(),
+          };
+          this.setMapCenter(prevBizMarkerPosition);
+          this.setSelectedBiz({
+            business: prevBizItem,
+          });
+        }
+      });
+    }
+  }
 };
 </script>
 
