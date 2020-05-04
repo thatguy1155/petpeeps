@@ -28,9 +28,10 @@
                 v-model="password"
                 :rules="passRules"
                 label="Password"
-                :append-icon="password ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="() => (password = !password)"
-                :type="password ? 'password' : 'text'"
+                :append-icon="showPwd? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="() => (showPwd= !showPwd)"
+                :type="showPwd ? 'text' : 'password'"
+                @keyup.enter="register"
                 required
                 ></v-text-field>
 
@@ -40,6 +41,7 @@
                 color="success"
                 class="mr-4 mb-1"
                 @click="register"
+                width=40%
                 >
                     Sign Up
                 </v-btn>
@@ -49,9 +51,11 @@
                     color="warning"
                     class="mb-1"
                     @click="resetValidation"
+                    width=40%
                     >
                     Reset
                 </v-btn>
+                <div color="grey">Go back to <router-link to="/login">Login</router-link></div>
             </v-form>
         </v-col>
     </v-row>
@@ -80,28 +84,37 @@ export default {
         v => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(v) || 'Password should be mixed cased with at least one digit and 8 or more characters',
       ],
       
-      
+      showPwd: false,
       checkbox: false,
     }),
 
     methods: {
         register: function(e) {
             if (this.$refs.form.validate()){
-                console.log(this.email)
-                const creationParams = {
-                  email: this.email,
-                  password: this.password,
-                  username: this.username,
-                  router: this.$router
-                }
+              firebase.auth().createUserWithEmailAndPassword(this.email,this.password)
+              //after you make the user, then update their display name
+              .then(() => {
+                  let currUser = firebase.auth().currentUser;
+                  currUser.updateProfile({
+                      displayName : this.username
+                  })
+                  //after you update their display name send the other details to the backend
+                  .then(() =>{
+                    const creationParams = {
+                      email: this.email,
+                      displayName: this.username,
+                      uid: currUser.uid,
+                      router: this.$router
+                    }
                 
-                this.createUser(creationParams)
-                
-            e.preventDefault();
+                    this.addUserToDb(creationParams)
+                  })
+              })
             }
+            e.preventDefault();
         },
       ...mapActions({
-        'createUser': 'profileModule/createUser',
+        'addUserToDb': 'profileModule/addUserToDb',
         
       }),
     //   validate () {
@@ -116,5 +129,11 @@ export default {
 </script>
 
 <style scoped>
-
+  div {
+    margin: 10px 0 0 0;
+    color: grey;
+  }
+  div a {
+    color: grey;
+  }
 </style>
