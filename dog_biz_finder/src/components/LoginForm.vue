@@ -97,6 +97,8 @@ export default {
           return true;
         },
       },
+      // comment signInFlow to swith to sign in with redirect 
+      signInFlow: 'popup',
       signInSuccessUrl: "/profile",
       signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
     };
