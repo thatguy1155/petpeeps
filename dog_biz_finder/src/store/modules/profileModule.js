@@ -126,10 +126,14 @@ function reauthenticate(currentPw) {
         });
 }
 
+/**
+ * reauthenticate a Google user with a popup window
+ */
 // function reauthenticateSocAcc() {
 //     let currentUser = firebase.auth().currentUser;
 //     let provider = new firebase.auth.GoogleAuthProvider()
 //     return currentUser
+//         //does not work with .reauthenticateWithRedirect
 //         .reauthenticateWithPopup(provider)
 //         .then(() => {
 //             console.log('social reauthentication success');
@@ -205,7 +209,7 @@ function deleteUser(a, parameters) {
 /**
  * 
  * @param {*} a placeholder
- * @param {*} parameters obj that the function gets from the frontend to  
+ * @param {*} parameters obj that contains the route from the frontend to log out after deletion
  */
 function deleteSocialUser(a,parameters) {
     let currUser = firebase.auth().currentUser;
