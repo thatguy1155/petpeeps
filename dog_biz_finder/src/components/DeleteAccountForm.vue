@@ -88,10 +88,8 @@ export default {
       this.deleteUser(dltAccountParams);
     },
     deleteUserSocialAccount() {
-      let params = {
-        router: this.$router
-      }
-      this.deleteSocialUser(params);
+      let route = this.$router
+      this.deleteSocialUser(route);
     }
   },
 };

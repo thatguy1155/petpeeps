@@ -27,7 +27,7 @@ const actions = {
     updatePw,
     deleteUser,
     updateAccountType,
-    addSocialUserToDb,
+    addUserToDb,
     deleteSocialUser
 };
 
@@ -167,7 +167,7 @@ function updatePw(a, parameters) {
 
 //add a user to db
 
-function addSocialUserToDb(a,creationParams){
+function addUserToDb(a,creationParams){
     const params = new URLSearchParams();
     params.append('action', 'createUser');
     params.append('login', creationParams.displayName);
@@ -209,9 +209,9 @@ function deleteUser(a, parameters) {
 /**
  * 
  * @param {*} a placeholder
- * @param {*} parameters obj that contains the route from the frontend to log out after deletion
+ * @param {*} route obj that contains the route from the frontend to log out after deletion
  */
-function deleteSocialUser(a,parameters) {
+function deleteSocialUser(a,route) {
     let currUser = firebase.auth().currentUser;
     let provider = new firebase.auth.GoogleAuthProvider()
     console.log('deleteUser Social params', currUser.xa)
@@ -224,7 +224,7 @@ function deleteSocialUser(a,parameters) {
                 .then(function() {
                     delUserFromDb(currUser);
                     //After deleting the account, log the user out 
-                    logout(parameters.router);
+                    logout(route);
                 })
                 .catch(function(error) {
                     console.log("Delete user unsuccessful", error);

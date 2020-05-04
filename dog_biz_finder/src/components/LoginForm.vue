@@ -43,9 +43,6 @@ export default {
             password: '',
             showPwd: false,
             registerPath: '/signup',
-            googleUserName: '',
-            googleUserEmail: '',
-            googleUserCredential: ''
         }
     },
     //this is the function that actually does the registering via firebase
@@ -70,7 +67,7 @@ export default {
             e.preventDefault();
         },
         ...mapActions({
-        'addSocialUserToDb': 'profileModule/addSocialUserToDb',
+        'addUserToDb': 'profileModule/addUserToDb',
         
       }),
     },
@@ -93,7 +90,7 @@ export default {
                   router: this.$router
                 }
             
-          this.addSocialUserToDb(creationParams)
+          this.addUserToDb(creationParams)
           return true;
         },
       },
