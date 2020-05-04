@@ -1,7 +1,10 @@
 <template>
   <div>
-    <v-row class="mx-5">
-      <v-col cols="12" xs="12" sm="12" md="3" xl="3" no-gutter>
+    <v-row class="searchBarItem mx-5">
+      <v-col 
+        cols="12" xs="12" sm="12 " md="3" lg="3" xl="3" no-gutter
+        class="my-sm-0 my-md-2 pt-sm-2 pt-md-0 pb-sm-0 pb-sm-0"
+      >
         <v-select
           v-model="guCategory"
           :items="guList"
@@ -11,7 +14,10 @@
         />
       </v-col>
 
-      <v-col cols="12" xs="12" sm="12" md="3" xl="3" no-gutter>
+      <v-col 
+        cols="12" xs="12" sm="12" md="3" lg="3" xl="3" no-gutter
+        class="my-sm-0 my-md-2 py-sm-0 py-md-0"
+      >
         <v-select
           v-model="dongCategory"
           :items="dongList"
@@ -21,7 +27,10 @@
         />
       </v-col>
 
-      <v-col cols="12" xs="12" sm="12" md="4" xl="4" no-gutter>
+      <v-col 
+        cols="12" xs="12" sm="12" md="4" lg="3" xl="4" no-gutter
+        class="searchBarTextInput my-sm-0 my-md-2 py-sm-0 py-md-0"
+      >
         <v-text-field 
           v-model='searchedAddr' 
         />
@@ -69,3 +78,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .searchBarItem .col-12 {
+    padding: 0px;
+    margin: 0px;    
+    height: 52px;
+  }
+
+  .searchBarTextInput {
+    margin-top: -7px;
+  }
+}
+</style>

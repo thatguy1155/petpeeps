@@ -1,29 +1,29 @@
 <template>
   <div>
-    <gmap-map :center="center" :zoom="14" style="width:100%;  height: 550px;">
+    <gmap-map :center="mapCenter" :zoom="14" class="gmap">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
-        @click="center = m.position"
+        @click="
+          m.selectBiz();
+          setMapCenter(m.position);
+        "
       ></gmap-marker>
     </gmap-map>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { gmapApi } from "vue2-google-maps";
 
 export default {
   name: "GoogleMap",
   data() {
     return {
-      // default to Seoul, Gangnam-gu
-      center: { lat: 37.5326, lng: 127.024612 },
       markers: [],
       places: [],
-      currentPlace: null,
     };
   },
   watch: {
@@ -34,6 +34,8 @@ export default {
   computed: {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
+      selectedBiz: (state) => state.selectedBiz,
+      mapCenter: (state) => state.mapCenter,
     }),
     google: gmapApi,
   },
@@ -43,45 +45,59 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setSelectedBiz: "resultModule/setSelectedBiz",
+      setMapCenter: "resultModule/setMapCenter",
+    }),
     addMarker() {
       let geocoder = new this.google.maps.Geocoder();
-
       if (this.bizList) {
         this.markers = [];
-
         for (let i = 0; i < this.bizList.length; i++) {
-          console.log("add marker: " + this.bizList[i].address);
-          geocoder.geocode(
-            { address: this.bizList[i].address },
-            (results, status) => {
-              if (status === "OK") {
-                let marker = {
-                  lat: results[0].geometry.location.lat(),
-                  lng: results[0].geometry.location.lng(),
-                };
-                this.markers.push({ position: marker });
+          let business = this.bizList[i];
+          geocoder.geocode({ address: business.address }, (results, status) => {
+            if (status === "OK") {
+              let markerPosition = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng(),
+              };
 
-                this.setMapCenter(this.markers[0].position.lat, this.markers[0].position.lng,)
-
-              }
+              // Create a marker object that has the method selectBiz which sets a selected business object in the Vuex store
+              let marker = {
+                position: markerPosition,
+                address: business.address,
+                selectBiz: () =>
+                  this.setSelectedBiz({
+                    business: this.bizList[i],
+                  }),
+              };
+              this.markers.push(marker);
+              this.setMapCenter(markerPosition);
             }
-          );
+          });
         }
       }
     },
     geolocate() {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setMapCenter(position.coords.latitude, position.coords.longitude)
+        this.setMapCenter({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       });
-    },
-    setMapCenter(latCoords, lngCoords) {
-      this.center = {
-        lat: latCoords,
-        lng: lngCoords
-      };
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.gmap {
+  height: 758px;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  .gmap {
+    height: 608px;
+  }
+}
+</style>

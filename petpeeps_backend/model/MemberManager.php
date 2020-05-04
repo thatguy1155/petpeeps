@@ -26,7 +26,7 @@
         } 
 
         public function getUserInfo($uid) {
-            $members = $this->_db->prepare("SELECT login, user_type FROM user WHERE uid = :uid");
+            $members = $this->_db->prepare("SELECT id, login, user_type FROM user WHERE uid = :uid");
             $members->bindParam(':uid',$uid,PDO::PARAM_STR);
             $resp = $members->execute();
             if(!$resp) {

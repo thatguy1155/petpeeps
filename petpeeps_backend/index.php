@@ -19,10 +19,24 @@ try {
             createUser($login,$email,$uid);
         } else if ($action === 'removeAccount') {
             removeAccount($uid);
+        } else if ($action === 'getPets') {
+            $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            getPets($owner_id);
+        } else if ($action === 'createPet') {
+            $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+            $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
+            $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
+            createPet($owner_id,$name,$breed,$size);
+        }
+        else if ($action === 'editPet') {
+            $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
+            $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
+            $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
+            editPet($name,$breed,$size,$pet_id);
         }
     } 
-        
-
 }
     catch(PDOException $e) {
         $PDOArray = [];

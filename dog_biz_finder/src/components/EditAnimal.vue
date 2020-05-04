@@ -1,13 +1,22 @@
 <template>
-  <div>
-    <v-row justify="center">
-      <v-dialog v-model="animal" persistent max-width="1000px">
-        <template v-slot:activator="{ on }">
-          <v-btn id="animalButton" color="brown" dark v-on="on">+ Add A Pet</v-btn>
-        </template>
-        <v-card>
+  <div class="text-center">
+    <v-dialog
+      v-model="animal"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="brown lighten-3"
+          dark
+          v-on="on"
+        >
+          edit
+        </v-btn>
+      </template>
+
+      <v-card>
           <v-card-title>
-            <span class="headline">Edit or Add Pet Info</span>
+            <span class="headline">Edit Pet Info</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -23,7 +32,7 @@
                 </v-flex>
 
                 <v-flex xs12>
-                  <v-text-field v-model="name" label="Name" required></v-text-field>
+                  <v-text-field label="Name" v-model="name" required></v-text-field>
                 </v-flex>
 
                 <v-flex xs12>
@@ -55,7 +64,7 @@
                 </v-menu>
 
                 <v-flex xs12>
-                  <v-autocomplete :items="['Large', 'Medium', 'Small']" v-model="petSize" label="Animal Size"></v-autocomplete>
+                  <v-select :items="sizeOptions" v-model="size" value="size" label="Animal Size" required></v-select>
                 </v-flex>
               </v-row>
             </v-container>
@@ -63,48 +72,47 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="brown darken-1" text @click="animal = false">Cancel</v-btn>
-            <v-btn color="brown darken-1" text @click="registerPet">Edit/Add</v-btn>
+            <v-btn color="brown darken-1" text @click="modifyPet">Edit</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
-    </v-row>
+    </v-dialog>
   </div>
 </template>
-
 <script>
 import { mapActions } from "vuex";
-export default {
-  data: () => ({
-    animal: false,
-    name: '',
-    breed: '',
-    rules:'',
-    menu: [],
-    date: '',
-    petSize: ''
-
-  }),
-  methods: {
-        registerPet: function(e) {
+  export default {
+    data () {
+      return {
+        animal: false,
+        breed: this.petInfo.breed,
+        name: this.petInfo.name,
+        rules:'',
+        menu: [],
+        date: '',
+        size: this.petInfo.size,
+        sizeOptions: ['Large', 'Medium', 'Small']
+      }
+    },
+    props: ["petInfo"],
+    methods: {
+        modifyPet: function(e) {
           const creationParams = {
+            id:this.petInfo.id,
             name: this.name,
             breed: this.breed,
-            size: this.petSize,
+            size: this.size,
           }
-          this.createPet(creationParams)
+          this.editPet(creationParams)
           this.animal = false
               
           e.preventDefault();
             
         },
       ...mapActions({
-        'createPet': 'petModule/createPet',
+        'editPet': 'petModule/editPet',
         
       }),
     },
-};
+  }
 </script>
-
-<style>
-</style>
-
+API

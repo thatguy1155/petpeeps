@@ -19,6 +19,10 @@ const mutations = {
     LOAD_USER(state, payload) {
         state.user = payload;
         console.log(payload)
+    },
+    UPDATE_USER_TYPE(state, payload) {
+        state.user.accountType = payload;
+        console.log(payload)
     }
 };
 
@@ -38,13 +42,12 @@ const getters = {
 };
 
 //get the accountType from the db if any
-function getAccountType(user){
+function getAccountType(user) {
     let uid = user.uid
-    //take the uid returned from firebase go find a user with the uid in db and return their user type if any
+        //take the uid returned from firebase go find a user with the uid in db and return their user type if any
     let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
         .then(res => {
-            console.log(res.data['user_type'])
-            return res.data['user_type'] 
+            return res.data['user_type']
         })
         .catch(err => console.log(err))   
         return accountTypeResponse   
@@ -65,16 +68,18 @@ function getAccountType(user){
 
 //this function updates the user type when you click on the business/personal box
 
-function updateAccountType(bullshitObjectThatVuexDumpsInHereThatIDontNeed,accountParams) {
+async function updateAccountType({ commit }, accountParams) {
     const params = new URLSearchParams();
     params.append('action', 'updateAccountType');
     params.append('accType', accountParams.accType);
     params.append('uid', accountParams.uid);
-    axios.post('http://dogpeeps',params)//)
+    await axios.post('http://dogpeeps', params) //
         .then(res => {
-            console.log(res.data)  
+            console.log(res.data)
+            return accountParams.accType
         })
         .catch(err => console.log(err))
+    commit("UPDATE_USER_TYPE", accountParams.accType)
 }
 
 

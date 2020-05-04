@@ -41,7 +41,7 @@ export default {
         }
         //wait for the backend to update the account type
         await this.updateAccountType(accountParams)
-        location.reload()
+        //location.reload()
 
 
       },
@@ -51,7 +51,7 @@ export default {
           uid:this.uid
         }
           await this.updateAccountType(accountParams)
-          location.reload()
+          //location.reload()
       },
     ...mapActions({
       'getCurrentUser': 'profileModule/getCurrentUser',
