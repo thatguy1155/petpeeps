@@ -86,3 +86,15 @@
         }
 
     }
+
+    function deletePet($name,$breed,$size,$pet_id) {
+        $deletePetManager = new PetManager();
+        $petChanged = $deletePetManager->deletePet($name,$breed,$size,$pet_id);
+        if($petChanged){
+            echo json_encode($petChanged);
+        } else {
+            $err = array('we couldn\'t delete your pets');
+            echo json_encode($err);
+        }
+
+    }

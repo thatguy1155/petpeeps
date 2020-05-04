@@ -53,6 +53,22 @@
             $editPet->closeCursor();  
         }
 
+        public function deletePet($name,$breed,$size,$pet_id) { 
+            $name = htmlspecialchars($name);
+            $breed = htmlspecialchars($breed);    
+            $deletePet = $this->_db->prepare("DELETE FROM pet WHERE name = :name, size = :size, breed = :breed AND id = :id");
+            $deletePet->bindParam(':name',$name,PDO::PARAM_STR);
+            $deletePet->bindParam(':size',$size,PDO::PARAM_STR);
+            $deletePet->bindParam(':breed',$breed,PDO::PARAM_STR);
+            $deletePet->bindParam(':id',$pet_id,PDO::PARAM_INT);
+            $status = $deletePet->execute();
+            if (!$status) {
+                throw new PDOException('Impossible to delete pet!');
+            }
+            return "db updated";
+            $deletePet->closeCursor();  
+        }
+
         // public function deleteProfile($uid) {
         //     echo($uid);
         //     $member = $this->_db->prepare("DELETE FROM user WHERE uid = :uid");

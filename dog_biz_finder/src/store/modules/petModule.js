@@ -32,8 +32,8 @@ const state = {
         //     age:12
         // },
     ]
-        
-    
+
+
 };
 
 const mutations = {
@@ -43,30 +43,34 @@ const mutations = {
     //mutation used when people edit their pet info
     //because state.pets has many pet objects, find the one with the same id as the one you modified
     //we will need to update this later when we add age
-    UPDATE_ONE_PET(state, payload){
+    UPDATE_ONE_PET(state, payload) {
         state.pets.forEach(element => {
-            if(element.id === payload.id){
+            if (element.id === payload.id) {
                 element.name = payload.name,
-                element.breed = payload.breed,
-                element.size = payload.size
+                    element.breed = payload.breed,
+                    element.size = payload.size
             }
         });
     },
     //mutation ran when you submit the add pet form
-    ADD_ONE_PET(state, payload){
+    ADD_ONE_PET(state, payload) {
         state.pets.push(payload)
+    },
+    DELETE_ONE_PET(state, payload) {
+        state.pets.pop(payload)
     }
 };
 
 const actions = {
     getPets,
     createPet,
-    editPet
+    editPet,
+    deletePet
 };
 
 const getters = {
     petList: (state) => state.pets,
-    
+
 };
 
 //get the user id from db associated with that user id
@@ -91,14 +95,14 @@ async function getPets({ commit }) {
     const id = await getUserId(currUser)
     const response = await axios.get(`http://dogpeeps?action=getPets&id=${id}`);
     console.log(response.data)
-    commit('SET_PETS',response.data);//do the mutation below w provided data   
+    commit('SET_PETS', response.data); //do the mutation below w provided data   
 }
 
 
 
 // //create a pet
 
-async function createPet({commit}, creationParams) {
+async function createPet({ commit }, creationParams) {
     let currUser = firebase.auth().currentUser;
     const id = await getUserId(currUser)
     const params = new URLSearchParams();
@@ -107,17 +111,17 @@ async function createPet({commit}, creationParams) {
     params.append('name', creationParams.name);
     params.append('breed', creationParams.breed);
     params.append('size', creationParams.size);
-    await axios.post('http://dogpeeps', params) 
+    await axios.post('http://dogpeeps', params)
         .then(res => {
             console.log(res.data)
         })
         .catch(err => console.log(err))
-    //after the info has been added to the db, then make a new object in state.pets
-    //this will need to be updated when we implement age
-    commit("ADD_ONE_PET",{
-        name:creationParams.name,
-        breed:creationParams.breed,
-        size:creationParams.size
+        //after the info has been added to the db, then make a new object in state.pets
+        //this will need to be updated when we implement age
+    commit("ADD_ONE_PET", {
+        name: creationParams.name,
+        breed: creationParams.breed,
+        size: creationParams.size
     })
 
 }
@@ -125,7 +129,7 @@ async function createPet({commit}, creationParams) {
 
 //edit pet info
 
-async function editPet({commit}, creationParams) {
+async function editPet({ commit }, creationParams) {
     const params = new URLSearchParams();
     params.append('action', 'editPet');
     params.append('id', creationParams.id);
@@ -136,15 +140,38 @@ async function editPet({commit}, creationParams) {
         //after the db has the new member, send the user to the home page
         .then(res => {
             console.log(res.data)
-            //creationParams.router.push('/');
+                //creationParams.router.push('/');
         })
         .catch(err => console.log(err))
-    //update the state after updating the db
-    commit('UPDATE_ONE_PET',{
-        id:creationParams.id,
-        name:creationParams.name,
-        breed:creationParams.breed,
-        size:creationParams.size
+        //update the state after updating the db
+    commit('UPDATE_ONE_PET', {
+        id: creationParams.id,
+        name: creationParams.name,
+        breed: creationParams.breed,
+        size: creationParams.size
+    })
+}
+//delete pet info
+async function deletePet({ commit }, creationParams) {
+    const params = new URLSearchParams();
+    params.append('action', 'deletePet');
+    params.append('id', creationParams.id);
+    params.append('name', creationParams.name);
+    params.append('breed', creationParams.breed);
+    params.append('size', creationParams.size);
+    await axios.post('http://dogpeeps', params) //)
+        //after the db has the new member, send the user to the home page
+        .then(res => {
+            console.log(res.data)
+                //creationParams.router.push('/');
+        })
+        .catch(err => console.log(err))
+        //update the state after updating the db
+    commit('DELETE_ONE_PET', {
+        id: creationParams.id,
+        name: creationParams.name,
+        breed: creationParams.breed,
+        size: creationParams.size
     })
 }
 

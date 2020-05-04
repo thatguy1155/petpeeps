@@ -23,6 +23,7 @@
 
       <v-card-actions>
         <EditAnimal v-bind:petInfo="petInfo"/>
+        <DeleteAnimal v-bind:petInfo="petInfo"/>
         <!-- <v-btn text>Button</v-btn> -->
       </v-card-actions>
     </v-card>
@@ -55,11 +56,13 @@
 
 <script>
 import EditAnimal from "@/components/EditAnimal.vue";
+import DeleteAnimal from "@/components/DeleteAnimal.vue";
 export default {
     name: "ProfileAnimal",
     props: ["petInfo"],
     components: {
-        EditAnimal
+        EditAnimal,
+        DeleteAnimal
     }, 
 }
 </script>
