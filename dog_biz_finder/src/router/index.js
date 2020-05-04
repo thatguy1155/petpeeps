@@ -12,7 +12,12 @@ import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+    {
+        path: '*',
+        redirect: '/login'
+    },
+    {
         path: '/',
         name: 'Home',
         component: Home,
@@ -23,7 +28,10 @@ const routes = [{
     {
         path: '/contact',
         name: 'Contact',
-        component: Contact
+        component: Contact,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/profile',
