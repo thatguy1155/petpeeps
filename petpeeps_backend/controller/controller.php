@@ -28,8 +28,8 @@
     }
 
     function createUser($login,$email,$uid) { 
-        $accountWomb = new MemberManager();
-        $accBirth = $accountWomb->addMember($login,$email,$uid);
+        $accountCreator = new MemberManager();
+        $accBirth = $accountCreator->addMember($login,$email,$uid);
         if($accBirth){
             echo json_encode($accBirth);
         } else {
@@ -40,8 +40,8 @@
     }
 
     function removeAccount($uid) { 
-        $accountTomb = new MemberManager();
-        $accDeath = $accountTomb->deleteProfile($uid);
+        $accountDestroyer = new MemberManager();
+        $accDeath = $accountDestroyer->deleteProfile($uid);
         if($accDeath){
             echo json_encode($accDeath);
         } else {
