@@ -31,7 +31,8 @@ const actions = {
     updatePw,
     deleteUser,
     updateAccountType,
-    createUser
+    addUserToDb,
+    deleteSocialUser
 };
 
 const getters = {
@@ -48,9 +49,8 @@ function getAccountType(user) {
         .then(res => {
             return res.data['user_type']
         })
-        .catch(err => console.log(err))
-    return accountTypeResponse
-
+        .catch(err => console.log(err))   
+        return accountTypeResponse   
 }
 
 
@@ -73,7 +73,7 @@ async function updateAccountType({ commit }, accountParams) {
     params.append('action', 'updateAccountType');
     params.append('accType', accountParams.accType);
     params.append('uid', accountParams.uid);
-    await axios.post('http://dogpeeps', params) //)
+    await axios.post('http://dogpeeps', params) //
         .then(res => {
             console.log(res.data)
             return accountParams.accType
@@ -131,6 +131,25 @@ function reauthenticate(currentPw) {
         });
 }
 
+/**
+ * reauthenticate a Google user with a popup window
+ */
+// function reauthenticateSocAcc() {
+//     let currentUser = firebase.auth().currentUser;
+//     let provider = new firebase.auth.GoogleAuthProvider()
+//     return currentUser
+//         //does not work with .reauthenticateWithRedirect
+//         .reauthenticateWithPopup(provider)
+//         .then(() => {
+//             console.log('social reauthentication success');
+//             return true;
+//         })
+//         .catch((error) => {
+//             console.log("social reauthentication failed", error);            
+//             return false;
+//         });
+// }
+
 //Update the current user's password, after first reauthenticating the user
 function updatePw(a, parameters) {
     let currentUser = firebase.auth().currentUser;
@@ -151,41 +170,25 @@ function updatePw(a, parameters) {
     });
 }
 
-//create a user
+//add a user to db
 
-function createUser(a, creationParams) {
-    console.log(creationParams.email)
-        //make the user
-    firebase.auth().createUserWithEmailAndPassword(creationParams.email, creationParams.password)
-        //after you make the user, then update their display name
-        .then(() => {
-                let currUser = firebase.auth().currentUser;
-                currUser.updateProfile({
-                        displayName: creationParams.username
-                    })
-                    //after you update their display name send the other details to the backend
-                    .then(() => {
-                        const params = new URLSearchParams();
-                        params.append('action', 'createUser');
-                        params.append('login', currUser.displayName);
-                        params.append('email', creationParams.email);
-                        params.append('uid', currUser.uid);
-                        axios.post('http://dogpeeps', params) //)
-                            //after the db has the new member, send the user to the home page
-                            .then(res => {
-                                console.log(res.data)
-                                alert(`account created for ${creationParams.email}`)
-                                creationParams.router.push('/');
-                            })
-                            .catch(err => console.log(err))
-                    })
+function addUserToDb(a,creationParams){
+    const params = new URLSearchParams();
+    params.append('action', 'createUser');
+    params.append('login', creationParams.displayName);
+    params.append('email', creationParams.email);
+    params.append('uid', creationParams.uid);
 
-
-            },
-            err => {
-                alert(err.message)
-            })
+    axios.post('http://dogpeeps',params)//)
+        //after the db has the new member, send the user to the home page
+        .then(res => {
+        console.log(res.data)
+        alert(`account created for ${creationParams.email}`)
+        creationParams.router.push('/profile'); 
+        })
+        .catch(err => console.log(err))
 }
+
 
 //Delete user's account, after first reauthenticating the user
 function deleteUser(a, parameters) {
@@ -197,15 +200,8 @@ function deleteUser(a, parameters) {
             currUser
                 .delete()
                 .then(function() {
-                    const params = new URLSearchParams();
-                    params.append('action', 'removeAccount');
-                    params.append('uid', currUser.uid);
-                    axios.post('http://dogpeeps', params) //)
-                        .then(res => {
-                            console.log(res.data)
-                        })
-                        .catch(err => console.log(err))
-                        //After deleting the account, log the user out 
+                    delUserFromDb(currUser);
+                    //After deleting the account, log the user out 
                     logout(parameters.router);
                 })
                 .catch(function(error) {
@@ -215,7 +211,48 @@ function deleteUser(a, parameters) {
     });
 }
 
+/**
+ * 
+ * @param {*} a placeholder
+ * @param {*} route obj that contains the route from the frontend to log out after deletion
+ */
+function deleteSocialUser(a,route) {
+    let currUser = firebase.auth().currentUser;
+    let provider = new firebase.auth.GoogleAuthProvider()
+    console.log('deleteUser Social params', currUser.xa)
+    currUser.reauthenticateWithPopup(provider).then((reauthResult) => {
+    // reauthenticateSocAcc().then((reauthResult) => {
+        console.log('I got the result', reauthResult)
+        if (reauthResult) {
+            currUser
+                .delete()
+                .then(function() {
+                    delUserFromDb(currUser);
+                    //After deleting the account, log the user out 
+                    logout(route);
+                })
+                .catch(function(error) {
+                    console.log("Delete user unsuccessful", error);
+                });
+        }
+    });
+}
 
+/**
+ * 
+ * @param {*} a placeholder
+ * @param {*} parameters a currentUser obj that contain uid of the user needed to delete the account from db
+ */
+function delUserFromDb(parameter) {
+    const params = new URLSearchParams();
+    params.append('action', 'removeAccount');
+    params.append('uid', parameter.uid);
+    axios.post('http://dogpeeps',params)//)
+        .then(res => {
+            console.log(res.data)  
+        })
+        .catch(err => console.log(err))
+}
 
 //Log current user out
 function logout(router) {

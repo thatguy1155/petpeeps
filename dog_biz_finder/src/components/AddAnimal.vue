@@ -101,6 +101,9 @@ export default {
         'createPet': 'petModule/createPet',
         
       }),
+      save() {
+        
+      }
     },
 };
 </script>
