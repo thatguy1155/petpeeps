@@ -7,7 +7,7 @@
         </template>
         <v-card>
           <v-card-title>
-            <span class="headline">Edit or Add Business Info</span>
+            <span class="headline">Add Business Info</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -113,7 +113,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="business = false">Cancel</v-btn>
-            <v-btn color="blue darken-1" text @click="business = false">Edit/Add</v-btn>
+            <v-btn color="blue darken-1" text @click="business = false">Add</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

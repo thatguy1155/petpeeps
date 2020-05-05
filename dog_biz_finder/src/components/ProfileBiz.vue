@@ -22,7 +22,7 @@
       </v-list-item>
 
       <v-card-actions>
-        <EditAnimal v-bind:petInfo="bizInfo"/>
+        <EditBiz v-bind:bizInfo="bizInfo"/>
         <!-- <v-btn text>Button</v-btn> -->
       </v-card-actions>
     </v-card>
