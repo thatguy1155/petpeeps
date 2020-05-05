@@ -1,11 +1,6 @@
 <template>
   <div>
-
-    <v-card
-      class="mx-auto"
-      width="344"
-      outlined
-    >
+    <v-card class="mx-auto" width="344" outlined>
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">{{petInfo.breed}}</div>
@@ -13,21 +8,17 @@
           <v-list-item-subtitle>I love this pet</v-list-item-subtitle>
         </v-list-item-content>
 
-        <v-list-item-avatar
-          tile
-          size="80"
-        >
+        <v-list-item-avatar tile size="80">
           <v-img src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"></v-img>
         </v-list-item-avatar>
       </v-list-item>
 
       <v-card-actions>
-        <EditAnimal v-bind:petInfo="petInfo"/>
-        <DeleteAnimal v-bind:petInfo="petInfo"/>
-        <!-- <v-btn text>Button</v-btn> -->
+        <EditAnimal v-bind:petInfo="petInfo" />
+        <DeleteAnimal v-bind:petInfo="petInfo" />
+ 
       </v-card-actions>
     </v-card>
-
 
     <!-- <v-card   tile>
       <v-img height="100%" src>
@@ -50,7 +41,8 @@
           </v-col>
         </v-row>
       </v-img>
-    </v-card> -->
+    </v-card>-->
+
   </div>
 </template>
 
@@ -58,13 +50,13 @@
 import EditAnimal from "@/components/EditAnimal.vue";
 import DeleteAnimal from "@/components/DeleteAnimal.vue";
 export default {
-    name: "ProfileAnimal",
-    props: ["petInfo"],
-    components: {
-        EditAnimal,
-        DeleteAnimal
-    }, 
-}
+  name: "ProfileAnimal",
+  props: ["petInfo"],
+  components: {
+    EditAnimal,
+    DeleteAnimal
+  }
+};
 </script>
 
 <style>
