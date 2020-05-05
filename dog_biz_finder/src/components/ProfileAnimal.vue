@@ -17,12 +17,14 @@
           tile
           size="80"
         >
-          <v-img src="https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg"></v-img>
+          <v-img v-bind:src="getThisPetPic()"></v-img>
+          
         </v-list-item-avatar>
       </v-list-item>
 
       <v-card-actions>
         <EditAnimal v-bind:petInfo="petInfo"/>
+        <v-spacer></v-spacer>
         <ChangePetPic v-bind:petInfo="petInfo"/>
         
       </v-card-actions>
@@ -57,13 +59,28 @@
 <script>
 import EditAnimal from "@/components/EditAnimal.vue";
 import ChangePetPic from "@/components/ChangePetPic.vue";
+import { mapGetters } from "vuex";
 export default {
     name: "ProfileAnimal",
     props: ["petInfo"],
     components: {
         EditAnimal,
         ChangePetPic
-    }, 
+    },
+    computed:{ 
+      ...mapGetters({
+      petList: "petModule/petList"
+    })
+    },
+    methods: {
+      //this function gets the image url for this pet in the array of pets for this user
+      getThisPetPic(){
+        let thisPet = this.petList.filter(pet => pet.id === this.petInfo.id)
+        console.log(thisPet[0].picURL)
+        return thisPet[0].picURL
+        
+      }
+    } 
 }
 </script>
 

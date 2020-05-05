@@ -28,7 +28,7 @@
     }
 
     function createUser($login,$email,$uid) { 
-        $accountManager = new MemberManager();
+        $accountCreator = new MemberManager();
         $accBirth = $accountCreator->addMember($login,$email,$uid);
         if($accBirth){
             echo json_encode($accBirth);
@@ -40,7 +40,7 @@
     }
 
     function removeAccount($uid) { 
-        $accountManager = new MemberManager();
+        $accountDestroyer = new MemberManager();
         $accDeath = $accountDestroyer->deleteProfile($uid);
         if($accDeath){
             echo json_encode($accDeath);
@@ -50,6 +50,7 @@
         }
 
     }
+
 
     function getPets($owner_id) {
         $getPetManager = new PetManager();
@@ -81,8 +82,27 @@
         if($petChanged){
             echo json_encode($petChanged);
         } else {
-            $err = array('we couldn\'t retrieve your pets');
+            $err = array('we couldn\'t update your pet\'s information');
             echo json_encode($err);
         }
+
+    }
+
+    function updatePetPic($pet_id,$url) {
+        $petPicManager = new PetManager();
+        $petPicChanged = $petPicManager->updatePetPic($pet_id,$url);
+        if($petPicChanged){
+            echo json_encode($petPicChanged);
+        } else {
+            $err = array('we couldn\'t update your pet pic');
+            echo json_encode($err);
+        }
+
+    }
+
+    function getPetPicLink($id) {
+        $picLinkManager = new PetManager();
+        $petPicLink = $picLinkManager->getPetLink($id);
+        return $petPicLink;
 
     }

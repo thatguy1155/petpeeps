@@ -48,7 +48,7 @@ export default {
     DeleteAccountForm
   },
   data: () => ({
-    accountOptions: false
+    accountOptions: false,
   }),
   methods: {
     ...mapActions({

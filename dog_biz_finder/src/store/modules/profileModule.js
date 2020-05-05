@@ -37,7 +37,8 @@ const actions = {
 const getters = {
     accountType: (state) => state.user.accountType,
     signInMethod: (state) => state.user.signInMethod,
-    getUid: (state) => state.user.uid
+    getUid: (state) => state.user.uid,
+    getName: (state) => state.user.name
 };
 
 //get the accountType from the db if any
