@@ -47,6 +47,12 @@
                 </v-flex>
 
                 <v-flex xs12>
+                  <v-select
+                    v-model="socialMedia"
+                    :items="socialMediaList"
+                    label="Choose Social Media"
+                  />
+                  <!-- @change="save" inside v-select -->
                   <v-text-field label="Social Media" hint></v-text-field>
                 </v-flex>
 
@@ -125,6 +131,7 @@
 export default {
   data: () => ({
     business: false,
+    dialog: false,
     rules: "",
     headers: [
       {
@@ -147,6 +154,14 @@ export default {
         value: "actions",
         sortable: false
       }
+    ],
+    socialMedia: '',
+    socialMediaList: [
+      'facebook',
+      'twitter',
+      'linkedIn',
+      'instagram',
+      'blogger'
     ],
     menu: [],
     editedIndex: -1,
@@ -265,4 +280,7 @@ export default {
 </script>
 
 <style>
+#bizButton {
+  font-size: 30px;
+}
 </style>
