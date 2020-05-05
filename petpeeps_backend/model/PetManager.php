@@ -53,9 +53,7 @@
             $editPet->closeCursor();  
         }
 
-        public function deletePet($name,$breed,$size,$pet_id) { 
-            $name = htmlspecialchars($name);
-            $breed = htmlspecialchars($breed);    
+        public function deletePet($name,$breed,$size,$pet_id) {   
             $deletePet = $this->_db->prepare("DELETE FROM pet WHERE name = :name, size = :size, breed = :breed AND id = :id");
             $deletePet->bindParam(':name',$name,PDO::PARAM_STR);
             $deletePet->bindParam(':size',$size,PDO::PARAM_STR);
@@ -80,5 +78,6 @@
         //     $member->closeCursor();
         //     return "member successfully removed";
         // }
+
     }
 

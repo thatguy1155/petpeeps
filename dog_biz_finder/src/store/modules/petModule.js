@@ -57,7 +57,7 @@ const mutations = {
         state.pets.push(payload)
     },
     DELETE_ONE_PET(state, payload) {
-        state.pets.pop(payload)
+        state.pets.splice(payload)
     }
 };
 
