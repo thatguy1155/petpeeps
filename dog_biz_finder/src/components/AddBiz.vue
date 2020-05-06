@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row justify="center">
-      <v-dialog v-model="business" persistent max-width="600px">
+      <v-dialog v-model="business" max-width="600px">
         <template v-slot:activator="{ on }">
           <v-btn id="bizButton" color="brown" dark v-on="on">+ Add A Business</v-btn>
         </template>
@@ -12,7 +12,7 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <!-- <v-file-input
                   :rules="rules"
                   accept="image/png, image/jpeg, image/bmp"
@@ -20,47 +20,65 @@
                   prepend-icon="mdi-camera"
                   label="Business Photo"
                   ></v-file-input>-->
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Name" required></v-text-field>
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Business Type" hint="cafe, bar, restaurant, and etc"></v-text-field>
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
-                  <v-text-field label="Business Hours" hint></v-text-field>
-                </v-flex>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
+                  <v-text-field label="Business Hours" hint="Mon-Fri: 9:00-19:00, Sat: 10:00-21:00, Sun: Closed"></v-text-field>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Address" hint></v-text-field>
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Telephone" hint></v-text-field>
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Website" hint></v-text-field>
-                </v-flex>
+                </v-col>
 
-                <v-flex xs12>
+                <v-col cols="12" xs="3" sm="3" md="3" lg="3" xl="3" no-gutter>
                   <v-select
                     v-model="socialMedia"
                     :items="socialMediaList"
-                    label="Choose Social Media"
-                  />
+                    label="Social Media"
+                  /> 
                   <!-- @change="save" inside v-select -->
-                  <v-text-field label="Social Media" hint></v-text-field>
-                </v-flex>
+                </v-col>
+                <v-col cols="12" xs="7" sm="7" md="7" lg="7" xl="7" no-gutter>
+                  <v-text-field label="Your link" v-model="socialMediaLink"></v-text-field>
+                </v-col>
+                <v-col cols="12" xs="2" sm="2" md="2" lg="2" xl="2" no-gutter>
+                  <v-btn color="primary" dark @click="addSocialMedia()">Add</v-btn>
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
+                  <v-list>
+                    <v-list-item v-for="(media, index) in socialMediaArr" :key="index">
+                      <v-list-title>{{ media.name }}</v-list-title>
+                      <v-list-title>{{ media.link }}</v-list-title>
 
-                <v-flex xs12>
+                      <v-list-item-action>
+                        <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+                        <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+                      </v-list-item-action>
+                    </v-list-item>
+                  </v-list>
+                </v-col>
+
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-textarea filled auto-grow label="BIO" rows="5" row-height="30" shaped></v-textarea>
-                </v-flex>
+                </v-col>
 
-                <v-col cols="25" sm="21" md="30">
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-data-table
                     :headers="headers"
                     :items="menu"
@@ -74,7 +92,7 @@
                         <v-spacer></v-spacer>
                         <v-dialog v-model="dialog" max-width="1000px">
                           <template v-slot:activator="{ on }">
-                            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+                            <v-btn color="primary" dark class="mb-2" v-on="on">Add Item</v-btn>
                           </template>
                           <v-card>
                             <v-card-title>
@@ -84,13 +102,13 @@
                             <v-card-text>
                               <v-container>
                                 <v-row>
-                                  <v-flex xs12>
+                                  <v-col>
                                     <v-text-field v-model="editedItem.name" label="Menu Item"></v-text-field>
-                                  </v-flex>
+                                  </v-col>
 
-                                  <v-flex xs12>
+                                  <v-col>
                                     <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                                  </v-flex>
+                                  </v-col>
                                 </v-row>
                               </v-container>
                             </v-card-text>
@@ -132,7 +150,7 @@ export default {
   data: () => ({
     business: false,
     dialog: false,
-    rules: "",
+    // rules: "",
     headers: [
       {
         text: "Menu Item",
@@ -150,12 +168,13 @@ export default {
       },
 
       {
-        text: "Actions",
+        text: "",
         value: "actions",
         sortable: false
       }
     ],
     socialMedia: '',
+    socialMediaLink: '',
     socialMediaList: [
       'facebook',
       'twitter',
@@ -163,6 +182,7 @@ export default {
       'instagram',
       'blogger'
     ],
+    socialMediaArr: [],
     menu: [],
     editedIndex: -1,
     editedItem: {
@@ -274,6 +294,16 @@ export default {
         this.menu.push(this.editedItem);
       }
       this.close();
+    },
+    addSocialMedia() {
+      let media = {
+        name: this.socialMedia,
+        link: this.socialMediaLink
+      }
+      
+      this.socialMediaArr.push(media)
+      this.socialMedia = ""
+      this.socialMediaLink = ""
     }
   }
 };
@@ -281,6 +311,6 @@ export default {
 
 <style>
 #bizButton {
-  font-size: 30px;
+  font-size: 30px !important;
 }
 </style>
