@@ -36,6 +36,7 @@ try {
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             editPet($name,$breed,$size,$pet_id);
         }
+        // delete pets re direct
     } 
 }
     catch(PDOException $e) {
