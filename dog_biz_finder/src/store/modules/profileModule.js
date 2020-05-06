@@ -11,7 +11,8 @@ const state = {
         email: "",
         accountType: "",
         signInMethod: "",
-        uid: ""
+        uid: "",
+        picURL:""
     }
 };
 
@@ -23,7 +24,10 @@ const mutations = {
     UPDATE_USER_TYPE(state, payload) {
         state.user.accountType = payload;
         console.log(payload)
-    }
+    },
+    UPDATE_PROFILE_PIC(state, payload){
+        state.user.picURL = payload.picURL;
+    },
 };
 
 const actions = {
@@ -31,6 +35,7 @@ const actions = {
     updatePw,
     deleteUser,
     updateAccountType,
+    updateProfilePic,
     addUserToDb,
     deleteSocialUser
 };
@@ -38,20 +43,35 @@ const actions = {
 const getters = {
     accountType: (state) => state.user.accountType,
     signInMethod: (state) => state.user.signInMethod,
-    getUid: (state) => state.user.uid
+    getUid: (state) => state.user.uid,
+    getName: (state) => state.user.name,
+    getId: (state) => state.user.id,
+    getPic: (state) => state.user.picURL
 };
 
 //get the accountType from the db if any
-function getAccountType(user) {
+function getAccountInfo(user) {
     let uid = user.uid
         //take the uid returned from firebase go find a user with the uid in db and return their user type if any
     let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
         .then(res => {
-            return res.data['user_type']
+            let info = {}
+            info['userType'] = res.data['user_type']
+            info['id'] = res.data['id']
+            if(!res.data['profile_pic']){
+                info['profilePic'] = 'http://dogpeeps/uploads/profile_icon.png'
+           } else{
+               info['profilePic'] = res.data['profile_pic']
+           }
+            return info
         })
         .catch(err => console.log(err))   
         return accountTypeResponse   
 }
+
+
+
+
 
 
 
@@ -94,14 +114,18 @@ async function updateAccountType({ commit }, accountParams) {
 //Get current user objet from firbase
 async function getCurrentUser({ commit }) {
     let currUser = firebase.auth().currentUser;
-    let accountTypeResult = await getAccountType(currUser)
+    let accountInfo = await getAccountInfo(currUser)
     console.log(currUser.providerData[0].providerId);
     commit("LOAD_USER", {
         name: currUser.displayName,
         email: currUser.email,
-        accountType: accountTypeResult,
+        accountType: accountInfo.userType,
         signInMethod: currUser.providerData[0].providerId,
-        uid: currUser.uid
+        uid: currUser.uid,
+        id: accountInfo.id,
+        picURL:accountInfo.profilePic,
+        
+
     });
 }
 
@@ -237,6 +261,28 @@ function deleteSocialUser(a,route) {
         }
     });
 }
+
+async function updateProfilePic ({commit}, picParams){
+    let linkURL = `http://dogpeeps/uploads/${picParams.username}/${picParams.filename}`
+    const params = new URLSearchParams();
+    params.append('action', 'updateProfilePicInDB');
+    params.append('id', picParams.id);
+    params.append('url', linkURL);
+    await axios.post('http://dogpeeps', params) //)
+        .then(res => {
+            console.log(res.data)
+            //creationParams.router.push('/');
+
+        })
+        .catch(err => console.log(err))
+    //update the state after updating the db
+    commit('UPDATE_PROFILE_PIC',{
+        // id:picParams.id,
+        picURL:linkURL
+    })
+
+}
+
 
 /**
  * 
