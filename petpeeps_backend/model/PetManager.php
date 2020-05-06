@@ -27,7 +27,7 @@
         } 
 
         public function getPets($owner_id) {
-            $pets = $this->_db->prepare("SELECT id, name, size, breed FROM pet WHERE owner_id = :owner_id");
+            $pets = $this->_db->prepare("SELECT id, name, size, breed,picURL FROM pet WHERE owner_id = :owner_id");
             $pets->bindParam(':owner_id',$owner_id,PDO::PARAM_INT);
             $resp = $pets->execute();
             if(!$resp) {
@@ -36,6 +36,18 @@
             $allPets = $pets->fetchAll();
             return $allPets;
         }
+
+        public function getPetLink($id) {
+            $pets = $this->_db->prepare("SELECT picURL FROM pet WHERE id = :id");
+            $pets->bindParam(':id',$id,PDO::PARAM_INT);
+            $resp = $pets->execute();
+            if(!$resp) {
+                throw new PDOException('Invalid username or password!');
+            }
+            $picLink = $pets->fetch();
+            return $picLink;
+        }
+
 
         public function editPet($name,$breed,$size,$pet_id) { 
             $name = htmlspecialchars($name);
@@ -52,6 +64,21 @@
             return "db updated";
             $editPet->closeCursor();  
         }
+
+        public function updatePetPic($pet_id,$url){
+            $editPetPic = $this->_db->prepare("UPDATE pet SET picURL = :picURL WHERE id = :id");
+            $editPetPic->bindParam(':id',$pet_id,PDO::PARAM_INT);
+            $editPetPic->bindParam(':picURL',$url,PDO::PARAM_STR);
+            $status = $editPetPic->execute();
+            if (!$status) {
+                throw new PDOException('Impossible to update pet pic!');
+            }
+            return "db updated";
+            $editPetPic->closeCursor();  
+        }
+
+        
+        
 
         // public function deleteProfile($uid) {
         //     echo($uid);
