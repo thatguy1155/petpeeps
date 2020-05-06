@@ -1,8 +1,9 @@
 <template>
-  <v-container>
+  <v-container class="profile" >
     <v-row>
       <v-col :cols="4">
-        <v-avatar size="250" tile>    
+        <!-- <v-avatar size="250" tile> -->
+          <v-avatar class="hidden-sm-and-down" size="250" tile>    
           <v-img v-bind:src="getPic">
             <!-- <ChangeProfilePic class="d-flex align-end " /> -->
             <!-- <input type="file" id="file" ref="file" /> -->
@@ -78,4 +79,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+@media screen and (max-width: 600px) {
+  .profile {
+    width: 79%;
+  }
+}
+</style>
