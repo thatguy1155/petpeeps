@@ -7,29 +7,34 @@ Vue.use(Vuex);
 
 const state = {
     pets: [
+        //sample state
         // {   id:0,
         //     name:"biscuit",
         //     size:'small',
         //     breed:'pomeranian',
-        //     age:2
+        //     age:2,
+        //     linkURL:http//dogpeeps/uploads/frank4000/biscuit.png
         // },
         // {   id:4,
         //     name:"charlie",
         //     size:'big',
         //     breed:'laborador',
-        //     age:4
+        //     age:4,
+        //     linkURL:http//dogpeeps/uploads/frank4000/charlie.jpg
         // },
         // {   id:75,
         //     name:"getrude",
         //     size:'medium',
         //     breed:'english bulldog',
-        //     age:6
+        //     age:6,
+        //     linkURL:http//dogpeeps/uploads/frank2000/getrude.jpg
         // },
         // {   id:105,
         //     name:"frankie",
         //     size:'small',
         //     breed:'chihwahwa',
-        //     age:12
+        //     age:12,
+        //     linkURL:http//dogpeeps/uploads/frank1000/frankie.jpg
         // },
     ]
 
@@ -39,6 +44,7 @@ const state = {
 const mutations = {
     SET_PETS(state, payload) {
         state.pets = payload;
+        console.log(state.pets)
     },
     //mutation used when people edit their pet info
     //because state.pets has many pet objects, find the one with the same id as the one you modified
@@ -49,6 +55,13 @@ const mutations = {
                 element.name = payload.name,
                     element.breed = payload.breed,
                     element.size = payload.size
+            }
+        });
+    },
+    UPDATE_PET_PIC(state, payload) {
+        state.pets.forEach(element => {
+            if (element.id === payload.id) {
+                element.picURL = payload.picURL
             }
         });
     },
@@ -65,11 +78,15 @@ const actions = {
     getPets,
     createPet,
     editPet,
-    deletePet
+    deletePet,
+    updatePetPic
 };
 
 const getters = {
     petList: (state) => state.pets,
+    getThisPet: (state) => (id) => {
+        return state.pets.find(pet => pet.id === id)
+    }
 
 };
 
@@ -95,7 +112,14 @@ async function getPets({ commit }) {
     const id = await getUserId(currUser)
     const response = await axios.get(`http://dogpeeps?action=getPets&id=${id}`);
     console.log(response.data)
-    commit('SET_PETS', response.data); //do the mutation below w provided data   
+    let petInfo = response.data
+    petInfo.forEach(element => {
+        if (!element.picURL) {
+            element.picURL = 'https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg'
+        }
+    })
+
+    commit('SET_PETS', petInfo); //do the mutation below w provided data   
 }
 
 
@@ -173,6 +197,31 @@ async function deletePet({ commit }, creationParams) {
         breed: creationParams.breed,
         size: creationParams.size
     })
+}
+
+//note that this particular function only the updates the link to the picture on the db and state.
+//the function that uploads the file is onSubmit on changePetPic.vue 
+//I figured onSubmit was linked to data on that page and didn't need to be here explicitly since it doesn't modify
+//state
+async function updatePetPic({ commit }, picParams) {
+    let linkURL = `http://dogpeeps/uploads/${picParams.username}/${picParams.filename}`
+    const params = new URLSearchParams();
+    params.append('action', 'updatePetPicInDB');
+    params.append('id', picParams.id);
+    params.append('url', linkURL);
+    await axios.post('http://dogpeeps', params) //)
+        .then(res => {
+            console.log(res.data)
+                //creationParams.router.push('/');
+
+        })
+        .catch(err => console.log(err))
+        //update the state after updating the db
+    commit('UPDATE_PET_PIC', {
+        id: picParams.id,
+        picURL: linkURL
+    })
+
 }
 
 // //Delete user's account, after first reauthenticating the user
