@@ -4,12 +4,12 @@
       v-for="(item, index) in items"
       class="dot"
       :key="index"
-      :class="{ 'dot-selected': currentItemIndex === index }"
+      :class="{ 'dot-selected': matchedBizIndex === index }"
     >
       <button
         class="indicator-btn"
         @click="showItem(index)"
-        :disabled="currentItemIndex === index"
+        :disabled="matchedBizIndex === index"
       />
     </li>
   </ul>
@@ -20,7 +20,7 @@ export default {
   name: "BizlistIndicators",
   props: {
     items: Array,
-    currentItemIndex: Number
+    matchedBizIndex: Number
   },
   methods: {
     showItem(index) {

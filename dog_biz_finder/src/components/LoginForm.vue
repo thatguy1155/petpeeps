@@ -9,30 +9,30 @@
         <v-text-field v-model="email" label="Email" required></v-text-field>
 
         <v-text-field
-        
           v-model="password"
           label="Password"
-          :append-icon="password ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="() => (password = !password)"
-          :type="password ? 'password' : 'text'"
+          :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="showPwd = !showPwd"
+          :type="showPwd ? 'text' : 'password'"
+          @keyup.enter="login"
           required
         ></v-text-field>
 
         <div id="firebaseui-auth-container"></div>
-
-        <v-btn :disabled="!valid" color="success" class="mr-4 mb-1" @click="login">Validate</v-btn>
-
-        <v-btn color="warning" class="mr-4 mb-1" @click="goTo(registerPath)">Sign Up</v-btn>
+        <div>
+          <v-btn width=40% :disabled="!valid" color="success" class="mr-4 mb-2" @click="login">Login</v-btn>
+        </div>
+        <div>
+          <v-btn width=40% color="warning" class="mr-4 mb-1" @click="goTo(registerPath)">Sign Up</v-btn>
+        </div>
       </v-form>
     </v-col>
   </v-row>
 </template>
 
 <script>
-//var firebase = require('firebase');
-//var firebaseui = require('firebaseui');
-//var ui = new firebaseui.auth.AuthUI(firebase.auth());
-import firebase from 'firebase'
+import * as firebase from 'firebase'
+import { mapActions } from "vuex";
 import axios from 'axios'
 export default {
   name:'Login',
@@ -41,7 +41,8 @@ export default {
             valid: true,
             email: '',
             password: '',
-            registerPath: '/signup'
+            showPwd: false,
+            registerPath: '/signup',
         }
     },
     //this is the function that actually does the registering via firebase
@@ -64,18 +65,46 @@ export default {
                     alert(err.message)
                 })
             e.preventDefault();
-        }
+        },
+        ...mapActions({
+        'addUserToDb': 'profileModule/addUserToDb',
+        
+      }),
     },
     
   mounted() {
     const firebase = require("firebase");
     const firebaseui = require("firebaseui");
     const uiConfig = {
-      signInSuccessUrl: "/",
+      callbacks: {
+        signInSuccessWithAuthResult: (authResult) => {
+          console.log(authResult.additionalUserInfo.profile.name)
+          console.log(authResult.additionalUserInfo.profile.email)
+          console.log(authResult.credential)
+          console.log('redurecturl')
+
+          const creationParams = {
+                  email: authResult.additionalUserInfo.profile.email,
+                  displayName: authResult.additionalUserInfo.profile.name,
+                  uid: authResult.user.uid,
+                  router: this.$router
+                }
+            
+          this.addUserToDb(creationParams)
+          return true;
+        },
+      },
+      // comment signInFlow to swith to sign in with redirect 
+      signInFlow: 'popup',
+      signInSuccessUrl: "/profile",
       signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
     };
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    let ui = firebaseui.auth.AuthUI.getInstance()
+    if (!ui) {
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
+    }
     ui.start("#firebaseui-auth-container", uiConfig);
+    
   }
 };
 </script>
@@ -90,6 +119,7 @@ export default {
   padding: 0 0 20px 0;
   font-size: 1.5em;
   margin: auto;
+  width: 75%;
 }
 
 ul {

@@ -32,7 +32,7 @@
           <v-card-actions v-show="accountOptions">
             <!-- only if the sign up method is through email/password, show option to change pw -->
             <update-pw-form v-if="user.signInMethod === 'password'"/>
-            <delete-account-form />
+            <delete-account-form :signInMethod="user.signInMethod"/>            
           </v-card-actions>
         </v-card>
       </v-col>
@@ -61,7 +61,7 @@ export default {
       getCurrentUser: "profileModule/getCurrentUser",
     }),
     showAccountOptions() {
-      this.accountOptions = true;
+      this.accountOptions = !this.accountOptions;
     }
   },
   computed: {

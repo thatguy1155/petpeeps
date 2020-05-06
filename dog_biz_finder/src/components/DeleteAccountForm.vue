@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on }">
       <v-btn text v-on="on">Delete Account</v-btn>
     </template>
-    <v-card>
+    <v-card v-if="signInMethod === 'password'">
       <v-container>
         <v-spacer />
         <v-row class="d-flex justify-center">
@@ -37,6 +37,26 @@
         </v-row>
       </v-container>
     </v-card>
+    <!-- Delete modal for other signin methods (social media) -->
+    <v-card v-else>
+      <v-container>
+        <v-card-text>
+          Are you sure you want to permanently delete your account and all the related data? 
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dltAccountDialog = false"
+            >Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="deleteUserSocialAccount"
+            >Delete
+          </v-btn>
+        </v-card-actions>
+      </v-container>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -45,6 +65,9 @@ import { mapActions } from "vuex";
 
 export default {
   name: "DeleteAccountForm",
+  props: [
+    'signInMethod'
+  ],
   data: function() {
     return {
       dltAccountDialog: false,
@@ -55,6 +78,7 @@ export default {
   methods: {
     ...mapActions({
       deleteUser: "profileModule/deleteUser",
+      deleteSocialUser: "profileModule/deleteSocialUser"
     }),
     deleteUserAccount() {
       let dltAccountParams = {
@@ -63,6 +87,10 @@ export default {
       };
       this.deleteUser(dltAccountParams);
     },
+    deleteUserSocialAccount() {
+      let route = this.$router
+      this.deleteSocialUser(route);
+    }
   },
 };
 </script>
