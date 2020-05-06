@@ -2,6 +2,11 @@
 node_modules
 /dist
 
+# composer 
+petpeeps_backend/vendor
+# ./petpeeps_backend/composer.json
+# ./petpeeps_backend/composer.lock
+
 # local env files
 .env.local
 .env.*.local
