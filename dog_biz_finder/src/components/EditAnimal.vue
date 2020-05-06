@@ -112,6 +112,9 @@ import { mapActions } from "vuex";
         'editPet': 'petModule/editPet',
         
       }),
+      save() {
+        
+      }
     },
   }
 </script>

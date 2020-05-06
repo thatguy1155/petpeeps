@@ -14,7 +14,7 @@
             echo json_encode($err);
         }
     }
-
+    
     function updateAccountType($accountType,$uid) { 
         $accountChanger = new MemberManager();
         $accTypeChanged = $accountChanger->editMember($accountType,$uid);
@@ -28,8 +28,8 @@
     }
 
     function createUser($login,$email,$uid) { 
-        $accountWomb = new MemberManager();
-        $accBirth = $accountWomb->addMember($login,$email,$uid);
+        $accountCreator = new MemberManager();
+        $accBirth = $accountCreator->addMember($login,$email,$uid);
         if($accBirth){
             echo json_encode($accBirth);
         } else {
@@ -40,8 +40,8 @@
     }
 
     function removeAccount($uid) { 
-        $accountTomb = new MemberManager();
-        $accDeath = $accountTomb->deleteProfile($uid);
+        $accountDestroyer = new MemberManager();
+        $accDeath = $accountDestroyer->deleteProfile($uid);
         if($accDeath){
             echo json_encode($accDeath);
         } else {
@@ -50,6 +50,7 @@
         }
 
     }
+
 
     function getPets($owner_id) {
         $getPetManager = new PetManager();
@@ -81,8 +82,47 @@
         if($petChanged){
             echo json_encode($petChanged);
         } else {
-            $err = array('we couldn\'t retrieve your pets');
+            $err = array('we couldn\'t update your pet\'s information');
             echo json_encode($err);
         }
+
+    }
+
+    function updatePetPic($pet_id,$url) {
+        $petPicManager = new PetManager();
+        $petPicChanged = $petPicManager->updatePetPic($pet_id,$url);
+        if($petPicChanged){
+            echo json_encode($petPicChanged);
+        } else {
+            $err = array('we couldn\'t update your pet pic');
+            echo json_encode($err);
+        }
+
+    }
+
+    function updateProfilePic($id,$url) {
+        
+        $profilePicManager = new MemberManager();
+        $profilePicChanged = $profilePicManager->updateProfilePic($id,$url);
+        if($profilePicChanged){
+            echo json_encode($profilePicChanged);
+        } else {
+            $err = array('we couldn\'t update your pet pic');
+            echo json_encode($err);
+        }
+
+    }
+
+    function getPetPicLink($id) {
+        $picLinkManager = new PetManager();
+        $petPicLink = $picLinkManager->getPetLink($id);
+        return $petPicLink;
+
+    }
+
+    function getProfilePicLink($id) {
+        $picLinkManager = new MemberManager();
+        $profilePicLink = $picLinkManager->getPicLink($id);
+        return $profilePicLink;
 
     }
