@@ -137,12 +137,7 @@ import { mapActions,mapGetters } from "vuex";
       userName: "profileModule/getName",
       userId: "profileModule/getId",
     }),
-    getThisPetPic(){
-        let thisPet = this.petList.filter(pet => pet.id === this.petInfo.id)
-        console.log(thisPet[0].picURL)
-        return thisPet[0].picURL
-        
-      }
+  
     },
     created(){
         this.getCurrentUser()

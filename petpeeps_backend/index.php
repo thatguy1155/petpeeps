@@ -15,8 +15,6 @@ try {
     if (isset($_REQUEST['action'])) {
         if ($action === 'getUserInfo') {
             getUserInfo($uid); 
-        } else if ($action === 'getUserPic') {
-            getUserInfo($uid); 
         } else if ($action === 'updateAccountType') {
             $accountType = isset($_REQUEST['accType']) ? $_REQUEST['accType'] : '';
             updateAccountType($accountType,$uid);
