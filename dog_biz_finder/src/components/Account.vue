@@ -2,15 +2,19 @@
   <v-container>
     <v-row>
       <v-col :cols="4">
-        <v-avatar size="250" tile>
-          <v-img src="@/assets/profile_icon.png">
-            <v-file-input
+        <v-avatar size="250" tile>    
+          <v-img v-bind:src="getPic">
+            <!-- <ChangeProfilePic class="d-flex align-end " /> -->
+            <!-- <input type="file" id="file" ref="file" /> -->
+            <!-- <v-file-input
               prepend-icon="mdi-camera"
               class="d-flex align-end"
-            ></v-file-input>
+            ></v-file-input> -->
           </v-img>
         </v-avatar>
+        <ChangeProfilePic class="d-flex align-end mx-4" />
       </v-col>
+      
       <v-col :cols="8">
         <v-card shaped outlined height="240">
           <v-card-title class="mb-4">
@@ -37,15 +41,17 @@
 </template>
 
 <script>
+import ChangeProfilePic from "@/components/ChangeProfilePic"
 import UpdatePwForm from "@/components/UpdatePwForm";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Account",
   components: {
     UpdatePwForm,
-    DeleteAccountForm
+    DeleteAccountForm,
+    ChangeProfilePic
   },
   data: () => ({
     accountOptions: false,
@@ -61,6 +67,9 @@ export default {
   computed: {
     ...mapState("profileModule", {
       user: (state) => state.user,
+    }),
+    ...mapGetters({
+      getPic: "profileModule/getPic"
     })
   },
   created() {

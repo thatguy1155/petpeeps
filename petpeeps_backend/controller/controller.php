@@ -14,7 +14,7 @@
             echo json_encode($err);
         }
     }
-
+    
     function updateAccountType($accountType,$uid) { 
         $accountChanger = new MemberManager();
         $accTypeChanged = $accountChanger->editMember($accountType,$uid);
@@ -100,9 +100,29 @@
 
     }
 
+    function updateProfilePic($id,$url) {
+        
+        $profilePicManager = new MemberManager();
+        $profilePicChanged = $profilePicManager->updateProfilePic($id,$url);
+        if($profilePicChanged){
+            echo json_encode($profilePicChanged);
+        } else {
+            $err = array('we couldn\'t update your pet pic');
+            echo json_encode($err);
+        }
+
+    }
+
     function getPetPicLink($id) {
         $picLinkManager = new PetManager();
         $petPicLink = $picLinkManager->getPetLink($id);
         return $petPicLink;
+
+    }
+
+    function getProfilePicLink($id) {
+        $picLinkManager = new MemberManager();
+        $profilePicLink = $picLinkManager->getPicLink($id);
+        return $profilePicLink;
 
     }

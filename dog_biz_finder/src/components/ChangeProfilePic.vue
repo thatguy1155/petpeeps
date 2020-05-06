@@ -48,27 +48,28 @@ import { mapActions,mapGetters } from "vuex";
     data () {
       return {
         dialog: false,
-        //id: this.petInfo.id,
         file:'',
         chosenFile:''
 
       }
     },
-    props: ["petInfo"],
     methods: {
         //select the file from the user
         onSelect(){
             //chosenfFile based on v-model on line 24
             const file = this.chosenFile
+            console.log(file)
             this.file = file
             if(file){     //this if statement prevents the other functions from running if you click on the x
                 this.onSubmit()//this used to be a two part process with a submit button so I just tacked the submit function onto tihs one
             } else {
                 this.dialog = false
             }
+            
         },
         //this function sends you username to the backend to make a directory if one doesn't already exist.
         async directoryManager(){
+            console.log(this.userName)
             const params = new URLSearchParams();
                         params.append('action', 'makeDirectory');
                         params.append('name', this.userName);
@@ -85,8 +86,8 @@ import { mapActions,mapGetters } from "vuex";
         //delete the old picture from the directory so that it doesn't get too bloated
         async deleteOldFile(){
             const params = new URLSearchParams();
-                        params.append('action', 'deleteOldPetPic');
-                        params.append('id', this.petInfo.id);
+                        params.append('action', 'deleteOldProfilePic');
+                        params.append('id', this.userId);
             try{
                 let res = await axios.post('http://dogpeeps', params)
                 console.log(res.data)
@@ -112,12 +113,13 @@ import { mapActions,mapGetters } from "vuex";
                     }
                 })
                 console.log(res.data)
+                console.log(this.userId)
                 const creationParams = {
-                    id:this.petInfo.id,
+                    id:this.userId,
                     username: this.userName,
                     filename: res.data
                 }
-                this.updatePetPic(creationParams)//now update the db and the vuex state
+                this.updateProfilePic(creationParams)//now update the db and the vuex state
             }
             catch(err){
                 console.log(err)
@@ -126,17 +128,18 @@ import { mapActions,mapGetters } from "vuex";
         },
         ...mapActions({
             getCurrentUser: "profileModule/getCurrentUser",
-            updatePetPic: "petModule/updatePetPic"
+            updateProfilePic: "profileModule/updateProfilePic"
         })
     },
     computed:{
 
       ...mapGetters({
       userName: "profileModule/getName",
-      petList: "petModule/petList"
+      userId: "profileModule/getId",
     }),
     getThisPetPic(){
         let thisPet = this.petList.filter(pet => pet.id === this.petInfo.id)
+        console.log(thisPet[0].picURL)
         return thisPet[0].picURL
         
       }

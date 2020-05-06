@@ -26,13 +26,24 @@
         } 
 
         public function getUserInfo($uid) {
-            $members = $this->_db->prepare("SELECT id, login, user_type FROM user WHERE uid = :uid");
+            $members = $this->_db->prepare("SELECT id, login, user_type, profile_pic FROM user WHERE uid = :uid");
             $members->bindParam(':uid',$uid,PDO::PARAM_STR);
             $resp = $members->execute();
             if(!$resp) {
                 throw new PDOException('Invalid username or password!');
             }
             return $members->fetch();
+        }
+
+        public function getPicLink($id) {
+            $pics = $this->_db->prepare("SELECT profile_pic FROM user WHERE id = :id");
+            $pics->bindParam(':id',$id,PDO::PARAM_INT);
+            $resp = $pics->execute();
+            if(!$resp) {
+                throw new PDOException('Invalid username or password!');
+            }
+            $picLink = $pics->fetch();
+            return $picLink;
         }
 
         public function editMember($accountType,$uid) {    
@@ -57,6 +68,19 @@
             }
             $member->closeCursor();
             return "member successfully removed";
+        }
+
+        public function updateProfilePic($id,$url){
+            
+            $editProfilePic = $this->_db->prepare("UPDATE user SET profile_pic = :profile_pic WHERE id = :id");
+            $editProfilePic->bindParam(':id',$id,PDO::PARAM_INT);
+            $editProfilePic->bindParam(':profile_pic',$url,PDO::PARAM_STR);
+            $status = $editProfilePic->execute();
+            if (!$status) {
+                throw new PDOException('Impossible to update profile pic!');
+            }
+            return "db updated";
+            $editProfilePic->closeCursor();  
         }
     }
 

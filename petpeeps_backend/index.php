@@ -15,6 +15,8 @@ try {
     if (isset($_REQUEST['action'])) {
         if ($action === 'getUserInfo') {
             getUserInfo($uid); 
+        } else if ($action === 'getUserPic') {
+            getUserInfo($uid); 
         } else if ($action === 'updateAccountType') {
             $accountType = isset($_REQUEST['accType']) ? $_REQUEST['accType'] : '';
             updateAccountType($accountType,$uid);
@@ -51,16 +53,28 @@ try {
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             editPet($name,$breed,$size,$pet_id);
         } 
-        else if ($action === 'updatePicInDB') {
+        else if ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
             updatePetPic($pet_id,$url);
         }
+        else if ($action === 'updateProfilePicInDB') {
+            $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
+            echo $id;
+            updateProfilePic($id,$url);
+        }
         else if ($action === 'deleteOldPetPic') {
             $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $link = getPetPicLink($id);
-            //print_r($link);
             $newLink = str_replace("http://dogpeeps",'.',$link['picURL']); //since we're doing this locally instead of via a server, replace the server url w relative path
+            unlink($newLink);
+            echo 'deleted:' .$link['picURL'];
+        }
+        else if ($action === 'deleteOldProfilePic') {
+            $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            $link = getProfilePicLink($id);
+            $newLink = str_replace("http://dogpeeps",'.',$link['profile_pic']); //since we're doing this locally instead of via a server, replace the server url w relative path
             unlink($newLink);
             echo 'deleted:' .$link['picURL'];
         }

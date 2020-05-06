@@ -179,7 +179,7 @@ async function editPet({commit}, creationParams) {
 async function updatePetPic ({commit}, picParams){
     let linkURL = `http://dogpeeps/uploads/${picParams.username}/${picParams.filename}`
     const params = new URLSearchParams();
-    params.append('action', 'updatePicInDB');
+    params.append('action', 'updatePetPicInDB');
     params.append('id', picParams.id);
     params.append('url', linkURL);
     await axios.post('http://dogpeeps', params) //)
