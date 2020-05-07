@@ -60,9 +60,9 @@ function getAccountInfo(user) {
             info['id'] = res.data['id']
             if(!res.data['profile_pic']){
                 info['profilePic'] = 'http://dogpeeps/uploads/profile_icon.png'
-           } else{
-               info['profilePic'] = res.data['profile_pic']
-           }
+            } else{
+                info['profilePic'] = res.data['profile_pic']
+            }
             return info
         })
         .catch(err => console.log(err))   

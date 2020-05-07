@@ -16,7 +16,7 @@ const mutations = {
     //mutation used when people edit their pet info
     //because state.pets has many pet objects, find the one with the same id as the one you modified
     //we will need to update this later when we add age
-    UPDATE_ONE_PET(state, payload){
+    UPDATE_ONE_BIZ(state, payload){
         state.bizArray.forEach(element => {
             if(element.id === payload.id){
                 element.name = payload.name,
@@ -75,11 +75,16 @@ async function createBiz({commit}, creationParams) {
     let currUser = firebase.auth().currentUser;
     const id = await getUserId(currUser)
     const params = new URLSearchParams();
-    params.append('action', 'createPet');
+    params.append('action', 'createBiz');
     params.append('id', id);
-    params.append('name', creationParams.name);
-    params.append('breed', creationParams.breed);
-    params.append('size', creationParams.size);
+    params.append('bizName', creationParams.bizName);
+    params.append('bizType', creationParams.bizType);
+    params.append('bizHrs', creationParams.bizHrs);
+    params.append('bizAddr', creationParams.bizAddr);
+    params.append('bizTel', creationParams.bizTel);
+    params.append('bizSite', creationParams.sibizSiteze);
+    params.append('socialMediaArr', creationParams.socialMediaArr);
+    params.append('menu', creationParams.menu);
     await axios.post('http://dogpeeps', params) 
         .then(res => {
             console.log(res.data)
@@ -88,9 +93,14 @@ async function createBiz({commit}, creationParams) {
     //after the info has been added to the db, then make a new object in state.pets
     //this will need to be updated when we implement age
     commit("ADD_ONE_BIZ",{
-        name:creationParams.name,
-        breed:creationParams.breed,
-        size:creationParams.size
+        bizName: creationParams.bizName,
+        bizType: creationParams.bizType,
+        bizHrs: thcreationParamsis.bizHrs,
+        bizAddr: creationParams.bizAddr,
+        bizTel: creationParams.bizTel,
+        bizSite: creationParams.bizType,
+        socialMediaArr: creationParams.socialMediaArr,
+        menu: creationParams.menu,
     })
 
 }

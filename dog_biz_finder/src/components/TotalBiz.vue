@@ -37,7 +37,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      petList: "petModule/petList" //bizList
+      bizList: "bizModule/getBiz"
     }),
   },
   created() {
