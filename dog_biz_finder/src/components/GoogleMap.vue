@@ -107,7 +107,7 @@ export default {
     },
     
     searchLocal(){
-      let self = this //<--crucial for accessing outside functions 
+      let self = this //crucial for accessing outside functions 
       this.getLocationData(function(locationData) {  //function accessing the callback from getlocation data. 
         let result = /\b\w*-gu\w*\b/g.exec(locationData);   //regex extracting words with -gu
         let guTranslate = {
