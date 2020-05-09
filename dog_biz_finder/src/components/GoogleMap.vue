@@ -107,8 +107,8 @@ export default {
     },
     
     searchLocal(){
-      let self = this //<--crucial for accessing outside functions inside a callback function where this.function won't work. the "this" inside the callback is a different "this" than the methods object "this" so take all the properties of method object "this" and put them in a variable (self) to be accessed elsewhere
-      this.getLocationData(function(locationData) {  //function accessing the callback from getlocation data. returns the address as locationData
+      let self = this //<--crucial for accessing outside functions 
+      this.getLocationData(function(locationData) {  //function accessing the callback from getlocation data. 
         let result = /\b\w*-gu\w*\b/g.exec(locationData);   //regex extracting words with -gu
         let guTranslate = {
           'Gangnam-gu':"강남구",
