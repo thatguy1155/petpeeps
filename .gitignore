@@ -3,21 +3,10 @@ node_modules
 /dist
 
 # composer 
-/petpeeps_backend/vendor
-# ./petpeeps_backend/composer.json
-# ./petpeeps_backend/composer.lock
-/vendor
-petpeeps_backend/
-/petpeeps_backend
+petpeeps_backend/vendor/
 
-# test
-
-aIgnoreMe/
-aIgnoreMe
-/aIgnoreMe
-aIgnoreMe/*
-
-aIgnoreMe/NewTextDocument.txt
+#imgs
+petpeeps_backend/uploads/
 
 # local env files
 .env.local
