@@ -6,21 +6,26 @@ final class AddAndRetrieveUserTests extends TestCase {
 	
 	public function can_add_a_user_and_retrieve_the_added_user() {
 		
-		//user info
-		//....James
-		//..Sam
+		//Arrange
+		$login = 'login';
+		$email = 'email@gmail.com';
+		$uid = 'uid';
 
-		//create user
-		create_user('James');
-		create_user('Sam');
+		//Act
+		//Create user
+		createUser($login, $email, $uid);
 
-		//retrieve added user
-		$user = retrieveUser('Sam');
+		//Retrieve added user info
+		$userInfo = getUserInfo($uid);
 
+		//Assert
 		//verify the user details
-		//$user != null
-		//$user->name == $expectedUserName
+		$this->assertStringContainsStringIgnoringCase(
+			$login
+			, $userInfo->login
+		);
 
-		//delete user
+		//Delete user
+		removeAccount($uid);
 	}
 }
