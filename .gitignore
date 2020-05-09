@@ -4,6 +4,7 @@ node_modules
 
 # composer 
 petpeeps_backend/vendor/
+petpeeps_backend/composer.lock
 
 #imgs
 petpeeps_backend/uploads/
