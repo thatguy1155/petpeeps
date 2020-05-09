@@ -6,6 +6,18 @@ node_modules
 /petpeeps_backend/vendor
 # ./petpeeps_backend/composer.json
 # ./petpeeps_backend/composer.lock
+/vendor
+petpeeps_backend/
+/petpeeps_backend
+
+# test
+
+aIgnoreMe/
+aIgnoreMe
+/aIgnoreMe
+aIgnoreMe/*
+
+aIgnoreMe/NewTextDocument.txt
 
 # local env files
 .env.local
