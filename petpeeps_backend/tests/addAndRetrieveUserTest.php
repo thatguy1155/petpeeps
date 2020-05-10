@@ -40,8 +40,7 @@ final class AddAndRetrieveUserTest extends TestCase {
 	  array_push($this->createdAccounts, $uid);
 	}
 
-	protected function tearDown(): void
-	{
+	protected function tearDown(): void {
 		//After each test, delete all created accounts from the db 
 		foreach ($this->createdAccounts as $uid) {
 			removeAccount($uid);
