@@ -21,8 +21,8 @@
             if (!$status) {
                 throw new PDOException('Impossible to add the member!');
             }
-            $addMember->closeCursor();
-            return "member created";  
+            $addMember->closeCursor(); 
+            return $status;
         } 
 
         public function getUserInfo($uid) {
