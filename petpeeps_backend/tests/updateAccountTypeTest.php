@@ -2,36 +2,33 @@
 use PHPUnit\Framework\TestCase;
 require_once('controller/controller.php');
 
-final class AddAndRetrieveUserTest extends TestCase {
+final class UpdateAccountTypeTest extends TestCase {
 	private	$createdAccounts = [];
 
-	public function test_can_add_a_user_and_retrieve_the_added_user() {
+	public function test_can_update_account_type() {
 		
-		//Arrange
 		$login = 'login';
 		$email = 'email@gmail.com';
-		$uid = 'uid';
+    $uid = 'uid';
+    $accountType = 'personal';
 
-		//Act
-		//Create user
-		$this->createUser($login, $email, $uid);
-		
-		//Retrieve added user info
+    $this->createUser($login, $email, $uid);
+    
+    updateAccountType($accountType, $uid);
+
 		getUserInfo($uid);
+
 		$retrievedOutput = $this->getActualOutput();
 		
 		$regexOutput = '/\{(?=.*user_type)(?=.*login).*\}/';
 		
 		$retrievedUserInfo = array();
 		preg_match($regexOutput, $retrievedOutput, $retrievedUserInfo);
-
 		$retrievedUserInfoObj = json_decode($retrievedUserInfo[0]);
+		$retrievedAccountType = $retrievedUserInfoObj->user_type;
 
-		$retrievedLogin = $retrievedUserInfoObj->login;
-
-		//Assert
 		$this->assertEquals(
-			$login, $retrievedLogin
+			$accountType, $retrievedAccountType
 		);
 	}
 
@@ -41,7 +38,6 @@ final class AddAndRetrieveUserTest extends TestCase {
 	}
 
 	protected function tearDown(): void {
-		//After each test, delete all created accounts from the db 
 		foreach ($this->createdAccounts as $uid) {
 			removeAccount($uid);
 		}
