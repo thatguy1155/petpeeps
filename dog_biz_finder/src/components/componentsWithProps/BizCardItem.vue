@@ -84,7 +84,11 @@ export default {
 <style scoped>
 
 .detailsBtn {
-  width: 727px;
+  width: 602px;
+}
+
+#smallCard {
+  width: 515px;
 }
 
 @media screen and (max-width: 959px) {
