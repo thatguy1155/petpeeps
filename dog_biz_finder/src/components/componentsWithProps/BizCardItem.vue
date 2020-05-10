@@ -1,29 +1,40 @@
 <template>
   <v-card class="bizCard d-flex row align-center">
-    <v-card-title>{{ bizName }}</v-card-title>
-    <v-card-text class="d-flex flex-column align-start">
-      <div>
-        <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
-        {{ bizType }}
-      </div>
-      <div>
-        <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
-        {{ hours }}
-      </div>
-      <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
-        {{ address }}
-      </div>
-    </v-card-text>
-    <v-card-actions
-      class="d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start"
-    >
-      <v-btn color="orange" text class="moreDetailsBtn">More Details</v-btn>
-    </v-card-actions>
+    <div id="smallCard" v-if="smallCard">
+      <v-card-title>{{ bizName }}</v-card-title>
+      <v-card-text class="d-flex flex-column align-start">
+        <div>
+          <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
+          {{ bizType }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
+          {{ hours }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+          {{ address }}
+        </div>
+      </v-card-text>
+      <v-card-actions
+        class="detailsBtn d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start"
+      >
+        <v-btn color="orange" text class="moreDetailsBtn" @click="showMainCard"
+          >More Details</v-btn
+        >
+      </v-card-actions>
+    </div>
+    <main-biz-card v-if="mainCard" @hide-main-card="hideMainCard" :bizTypeIcon="bizTypeIcon" />
   </v-card>
 </template>
+
 <script>
+import MainBizCard from "@/components/MainBizCard";
+
 export default {
+  components: {
+    MainBizCard
+  },
   props: {
     bizName: {
       type: String,
@@ -42,6 +53,10 @@ export default {
       default: "address",
     },
   },
+  data: () => ({
+    smallCard: true,
+    mainCard: false,
+  }),
   computed: {
     bizTypeIcon() {
       if (this.bizType === "Cafe") {
@@ -52,11 +67,26 @@ export default {
         return "";
       }
     },
-  }
+  },
+  methods: {
+    showMainCard() {
+      this.smallCard = false;
+      this.mainCard = true;
+    },
+    hideMainCard() {
+      this.smallCard = true;
+      this.mainCard = false;
+    },
+  },
 };
 </script>
 
 <style scoped>
+
+.detailsBtn {
+  width: 727px;
+}
+
 @media screen and (max-width: 959px) {
   .v-card__title {
     font-size: 0.8em;
