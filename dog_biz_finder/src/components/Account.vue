@@ -1,38 +1,26 @@
 <template>
-  <v-container class="profile">
-    <v-row>
-      <!-- <v-col :cols="4" v-if="!isMobile()">
-        <v-avatar size="250" tile>
-          <v-img v-bind:src="getPic"></v-img>
-        </v-avatar>
-        <ChangeProfilePic class="d-flex align-end mx-4" />
-      </v-col>
+  <v-container>
+    <v-row justify="center" align="center">
+      <div v-if="!isMobile()">
+        <v-col :cols="4">
+          <v-avatar size="250" tile>
+            <v-img v-bind:src="getPic"></v-img>
+          </v-avatar>
+          <ChangeProfilePic class="d-flex align-end mx-4" />
+        </v-col>
+      </div>
 
-      <v-col :cols="5" v-else>-->
-      <v-col :cols="5">
-        <v-avatar size="250" tile>
-          <v-img v-bind:src="getPic"></v-img>
-        </v-avatar>
-        <ChangeProfilePic class="d-flex align-end mx-4" />
-      </v-col>
-
-      <!--<v-col :cols="4" v-if="!isMobile()">
-        <v-avatar size="250" tile>
-          <v-img v-bind:src="getPic"></v-img>
-        </v-avatar>
-        <ChangeProfilePic class="d-flex align-end mx-4" />
-      </v-col>
-      <v-col :cols="5" v-else>-->
-
-      <!-- <v-col :cols="5">
-        <v-avatar size="250" tile>
-          <v-img v-bind:src="getPic"></v-img>
-        </v-avatar>
-        <ChangeProfilePic class="d-flex align-end mx-4" />
-      </v-col>-->
+      <div v-else>
+        <v-col :cols="5">
+          <v-avatar size="250" tile>
+            <v-img v-bind:src="getPic"></v-img>
+          </v-avatar>
+          <ChangeProfilePic class="d-flex align-end mx-4" />
+        </v-col>
+      </div>
 
       <v-col :cols="8">
-        <v-card shaped outlined height="240">
+        <v-card shaped outlined>
           <v-card-title class="mb-4">{{ user.name }}</v-card-title>
           <v-card-subtitle class="d-flex justify-start">Account type: {{ user.accountType }}</v-card-subtitle>
           <v-card-text class="d-flex justify-start">Email: {{ user.email }}</v-card-text>
@@ -54,7 +42,6 @@
 import ChangeProfilePic from "@/components/ChangeProfilePic";
 import UpdatePwForm from "@/components/UpdatePwForm";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
-import { isMobile } from "mobile-device-detect";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {

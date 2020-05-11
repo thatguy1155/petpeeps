@@ -1,23 +1,29 @@
 <template>
-    <!-- ADD A (ANIMAL) MODAL/PROFILE START-->
-    
-      <v-container>
-        <h1> my pets </h1>
-        <v-row justify="center">
-          <v-col cols="12" lg="9" m="12" sm="12" xs="6" class="d-flex flex-wrap">
-            <v-card class="mx-10 my-6" v-for="pet in petList" v-bind:key="pet.id" max-width="434">
-              <profile-animal v-bind:petInfo="pet" />
-            </v-card>
-            <div>
-              <v-flex xs2>
-                  <add-animal id="animalButton" />
-              </v-flex>
-            </div>
-          </v-col>
-        </v-row>
-        
-    </v-container>
-    <!-- ADD A (ANIMAL) MODAL/PROFILE END-->
+  <!-- ADD A (ANIMAL) MODAL/PROFILE START-->
+  <v-container justify="center" align="center">
+    <h1>my pets</h1>
+    <v-row>
+      <v-col
+        justify="center"
+        align="center"
+        cols="12"
+        lg="9"
+        m="12"
+        sm="12"
+        xs="6"
+        class="d-flex flex-wrap"
+      >
+        <v-card class="mx-10 my-6" v-for="pet in petList" v-bind:key="pet.id" max-width="434">
+          <profile-animal v-bind:petInfo="pet" />
+        </v-card>
+
+        <v-flex xs2>
+          <add-animal id="animalButton" />
+        </v-flex>
+      </v-col>
+    </v-row>
+  </v-container>
+  <!-- ADD A (ANIMAL) MODAL/PROFILE END-->
 </template>
 
 <script>
@@ -26,7 +32,7 @@ import ProfileAnimal from "@/components/ProfileAnimal";
 import AddAnimal from "@/components/AddAnimal";
 
 export default {
-    components: {
+  components: {
     AddAnimal,
     ProfileAnimal
   },
@@ -38,12 +44,11 @@ export default {
   computed: {
     ...mapGetters({
       petList: "petModule/petList"
-    }),
+    })
   },
   created() {
     this.fetchPets();
   }
-  
 };
 </script>
 <style>
