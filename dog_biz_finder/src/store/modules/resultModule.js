@@ -13,6 +13,7 @@ export default {
     searchedAddr: ["서울특별시"],
     selectedBiz: null,
     mapCenter: { lat: 37.5326, lng: 127.024612 },
+    guCategory: '',
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
@@ -20,6 +21,11 @@ export default {
     },
     CHANGE_DONG_LIST(state, payload) {
       state.dongList = payload;
+    },
+    //made a gu catergory in the state so the gu that is geolocated on googlemaps component
+    //can be sent to the search bar component
+    CHANGE_GU_CATEGORY(state, payload) {
+      state.guCategory = payload;
     },
     CREATE_SEARCHED_ADDRESS(state, payload) {
       state.searchedAddr.push(payload);
@@ -184,6 +190,15 @@ export default {
       
       //when there is a new biz list, also set the first item on the new list as the selected biz 
       commit("SET_SELECTED_BIZ", { business: filteredList[0] });
+    },
+    /**
+     *
+     * @param { obj } { commit } function to call mutation to change state guCategory
+     * @param { str } currentGu gu that we extrapolate from your geolocated address in the map component
+     */
+    changeSelectedGu({commit},currentGu){
+      commit("CHANGE_GU_CATEGORY", currentGu);
     }
+    
   }
 };

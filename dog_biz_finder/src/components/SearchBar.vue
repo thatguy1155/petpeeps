@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -50,10 +50,24 @@ export default {
       guCode: ''
     }
   },
+  watch: {
+    /**
+     * when the reverse geocoder in the maps component returns its promise, and it changes the guCategory in the state
+     * then make the searchbar gu category equivalent and run the donglist populate function that you'd run
+     * if an entry was selected on the gu menu
+     */
+    stateGuCategory: function() {
+      this.guCategory = this.stateGuCategory
+      this.dongListPopulate()
+    },
+  },
   computed: {
     ...mapGetters({
       'dongList': 'resultModule/dongs'
-    })
+    }),
+    ...mapState("resultModule", {
+      stateGuCategory: (state) => state.guCategory
+    }),
   },
   methods: {
     ...mapActions({
@@ -75,7 +89,7 @@ export default {
       this.addDong({ searchedDong: this.dongCategory })
       this.getBizList()
     }
-  }
+  },
 }
 </script>
 
