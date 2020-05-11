@@ -25,13 +25,7 @@
       <v-card-actions>
         <EditAnimal v-bind:petInfo="petInfo"/>
         <v-spacer></v-spacer>
-        <div id='myapp'>
-          <label v-bind:for="petInfo.id"><v-icon color="brown lighten-3">mdi-camera</v-icon></label>
-          <input type="file" v-bind:id="petInfo.id" ref="file" class="uploadButton" @change='onSelect()' />
-
-        <!-- <button type="button" @click='uploadFile()' >Upload file</button> -->
-        </div>
-        <!-- <ChangePetPic v-bind:petInfo="petInfo"/> -->
+        <ChangePetPic v-bind:petInfo="petInfo"/>
         
       </v-card-actions>
     </v-card>
@@ -63,19 +57,14 @@
 </template>
 
 <script>
-import * as FormData from 'form-data';
-import axios from 'axios'
+
 import EditAnimal from "@/components/EditAnimal.vue";
-//import ChangePetPic from "@/components/ChangePetPic.vue";
-import { mapActions,mapGetters } from "vuex";
+import ChangePetPic from "@/components/ChangePetPic.vue";
+import { mapGetters } from "vuex";
 export default {
     name: "ProfileAnimal",
     data () {
       return {
-        dialog: false,
-        //id: this.petInfo.id,
-        file:'',
-        chosenFile:'',
         thisCard:''
 
       }
@@ -83,7 +72,7 @@ export default {
     props: ["petInfo"],
     components: {
         EditAnimal,
-        //ChangePetPic
+        ChangePetPic
     },
     computed:{ 
       ...mapGetters({
@@ -92,77 +81,6 @@ export default {
     })
     },
     methods: {
-      //select the file from the user
-      onSelect(){
-          //chosenfFile based on v-model on line 24
-          this.file = this.$refs.file.files[0];
-          //const file = this.chosenFile
-          //this.file = file
-          if(this.file){     //this if statement prevents the other functions from running if you click on the x
-              this.onSubmit()//this used to be a two part process with a submit button so I just tacked the submit function onto tihs one
-          } else {
-              this.dialog = false
-          }
-      },
-      //this function sends you username to the backend to make a directory if one doesn't already exist.
-      async directoryManager(){
-            const params = new URLSearchParams();
-                        params.append('action', 'makeDirectory');
-                        params.append('name', this.userName);
-            try{
-                let res = await axios.post('http://dogpeeps', params)
-                console.log(res.data)
-            }
-            catch(err){
-                console.log(err)
-            }
-            this.dialog = false
-        },
-        //delete the old picture from the directory so that it doesn't get too bloated
-        async deleteOldFile(){
-            const params = new URLSearchParams();
-                        params.append('action', 'deleteOldPetPic');
-                        params.append('id', this.petInfo.id);
-            try{
-                let res = await axios.post('http://dogpeeps', params)
-                console.log(res.data)
-            }
-            catch(err){
-                console.log(err)
-            }
-        },
-        //take the uploaded photo and send it to the backend for storage after the directory is created
-        async onSubmit(){
-            console.log(this.petInfo.id)
-            await this.directoryManager()
-            await this.deleteOldFile()
-            let formData = new FormData()
-            formData.append('file',this.file)
-            formData.append('username',this.userName)
-            try{
-                let res = await axios.post('http://dogpeeps', formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                console.log(res.data)
-                const creationParams = {
-                    id:this.petInfo.id,
-                    username: this.userName,
-                    filename: res.data
-                }
-                this.updatePetPic(creationParams)//now update the db and the vuex state
-            }
-            catch(err){
-                console.log(err)
-            }
-            this.dialog = false
-        },
-        ...mapActions({
-            getCurrentUser: "profileModule/getCurrentUser",
-            updatePetPic: "petModule/updatePetPic"
-        }),
       //this function gets the image url for this pet in the array of pets for this user
       getThisPetPic(){
         let thisPet = this.petList.filter(pet => pet.id === this.petInfo.id)

@@ -4,14 +4,9 @@
       <v-col :cols="4">
         <v-avatar size="250" tile>    
           <v-img v-bind:src="getPic">
-            <!-- <ChangeProfilePic class="d-flex align-end " /> -->
-            <!-- <input type="file" id="file" ref="file" /> -->
-            <!-- <v-file-input
-              prepend-icon="mdi-camera"
-              class="d-flex align-end"
-            ></v-file-input> -->
           </v-img>
         </v-avatar>
+        
         <ChangeProfilePic class="d-flex align-end mx-4" />
       </v-col>
       
@@ -46,6 +41,8 @@ import UpdatePwForm from "@/components/UpdatePwForm";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
 import { mapState, mapActions, mapGetters } from "vuex";
 
+
+
 export default {
   name: "Account",
   components: {
@@ -69,7 +66,9 @@ export default {
       user: (state) => state.user,
     }),
     ...mapGetters({
-      getPic: "profileModule/getPic"
+      getPic: "profileModule/getPic",
+      userName: "profileModule/getName",
+      userId: "profileModule/getId",
     })
   },
   created() {
