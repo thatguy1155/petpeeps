@@ -23,8 +23,7 @@ export default {
   data() {
     return {
       markers: [],
-      places: [],
-      currentGu: [],
+      places: []
 
     };
   },
@@ -37,8 +36,7 @@ export default {
     ...mapState("resultModule", {
       bizList: (state) => state.bizList,
       selectedBiz: (state) => state.selectedBiz,
-      mapCenter: (state) => state.mapCenter,
-      guCategory: (state) => state.guCategory
+      mapCenter: (state) => state.mapCenter
     }),
     google: gmapApi,
   },
