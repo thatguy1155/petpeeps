@@ -89,9 +89,6 @@ export default {
         
       }
     },
-    created(){
-        this.getCurrentUser()
-    }
      
 }
 </script>

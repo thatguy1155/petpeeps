@@ -13,7 +13,7 @@
         public function addPet($owner_id,$name,$breed,$size) {
             $name = htmlspecialchars($name);
             $breed = htmlspecialchars($breed);      
-            $addPet = $this->_db->prepare("INSERT INTO pet(name, size, breed, owner_id) VALUES(:name, :size, :breed, :owner_id)");
+            $addPet = $this->_db->prepare("INSERT INTO pet(name, size, breed, owner_id) VALUES(:name, :size, :breed, :owner_id); SELECT SCOPE_IDENTITY() AS [scope identity]");
             $addPet->bindParam(':name',$name,PDO::PARAM_STR);
             $addPet->bindParam(':size',$size,PDO::PARAM_STR);
             $addPet->bindParam(':breed',$breed,PDO::PARAM_STR);
@@ -22,8 +22,9 @@
             if (!$status) {
                 throw new PDOException('Impossible to add this pet!');
             }
-            $addPet->closeCursor();
-            return "pet created";  
+            //return the id for the row that you just inserted
+            $petId = $this->_db->lastInsertId();
+            return $petId;  
         } 
 
         public function getPets($owner_id) {

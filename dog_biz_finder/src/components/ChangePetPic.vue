@@ -104,9 +104,6 @@ import { mapActions,mapGetters } from "vuex";
         
       }
     },
-    created(){
-        this.getCurrentUser()
-    }
   }
 </script>
 

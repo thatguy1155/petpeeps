@@ -9,12 +9,12 @@ final class UpdateAccountTypeTest extends TestCase {
 		
 		$login = 'login';
 		$email = 'email@gmail.com';
-    $uid = 'uid';
-    $accountType = 'personal';
+		$uid = 'uid';
+		$accountType = 'personal';
 
-    $this->createUser($login, $email, $uid);
-    
-    updateAccountType($accountType, $uid);
+		$this->createUser($login, $email, $uid);
+		
+		updateAccountType($accountType, $uid);
 
 		getUserInfo($uid);
 
@@ -33,7 +33,7 @@ final class UpdateAccountTypeTest extends TestCase {
 	}
 
 	private function createUser($login, $email, $uid) {
-		createUser($login, $email, $uid);
+	  createUser($login, $email, $uid);
 	  array_push($this->createdAccounts, $uid);
 	}
 

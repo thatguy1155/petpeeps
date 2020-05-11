@@ -2,7 +2,7 @@
 class Manager {
     protected $_db;
 
-    CONST HOST = "localhost";
+    CONST HOST = "127.0.0.1";
     CONST DBNAME = "dogpeeps";
     CONST LOGIN = "root";
     CONST PWD = "";
