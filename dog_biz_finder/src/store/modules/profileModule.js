@@ -19,11 +19,9 @@ const state = {
 const mutations = {
     LOAD_USER(state, payload) {
         state.user = payload;
-        console.log(payload)
     },
     UPDATE_USER_TYPE(state, payload) {
         state.user.accountType = payload;
-        console.log(payload)
     },
     UPDATE_PROFILE_PIC(state, payload){
         state.user.picURL = payload.picURL;
@@ -55,6 +53,7 @@ function getAccountInfo(user) {
         //take the uid returned from firebase go find a user with the uid in db and return their user type if any
     let accountTypeResponse = axios.get(`http://dogpeeps?action=getUserInfo&uid=${uid}`)
         .then(res => {
+            console.log(res);
             let info = {}
             info['userType'] = res.data['user_type']
             info['id'] = res.data['id']
@@ -207,7 +206,6 @@ function addUserToDb(a,creationParams){
         //after the db has the new member, send the user to the home page
         .then(res => {
         console.log(res.data)
-        alert(`account created for ${creationParams.email}`)
         creationParams.router.push('/profile'); 
         })
         .catch(err => console.log(err))
