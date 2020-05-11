@@ -28,8 +28,8 @@
             v-show="bizList.length > 0"
             :bizName="currentItem.bizName"
             :bizType="currentItem.bizType"
-            :hours="currentItem.hours"
-            :address="currentItem.address"
+            :bizHrs="currentItem.bizHrs"
+            :bizAddr="currentItem.bizAddr"
           />
           <bizlist-arrow-button
             v-show="bizList.length > 1"

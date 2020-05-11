@@ -9,11 +9,11 @@
         </div>
         <div>
           <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
-          {{ hours }}
+          {{ bizHrs }}
         </div>
         <div>
           <v-icon color="#8D6E63">mdi-map-marker</v-icon>
-          {{ address }}
+          {{ bizAddr }}
         </div>
       </v-card-text>
       <v-card-actions
@@ -59,9 +59,9 @@ export default {
   }),
   computed: {
     bizTypeIcon() {
-      if (this.bizType === "Cafe") {
+      if (this.bizType === "cafe") {
         return "mdi-coffee";
-      } else if (this.bizType === "Restaurant") {
+      } else if (this.bizType === "restaurant") {
         return "mdi-silverware-fork-knife";
       } else {
         return "";

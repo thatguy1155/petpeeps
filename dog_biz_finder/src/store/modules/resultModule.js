@@ -9,11 +9,11 @@ export default {
   namespaced: true,
   state: {
     bizList: [],
-    dongList: [],
-    searchedAddr: ["서울특별시"],
     selectedBiz: null,
+    dongList: [],
+    searchedAddr: ["서울특별시"], 
     mapCenter: { lat: 37.5326, lng: 127.024612 },
-    guCategory: '',
+    guCategory: ''
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
@@ -121,63 +121,103 @@ export default {
         {
           bizName: "Woof Cafe",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 중구 을지로7가 2-1",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 을지로7가 2-1',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Safari",
           bizType: "Restaurant",
-          hours: "7:00 ~ 00:00",
-          address: "서울특별시 중구 을지로6가 18-17",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 을지로6가 18-17',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "The Jungle",
           bizType: "Restaurant",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 중구 광휘동 58-1",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 광휘동 58-1',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Animals",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 중구 저동2가 수표로 46 2층",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 저동2가 수표로 46 2층',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Sanctuary",
           bizType: "Restaurant",
-          hours: "7:00 ~ 00:00",
-          address: "서울특별시 중구 명동2가 명동10길 16-1",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 명동2가 명동10길 16-1',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Habitat",
           bizType: "Restaurant",
-          hours: "7:00 ~ 00:00",
-          address: "서울특별시 중구 장충동 동호로 249",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 중구 장충동 동호로 249',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Archipelago",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 동대문구 청량리동 207-42",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 동대문구 청량리동 207-42',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Dogs & Friends",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 성북구 안암동5가 산2-1",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 성북구 안암동5가 산2-1',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "People Reserve",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 동대문구 회기동 1-5",
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 동대문구 회기동 1-5',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
         {
           bizName: "Tropicana",
           bizType: "Cafe",
-          hours: "11:00 ~ 19:00",
-          address: "서울특별시 강남구 신사동 563-21",
-        },
+          bizHrs: 'Everyday: 11am - 9pm',
+          bizAddr: '서울특별시 강남구 신사동 563-21',
+          bizTel: '02-9343-3567',
+          bizSite: 'www.thejunglerestaurant.co.uk',
+          socialMediaArr: {'FaceBook': 'www.facebook.com/thejungle', 'Naver': 'www.naver.com/thejungle'},
+          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
+        }
       ];
       let filteredList = [];
       let searchedAddrStr = state.searchedAddr.join(" ");
