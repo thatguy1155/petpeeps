@@ -66,16 +66,16 @@
         }
 
         public function deletePet($name,$breed,$size,$pet_id) {   
-            $deletePet = $this->_db->prepare("DELETE FROM pet WHERE name = :name, size = :size, breed = :breed AND id = :id");
-            $deletePet->bindParam(':name',$name,PDO::PARAM_STR);
-            $deletePet->bindParam(':size',$size,PDO::PARAM_STR);
-            $deletePet->bindParam(':breed',$breed,PDO::PARAM_STR);
+            $deletePet = $this->_db->prepare("DELETE FROM pet WHERE id = :id");
+            // $deletePet->bindParam(':name',$name,PDO::PARAM_STR);
+            // $deletePet->bindParam(':size',$size,PDO::PARAM_STR);
+            // $deletePet->bindParam(':breed',$breed,PDO::PARAM_STR);
             $deletePet->bindParam(':id',$pet_id,PDO::PARAM_INT);
             $status = $deletePet->execute();
             if (!$status) {
-                throw new PDOException('Impossible to delete pet!');
+                throw new PDOException('pet not deleted');
             }
-            return "db updated";
+            return "pet deleted";
             $deletePet->closeCursor();  
         }
 

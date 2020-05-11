@@ -90,7 +90,7 @@
 
     function deletePet($name,$breed,$size,$pet_id) {
         $deletePetManager = new PetManager();
-        $petChanged = $deletePetManager->deletePet($name,$breed,$size,$pet_id);
+        $petChanged = $deletePetManager->deletePet($pet_id);
         if($petChanged){
             echo json_encode($petChanged);
         } else {

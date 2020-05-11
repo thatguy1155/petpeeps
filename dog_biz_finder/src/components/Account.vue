@@ -1,39 +1,48 @@
 <template>
-  <v-container class="profile" >
+  <v-container class="profile">
     <v-row>
-      <v-col :cols="4">
-        <!-- <v-avatar size="250" tile> -->
-          <v-avatar class="hidden-sm-and-down" size="250" tile>    
-          <v-img v-bind:src="getPic">
-            <!-- <ChangeProfilePic class="d-flex align-end " /> -->
-            <!-- <input type="file" id="file" ref="file" /> -->
-            <!-- <v-file-input
-              prepend-icon="mdi-camera"
-              class="d-flex align-end"
-            ></v-file-input> -->
-          </v-img>
+      <!-- <v-col :cols="4" v-if="!isMobile()">
+        <v-avatar size="250" tile>
+          <v-img v-bind:src="getPic"></v-img>
         </v-avatar>
         <ChangeProfilePic class="d-flex align-end mx-4" />
       </v-col>
-      
+
+      <v-col :cols="5" v-else>-->
+      <v-col :cols="5">
+        <v-avatar size="250" tile>
+          <v-img v-bind:src="getPic"></v-img>
+        </v-avatar>
+        <ChangeProfilePic class="d-flex align-end mx-4" />
+      </v-col>
+
+      <!--<v-col :cols="4" v-if="!isMobile()">
+        <v-avatar size="250" tile>
+          <v-img v-bind:src="getPic"></v-img>
+        </v-avatar>
+        <ChangeProfilePic class="d-flex align-end mx-4" />
+      </v-col>
+      <v-col :cols="5" v-else>-->
+
+      <!-- <v-col :cols="5">
+        <v-avatar size="250" tile>
+          <v-img v-bind:src="getPic"></v-img>
+        </v-avatar>
+        <ChangeProfilePic class="d-flex align-end mx-4" />
+      </v-col>-->
+
       <v-col :cols="8">
         <v-card shaped outlined height="240">
-          <v-card-title class="mb-4">
-            {{ user.name }}
-          </v-card-title>
-          <v-card-subtitle class="d-flex justify-start">
-            Account type: {{ user.accountType }}
-          </v-card-subtitle>
-          <v-card-text class="d-flex justify-start">
-            Email: {{ user.email }}
-          </v-card-text>
+          <v-card-title class="mb-4">{{ user.name }}</v-card-title>
+          <v-card-subtitle class="d-flex justify-start">Account type: {{ user.accountType }}</v-card-subtitle>
+          <v-card-text class="d-flex justify-start">Email: {{ user.email }}</v-card-text>
           <v-card-actions>
             <v-btn text @click="showAccountOptions">Account settings</v-btn>
           </v-card-actions>
           <v-card-actions v-show="accountOptions">
             <!-- only if the sign up method is through email/password, show option to change pw -->
-            <update-pw-form v-if="user.signInMethod === 'password'"/>
-            <delete-account-form :signInMethod="user.signInMethod"/>            
+            <update-pw-form v-if="user.signInMethod === 'password'" />
+            <delete-account-form :signInMethod="user.signInMethod" />
           </v-card-actions>
         </v-card>
       </v-col>
@@ -42,9 +51,10 @@
 </template>
 
 <script>
-import ChangeProfilePic from "@/components/ChangeProfilePic"
+import ChangeProfilePic from "@/components/ChangeProfilePic";
 import UpdatePwForm from "@/components/UpdatePwForm";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
+import { isMobile } from "mobile-device-detect";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
@@ -55,19 +65,30 @@ export default {
     ChangeProfilePic
   },
   data: () => ({
-    accountOptions: false,
+    accountOptions: false
   }),
   methods: {
     ...mapActions({
-      getCurrentUser: "profileModule/getCurrentUser",
+      getCurrentUser: "profileModule/getCurrentUser"
     }),
     showAccountOptions() {
       this.accountOptions = !this.accountOptions;
+    },
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   computed: {
     ...mapState("profileModule", {
-      user: (state) => state.user,
+      user: state => state.user
     }),
     ...mapGetters({
       getPic: "profileModule/getPic"
@@ -75,7 +96,7 @@ export default {
   },
   created() {
     this.getCurrentUser();
-  },
+  }
 };
 </script>
 

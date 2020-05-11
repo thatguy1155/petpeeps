@@ -51,6 +51,10 @@ try {
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             editPet($name,$breed,$size,$pet_id);
         } 
+        else if ($action === 'deletePet') {
+            $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            editPet($pet_id);
+        } 
         else if ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';

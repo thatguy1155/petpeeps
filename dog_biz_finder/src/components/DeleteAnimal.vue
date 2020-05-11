@@ -9,6 +9,7 @@
           color="brown lighten-3"
           dark
           v-on="on"
+          @click="deletePet"
         >
           delete
         </v-btn>
@@ -34,24 +35,12 @@ import { mapActions } from "vuex";
     },
     props: ["petInfo"],
     methods: {
-        modifyPet: function(e) {
-          const creationParams = {
-            id:this.petInfo.id,
-            name: this.name,
-            breed: this.breed,
-            size: this.size,
-          }
-          this.editPet(creationParams)
-          this.animal = false
-              
-          e.preventDefault();
-            
-        },
+
          deletePet(creationParams) {
          this.creationParams.splice(this.creationParams.indexOf(creationParams),1);
         },
       ...mapActions({
-        'editPet': 'petModule/deletePet',
+        'deletePet': 'petModule/deletePet',
         
       }),
     },

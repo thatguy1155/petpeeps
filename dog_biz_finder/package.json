@@ -12,6 +12,7 @@
         "firebase": "^7.14.0",
         "firebaseui": "^4.5.0",
         "form-data": "^3.0.0",
+        "mobile-device-detect": "^0.3.3",
         "vue": "^2.6.11",
         "vue-firebase": "^1.0.8",
         "vue-router": "^3.1.6",

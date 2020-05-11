@@ -18,6 +18,8 @@
       </v-list-item>
 
       <v-card-actions>
+         <DeleteAnimal v-bind:petInfo="petInfo"/>
+         <v-spacer></v-spacer>
         <EditAnimal v-bind:petInfo="petInfo"/>
         <v-spacer></v-spacer>
         <ChangePetPic v-bind:petInfo="petInfo"/>
@@ -52,6 +54,7 @@
 </template>
 
 <script>
+import DeleteAnimal from "@/components/DeleteAnimal.vue";
 import EditAnimal from "@/components/EditAnimal.vue";
 import ChangePetPic from "@/components/ChangePetPic.vue";
 import { mapGetters } from "vuex";
@@ -60,6 +63,7 @@ export default {
     props: ["petInfo"],
     components: {
         EditAnimal,
+        DeleteAnimal,
         ChangePetPic
     },
     computed:{ 
