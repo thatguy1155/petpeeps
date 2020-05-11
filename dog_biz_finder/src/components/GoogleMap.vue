@@ -5,6 +5,7 @@
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
+        :icon="isSelected(m)"
         @click="
           m.selectBiz();
           setMapCenter(m.position);
@@ -86,6 +87,18 @@ export default {
         });
       });
     },
+    /**
+     * take the item from biz list from v-for in gmapmarker
+     * see if the address matches that of selected biz.
+     * if so show the selected image, else show the unselected inmage
+     */
+    isSelected(object){
+      if(object.address ===this.selectedBiz.business.address){
+        return { url: require('@/assets/orange_paw_2.png')}
+      } else {
+        return { url: require('@/assets/brown_paw.png')}
+      }
+    }
   },
 };
 </script>
