@@ -270,7 +270,9 @@ export default {
       val || this.close();
     }
   },
-
+  mounted() {
+    
+  },
   methods: {
     editItem(item) {
       this.editedIndex = this.menu.indexOf(item);
@@ -310,14 +312,25 @@ export default {
     },
 
     saveMedia() {
-      if (this.editedMediaIndex > -1) {
-        Object.assign(this.socialMediaArr[this.editedMediaIndex], this.editedMedia);
+      // if (this.editedMediaIndex > -1) {
+      //   console.log(this.editedMediaIndex, this.socialMediaArr)
+      //   Object.assign(this.socialMediaArr[this.editedMediaIndex], this.editedMedia);
+      // } else {
+      //   console.log(this.socialMediaArr)
+      //   this.socialMediaArr.push(this.editedMedia);
+      // }
+      if(this.socialMediaArr.length == 0) {
+        this.socialMediaArr.push(this.editedMedia)
       } else {
-        this.socialMediaArr.push(this.editedMedia);
+        this.socialMediaArr.forEach(sm => {
+          if(sm.media != this.editedMedia.media) this.socialMediaArr.push(this.editedMedia)
+          else sm.link = this.editedMedia.link
+        })
       }
       this.closeMedia();
     },
     editSocialMedia(item) {
+      console.log(item)
       this.editedMediaIndex = this.socialMediaArr.indexOf(item);
       this.editedMedia = Object.assign({}, item);
       this.socialMediaModal = true;
