@@ -46,4 +46,3 @@ import { mapActions } from "vuex";
     },
   }
 </script>
-API
