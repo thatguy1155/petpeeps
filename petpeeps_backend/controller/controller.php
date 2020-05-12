@@ -3,7 +3,7 @@
     require_once("./model/MemberManager.php");
     require_once("./model/PetManager.php");
 
-    function getUserInfo($uid) {
+    function getUserInfo($uid) {      
         $userInfoManager = new MemberManager();
         $userInfo = $userInfoManager->getUserInfo($uid);
         //getMember confirms userId, password is checked below
@@ -110,8 +110,7 @@
 
     }
 
-    function updateProfilePic($id,$url) {
-        
+    function updateProfilePic($id,$url) {     
         $profilePicManager = new MemberManager();
         $profilePicChanged = $profilePicManager->updateProfilePic($id,$url);
         if($profilePicChanged){
