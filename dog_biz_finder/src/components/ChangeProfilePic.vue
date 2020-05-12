@@ -1,42 +1,9 @@
 <template>
-  <div class="text-center">
-    <v-dialog
-      v-model="dialog"
-      width="500"
-    >
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="brown lighten-3"
-          dark
-          icon
-          v-on="on"
-        >
-          <v-icon>mdi-camera</v-icon>
-        </v-btn>
-      </template>
+  <div id='myapp'>
+          <label for="profilePic"><v-icon color="brown lighten-3">mdi-camera</v-icon></label>
+          <input type="file" id="profilePic" ref="file" class="uploadButton" @change='onSelect()' />
 
-      <v-card>
-          <v-file-input
-              prepend-icon="mdi-camera"
-              class="d-flex align-end mx-3"
-              ref='file'
-              type='file'
-              v-model='chosenFile'
-              @change="onSelect"
-            ></v-file-input>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <!-- <v-btn
-            color="primary"
-            text
-            @click="onSubmit"
-          >
-            I accept
-          </v-btn> -->
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+        <!-- <button type="button" @click='uploadFile()' >Upload file</button> -->
   </div>
 </template>
 <script>
@@ -57,10 +24,11 @@ import { mapActions,mapGetters } from "vuex";
         //select the file from the user
         onSelect(){
             //chosenfFile based on v-model on line 24
-            const file = this.chosenFile
-            console.log(file)
-            this.file = file
-            if(file){     //this if statement prevents the other functions from running if you click on the x
+            // const file = this.chosenFile
+            // console.log(file)
+            // this.file = file
+            this.file = this.$refs.file.files[0];
+            if(this.file){     //this if statement prevents the other functions from running if you click on the x
                 this.onSubmit()//this used to be a two part process with a submit button so I just tacked the submit function onto tihs one
             } else {
                 this.dialog = false
@@ -144,3 +112,18 @@ import { mapActions,mapGetters } from "vuex";
     }
   }
 </script>
+
+<style scoped> 
+
+label {
+   cursor: pointer;
+   margin-right: 5px;
+   /* Style as you please, it will become the visible UI component. */
+}
+
+.uploadButton {
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
+}
+</style>

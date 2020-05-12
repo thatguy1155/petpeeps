@@ -44,6 +44,8 @@ import UpdatePwForm from "@/components/UpdatePwForm";
 import DeleteAccountForm from "@/components/DeleteAccountForm";
 import { mapState, mapActions, mapGetters } from "vuex";
 
+
+
 export default {
   name: "Account",
   components: {
@@ -78,7 +80,9 @@ export default {
       user: state => state.user
     }),
     ...mapGetters({
-      getPic: "profileModule/getPic"
+      getPic: "profileModule/getPic",
+      userName: "profileModule/getName",
+      userId: "profileModule/getId",
     })
   },
   created() {
