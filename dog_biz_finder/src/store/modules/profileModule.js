@@ -12,7 +12,7 @@ const state = {
         accountType: "",
         signInMethod: "",
         uid: "",
-        picURL:""
+        picURL: ""
     }
 };
 
@@ -23,7 +23,7 @@ const mutations = {
     UPDATE_USER_TYPE(state, payload) {
         state.user.accountType = payload;
     },
-    UPDATE_PROFILE_PIC(state, payload){
+    UPDATE_PROFILE_PIC(state, payload) {
         state.user.picURL = payload.picURL;
     },
 };
@@ -57,15 +57,15 @@ function getAccountInfo(user) {
             let info = {}
             info['userType'] = res.data['user_type']
             info['id'] = res.data['id']
-            if(!res.data['profile_pic']){
+            if (!res.data['profile_pic']) {
                 info['profilePic'] = 'http://dogpeeps/uploads/profile_icon.png'
-           } else{
-               info['profilePic'] = res.data['profile_pic']
-           }
+            } else {
+                info['profilePic'] = res.data['profile_pic']
+            }
             return info
         })
-        .catch(err => console.log(err))   
-        return accountTypeResponse   
+        .catch(err => console.log(err))
+    return accountTypeResponse
 }
 
 
@@ -122,8 +122,8 @@ async function getCurrentUser({ commit }) {
         signInMethod: currUser.providerData[0].providerId,
         uid: currUser.uid,
         id: accountInfo.id,
-        picURL:accountInfo.profilePic,
-        
+        picURL: accountInfo.profilePic,
+
 
     });
 }
@@ -195,18 +195,18 @@ function updatePw(a, parameters) {
 
 //add a user to db
 
-function addUserToDb(a,creationParams){
+function addUserToDb(a, creationParams) {
     const params = new URLSearchParams();
     params.append('action', 'createUser');
     params.append('login', creationParams.displayName);
     params.append('email', creationParams.email);
     params.append('uid', creationParams.uid);
 
-    axios.post('http://dogpeeps',params)//)
+    axios.post('http://dogpeeps', params) //)
         //after the db has the new member, send the user to the home page
         .then(res => {
-        console.log(res.data)
-        creationParams.router.push('/profile'); 
+            console.log(res.data)
+            creationParams.router.push('/profile');
         })
         .catch(err => console.log(err))
 }
@@ -238,12 +238,12 @@ function deleteUser(a, parameters) {
  * @param {*} a placeholder
  * @param {*} route obj that contains the route from the frontend to log out after deletion
  */
-function deleteSocialUser(a,route) {
+function deleteSocialUser(a, route) {
     let currUser = firebase.auth().currentUser;
     let provider = new firebase.auth.GoogleAuthProvider()
     console.log('deleteUser Social params', currUser.xa)
     currUser.reauthenticateWithPopup(provider).then((reauthResult) => {
-    // reauthenticateSocAcc().then((reauthResult) => {
+        // reauthenticateSocAcc().then((reauthResult) => {
         console.log('I got the result', reauthResult)
         if (reauthResult) {
             currUser
@@ -260,7 +260,7 @@ function deleteSocialUser(a,route) {
     });
 }
 
-async function updateProfilePic ({commit}, picParams){
+async function updateProfilePic({ commit }, picParams) {
     let linkURL = `http://dogpeeps/uploads/${picParams.username}/${picParams.filename}`
     const params = new URLSearchParams();
     params.append('action', 'updateProfilePicInDB');
@@ -269,14 +269,14 @@ async function updateProfilePic ({commit}, picParams){
     await axios.post('http://dogpeeps', params) //)
         .then(res => {
             console.log(res.data)
-            //creationParams.router.push('/');
+                //creationParams.router.push('/');
 
         })
         .catch(err => console.log(err))
-    //update the state after updating the db
-    commit('UPDATE_PROFILE_PIC',{
+        //update the state after updating the db
+    commit('UPDATE_PROFILE_PIC', {
         // id:picParams.id,
-        picURL:linkURL
+        picURL: linkURL
     })
 
 }
@@ -291,9 +291,9 @@ function delUserFromDb(parameter) {
     const params = new URLSearchParams();
     params.append('action', 'removeAccount');
     params.append('uid', parameter.uid);
-    axios.post('http://dogpeeps',params)//)
+    axios.post('http://dogpeeps', params) //)
         .then(res => {
-            console.log(res.data)  
+            console.log(res.data)
         })
         .catch(err => console.log(err))
 }

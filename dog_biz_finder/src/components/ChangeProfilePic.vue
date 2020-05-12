@@ -59,6 +59,7 @@ import { mapActions,mapGetters } from "vuex";
             try{
                 let res = await axios.post('http://dogpeeps', params)
                 console.log(res.data)
+                console.log(params)
             }
             catch(err){
                 console.log(err)
