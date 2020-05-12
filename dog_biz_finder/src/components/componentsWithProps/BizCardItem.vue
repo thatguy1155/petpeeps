@@ -17,14 +17,14 @@
         </div>
       </v-card-text>
       <v-card-actions
-        class="detailsBtn d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start"
+        class="detailsBtn"
       >
         <v-btn color="orange" text class="moreDetailsBtn" @click="showMainCard"
           >More Details</v-btn
         >
       </v-card-actions>
     </div>
-    <main-biz-card v-if="mainCard" @hide-main-card="hideMainCard" :bizTypeIcon="bizTypeIcon" />
+    <main-biz-card v-if="mainCard" @hide-main-card="hideMainCard" />
   </v-card>
 </template>
 
@@ -44,11 +44,11 @@ export default {
       type: String,
       default: "type of business",
     },
-    hours: {
+    bizHrs: {
       type: String,
       default: "hours",
     },
-    address: {
+    bizAddr: {
       type: String,
       default: "address",
     },
@@ -59,9 +59,11 @@ export default {
   }),
   computed: {
     bizTypeIcon() {
-      if (this.bizType === "cafe") {
+      const cafeRegex = /cafe/i;
+      const restaurantRegex = /restaurant/i;
+      if (this.bizType.match(cafeRegex)) {
         return "mdi-coffee";
-      } else if (this.bizType === "restaurant") {
+      } else if (this.bizType.match(restaurantRegex)) {
         return "mdi-silverware-fork-knife";
       } else {
         return "";
@@ -82,10 +84,6 @@ export default {
 </script>
 
 <style scoped>
-
-.detailsBtn {
-  width: 602px;
-}
 
 #smallCard {
   width: 515px;

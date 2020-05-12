@@ -223,7 +223,7 @@ export default {
       let searchedAddrStr = state.searchedAddr.join(" ");
 
       filteredList = cleanList.filter((item) => {
-        return item.address.includes(searchedAddrStr);
+        return item.bizAddr.includes(searchedAddrStr);
       });
 
       commit("CHANGE_BIZ_LIST", filteredList);

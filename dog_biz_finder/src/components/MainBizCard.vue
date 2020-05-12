@@ -32,7 +32,7 @@
       </div>
     </v-card-text>
     <v-card-actions
-      class="d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start"
+      class="hideDetailsBtn"
     >
       <v-btn color="orange" text class="hideDetailsBtn" @click="hideMainCard"
         >Hide Details</v-btn
@@ -51,9 +51,11 @@ export default {
       selectedBiz: (state) => state.selectedBiz,
     }),
     bizTypeIcon() {
-      if (this.selectedBiz.business.bizType === "cafe") {
+      const cafeRegex = /cafe/i;
+      const restaurantRegex = /restaurant/i;
+      if (this.selectedBiz.business.bizType.match(cafeRegex)) {
         return "mdi-coffee";
-      } else if (this.selectedBiz.business.bizType === "restaurant") {
+      } else if (this.selectedBiz.business.bizType.match(restaurantRegex)) {
         return "mdi-silverware-fork-knife";
       } else {
         return "";
@@ -68,4 +70,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

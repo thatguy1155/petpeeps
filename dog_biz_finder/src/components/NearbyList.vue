@@ -71,7 +71,7 @@ export default {
     }),
     // Get the index of the bizList array which matches the selected biz
     matchedBizIndex() {
-        return this.bizList.indexOf(this.selectedBiz.business);
+      return this.bizList.indexOf(this.selectedBiz.business);
     },
     // Get the current biz to display, which is the selected biz (by default it's the first item in the bizList, check resultModule/getBizList)
     currentItem() {
@@ -96,7 +96,7 @@ export default {
       if (this.selectedBiz) {
         let geocoder = new this.google.maps.Geocoder();
         geocoder.geocode(
-          { address: this.bizList[itemIndex].address },
+          { address: this.bizList[itemIndex].bizAddr },
           (results, status) => {
             if (status === "OK") {
               let currentItemMarkerPosition = {
@@ -116,7 +116,7 @@ export default {
     showNextItem() {
       let nextBizItem = this.bizList[this.matchedBizIndex + 1];
       let geocoder = new this.google.maps.Geocoder();
-      geocoder.geocode({ address: nextBizItem.address }, (results, status) => {
+      geocoder.geocode({ address: nextBizItem.bizAddr }, (results, status) => {
         if (status === "OK") {
           let nextBizMarkerPosition = {
             lat: results[0].geometry.location.lat(),
@@ -134,7 +134,7 @@ export default {
     showPrevItem() {
       let prevBizItem = this.bizList[this.matchedBizIndex - 1];
       let geocoder = new this.google.maps.Geocoder();
-      geocoder.geocode({ address: prevBizItem.address }, (results, status) => {
+      geocoder.geocode({ address: prevBizItem.bizAddr }, (results, status) => {
         if (status === "OK") {
           let prevBizMarkerPosition = {
             lat: results[0].geometry.location.lat(),
@@ -146,8 +146,8 @@ export default {
           });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -155,6 +155,8 @@ export default {
 /* Place the bizlist results on top of the map, for the map to be displayed full size */
 .bizList {
   z-index: 1;
-  margin-top: -248px;
+  position: absolute;
+  bottom: 0;
+  left: 108px;
 }
 </style>
