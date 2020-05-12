@@ -20,19 +20,35 @@
       </div>
       <div>
         <v-icon color="#8D6E63">mdi-web</v-icon>
-        {{ selectedBiz.business.bizSite }}
+        <a
+          :href="selectedBiz.business.bizSite"
+          :alt="selectedBiz.business.bizSite"
+          :title="selectedBiz.business.bizSite"
+        >
+          {{ selectedBiz.business.bizSite }}
+        </a>
       </div>
-      <div>
-        
+      <div v-if="socialMediaIcons" class="socialMedia">
+        <span v-for="(socialMediaIcon, index) in socialMediaIcons" :key="index">
+          <v-btn
+            :href="socialMediaIcon.linkTo"
+            :alt="socialMediaIcon.linkTo"
+            :title="socialMediaIcon.linkTo"
+            class="white--text"
+            icon
+          >
+            <v-icon color="#8D6E63" size="24px">{{
+              socialMediaIcon.iconName
+            }}</v-icon>
+          </v-btn>
+        </span>
       </div>
       <div>
         <v-icon color="#8D6E63">mdi-map-marker</v-icon>
         {{ selectedBiz.business.bizTel }}
       </div>
     </v-card-text>
-    <v-card-actions
-      class="hideDetailsBtn"
-    >
+    <v-card-actions class="hideDetailsBtn">
       <v-btn color="orange" text class="hideDetailsBtn" @click="hideMainCard"
         >Hide Details</v-btn
       >
@@ -45,6 +61,11 @@ import { mapState } from "vuex";
 
 export default {
   name: "MainBizCard",
+  data: () => {
+    return {
+      // socialMediaIcons: []
+    };
+  },
   computed: {
     ...mapState("resultModule", {
       selectedBiz: (state) => state.selectedBiz,
@@ -60,6 +81,50 @@ export default {
         return "";
       }
     },
+    socialMediaIcons() {
+      const allSocialMedia = [];
+      const socialMedia = this.selectedBiz.business.socialMediaArr;
+      console.log(socialMedia);
+      for (const social in socialMedia) {
+        switch (social) {
+          case "facebook": {
+            let fbObj = {
+              iconName: "mdi-facebook",
+              linkTo: socialMedia["facebook"],
+            };
+            allSocialMedia.push(fbObj);
+          }
+          // falls through
+          case "twitter": {
+            let twitterObj = {
+              iconName: "mdi-twitter",
+              linkTo: socialMedia["twitter"],
+            };
+            allSocialMedia.push(twitterObj);
+          }
+          // falls through
+          case "instagram": {
+            let instaObj = {
+              iconName: "mdi-instagram",
+              linkTo: socialMedia["instagram"],
+            };
+            allSocialMedia.push(instaObj);
+          }
+          // falls through
+          case "naver":
+            {
+              let naverObj = {
+                iconName: "mdi-blogger",
+                linkTo: socialMedia["naver"],
+              };
+              allSocialMedia.push(naverObj);
+            }
+          // falls through
+        }
+        console.log(allSocialMedia);
+        return allSocialMedia;
+      }
+    },
   },
   methods: {
     hideMainCard() {
@@ -70,6 +135,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+a {
+  text-decoration: none;
+  color: black !important;
+}
+
+.socialMedia {
+  padding-left: 6px !important;
+}
 
 .bizCardContent div {
   padding: 10px;
@@ -88,5 +162,4 @@ export default {
     font-size: 0.9em;
   }
 }
-
 </style>
