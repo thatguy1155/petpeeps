@@ -26,7 +26,6 @@
 
 <script>
 import DeleteAnimal from "@/components/DeleteAnimal.vue";
-
 import EditAnimal from "@/components/EditAnimal.vue";
 import ChangePetPic from "@/components/ChangePetPic.vue";
 import { mapGetters } from "vuex";
