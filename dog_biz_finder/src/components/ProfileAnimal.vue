@@ -57,11 +57,18 @@
 </template>
 
 <script>
+
 import EditAnimal from "@/components/EditAnimal.vue";
 import ChangePetPic from "@/components/ChangePetPic.vue";
 import { mapGetters } from "vuex";
 export default {
     name: "ProfileAnimal",
+    data () {
+      return {
+        thisCard:''
+
+      }
+    },
     props: ["petInfo"],
     components: {
         EditAnimal,
@@ -69,7 +76,8 @@ export default {
     },
     computed:{ 
       ...mapGetters({
-      petList: "petModule/petList"
+      petList: "petModule/petList",
+      userName: "profileModule/getName",
     })
     },
     methods: {
@@ -80,11 +88,12 @@ export default {
         return thisPet[0].picURL
         
       }
-    } 
+    },
+     
 }
 </script>
 
-<style>
+<style scoped> 
 #animalFont {
   color: black;
   font-size: 41px !important;
@@ -92,5 +101,17 @@ export default {
 }
 #profilePic {
   float: left;
+}
+
+label {
+   cursor: pointer;
+   margin-right: 5px;
+   /* Style as you please, it will become the visible UI component. */
+}
+
+.uploadButton {
+   opacity: 0;
+   position: absolute;
+   z-index: -1;
 }
 </style>
