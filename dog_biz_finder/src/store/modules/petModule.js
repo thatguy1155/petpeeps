@@ -105,7 +105,6 @@ function getUserId(user) {
 }
 
 
-
 //Get all of the pets associated with that user
 async function getPets({ commit }) {
     let currUser = firebase.auth().currentUser;
@@ -113,13 +112,15 @@ async function getPets({ commit }) {
     const response = await axios.get(`http://dogpeeps?action=getPets&id=${id}`);
     console.log(response.data)
     let petInfo = response.data
-    petInfo.forEach(element => {
-        if (!element.picURL) {
-            element.picURL = 'https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg'
-        }
-    })
+    if (petInfo != "we couldn't retrieve your pets") {
+        petInfo.forEach(element => {
+            if (!element.picURL) {
+                element.picURL = 'https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg'
+            }
+        })
 
-    commit('SET_PETS', petInfo); //do the mutation below w provided data   
+        commit('SET_PETS', petInfo); //do the mutation below w provided data 
+    }
 }
 
 
@@ -127,6 +128,7 @@ async function getPets({ commit }) {
 // //create a pet
 
 async function createPet({ commit }, creationParams) {
+    let petId
     let currUser = firebase.auth().currentUser;
     const id = await getUserId(currUser)
     const params = new URLSearchParams();
@@ -137,15 +139,18 @@ async function createPet({ commit }, creationParams) {
     params.append('size', creationParams.size);
     await axios.post('http://dogpeeps', params)
         .then(res => {
-            console.log(res.data)
+            petId = res.data
         })
         .catch(err => console.log(err))
-        //after the info has been added to the db, then make a new object in state.pets
-        //this will need to be updated when we implement age
+
+    //after the info has been added to the db, then make a new object in state.pets
+    //this will need to be updated when we implement age
     commit("ADD_ONE_PET", {
         name: creationParams.name,
         breed: creationParams.breed,
-        size: creationParams.size
+        size: creationParams.size,
+        picURL: 'https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg',
+        id: petId
     })
 
 }
