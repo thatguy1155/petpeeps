@@ -44,7 +44,7 @@
         </span>
       </div>
       <div>
-        <menu-main-biz-card />
+        <menu-main-biz-card :menu="menu"/>
       </div>
     </v-card-text>
     <v-card-actions class="hideDetailsBtn">
