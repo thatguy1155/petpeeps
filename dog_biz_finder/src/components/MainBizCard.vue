@@ -57,25 +57,24 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "MainBizCard",
-  data: () => {
-    return {
-      // socialMediaIcons: []
-    };
-  },
   computed: {
     ...mapState("resultModule", {
       selectedBiz: (state) => state.selectedBiz,
     }),
+    ...mapGetters({
+      bizType: "resultModule/bizType",
+      bizSocialMedia: "resultModule/bizSocialMedia"
+    }),
     bizTypeIcon() {
       const cafeRegex = /cafe/i;
       const restaurantRegex = /restaurant/i;
-      if (this.selectedBiz.business.bizType.match(cafeRegex)) {
+      if (this.bizType.match(cafeRegex)) {
         return "mdi-coffee";
-      } else if (this.selectedBiz.business.bizType.match(restaurantRegex)) {
+      } else if (this.bizType.match(restaurantRegex)) {
         return "mdi-silverware-fork-knife";
       } else {
         return "";
@@ -83,8 +82,7 @@ export default {
     },
     socialMediaIcons() {
       const allSocialMedia = [];
-      const socialMedia = this.selectedBiz.business.socialMediaArr;
-      console.log(socialMedia);
+      const socialMedia = this.bizSocialMedia;
       for (const social in socialMedia) {
         switch (social) {
           case "facebook": {
@@ -119,9 +117,11 @@ export default {
               };
               allSocialMedia.push(naverObj);
             }
-          // falls through
+          break;
+          default: {
+            allSocialMedia.push();
+          }
         }
-        console.log(allSocialMedia);
         return allSocialMedia;
       }
     },
