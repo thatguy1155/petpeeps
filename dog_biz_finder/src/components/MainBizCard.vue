@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-title>{{ selectedBiz.business.bizName }}</v-card-title>
-    <v-card-text class="d-flex flex-column align-start">
+    <v-card-text class="bizCardContent d-flex flex-column align-start">
       <div>
         <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
         {{ selectedBiz.business.bizType }}
@@ -15,16 +15,15 @@
         {{ selectedBiz.business.bizAddr }}
       </div>
       <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+        <v-icon color="#8D6E63">mdi-phone</v-icon>
         {{ selectedBiz.business.bizTel }}
       </div>
       <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+        <v-icon color="#8D6E63">mdi-web</v-icon>
         {{ selectedBiz.business.bizSite }}
       </div>
       <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
-        {{ selectedBiz.business.bizTel }}
+        
       </div>
       <div>
         <v-icon color="#8D6E63">mdi-map-marker</v-icon>
@@ -71,6 +70,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.bizCardContent div {
+  padding: 10px;
+}
 
 @media screen and (max-width: 959px) {
   .v-card__title {
