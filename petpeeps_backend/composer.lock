@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e771e925f84aadb6dcb911900c72ad94",
+    "content-hash": "eaf427e91c04d06abdb542687ebc4d5d",
     "packages": [],
     "packages-dev": [
         {
@@ -755,16 +755,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.0.0",
+            "version": "9.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a5be9621b19ee19dca5f150a5b159f48b5389547"
+                "reference": "2d7080c622cf7884992e7c3cf87853877bae8ff4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a5be9621b19ee19dca5f150a5b159f48b5389547",
-                "reference": "a5be9621b19ee19dca5f150a5b159f48b5389547",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2d7080c622cf7884992e7c3cf87853877bae8ff4",
+                "reference": "2d7080c622cf7884992e7c3cf87853877bae8ff4",
                 "shasum": ""
             },
             "require": {
@@ -780,14 +780,15 @@
                 "phar-io/version": "^2.0.1",
                 "php": "^7.3",
                 "phpspec/prophecy": "^1.8.1",
-                "phpunit/php-code-coverage": "^8.0",
+                "phpunit/php-code-coverage": "^8.0.1",
                 "phpunit/php-file-iterator": "^3.0",
                 "phpunit/php-invoker": "^3.0",
                 "phpunit/php-text-template": "^2.0",
-                "phpunit/php-timer": "^3.0",
+                "phpunit/php-timer": "^3.1.4",
+                "sebastian/code-unit": "^1.0.2",
                 "sebastian/comparator": "^4.0",
                 "sebastian/diff": "^4.0",
-                "sebastian/environment": "^5.0",
+                "sebastian/environment": "^5.0.1",
                 "sebastian/exporter": "^4.0",
                 "sebastian/global-state": "^4.0",
                 "sebastian/object-enumerator": "^4.0",
@@ -796,7 +797,8 @@
                 "sebastian/version": "^3.0"
             },
             "require-dev": {
-                "ext-pdo": "*"
+                "ext-pdo": "*",
+                "phpspec/prophecy-phpunit": "^2.0"
             },
             "suggest": {
                 "ext-soap": "*",
@@ -808,7 +810,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "9.0-dev"
+                    "dev-master": "9.1-dev"
                 }
             },
             "autoload": {
@@ -837,7 +839,69 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2020-02-07T06:56:17+00:00"
+            "funding": [
+                {
+                    "url": "https://phpunit.de/donate.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-04-30T06:32:53+00:00"
+        },
+        {
+            "name": "sebastian/code-unit",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/code-unit.git",
+                "reference": "ac958085bc19fcd1d36425c781ef4cbb5b06e2a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/code-unit/zipball/ac958085bc19fcd1d36425c781ef4cbb5b06e2a5",
+                "reference": "ac958085bc19fcd1d36425c781ef4cbb5b06e2a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "Collection of value objects that represent the PHP code units",
+            "homepage": "https://github.com/sebastianbergmann/code-unit",
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-04-30T05:58:10+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
