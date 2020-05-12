@@ -72,4 +72,18 @@ export default {
 
 <style lang="scss" scoped>
 
+@media screen and (max-width: 959px) {
+  .v-card__title {
+    font-size: 0.8em;
+    padding: 5px;
+  }
+  .v-card__text {
+    font-size: 0.6em;
+    padding: 0;
+  }
+  .hideDetailsBtn {
+    font-size: 0.9em;
+  }
+}
+
 </style>

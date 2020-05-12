@@ -99,7 +99,10 @@ export default {
     padding: 0;
   }
   .moreDetailsBtn {
-    font-size: 0.7em;
+    font-size: 0.8em;
+  }
+  .bizCard {
+    width: 100%;
   }
 }
 </style>

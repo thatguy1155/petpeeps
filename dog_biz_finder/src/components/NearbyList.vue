@@ -159,4 +159,10 @@ export default {
   bottom: 0;
   left: 108px;
 }
+
+@media screen and (max-width: 959px) {
+  .bizList {
+    left: 0;
+  }
+}
 </style>
