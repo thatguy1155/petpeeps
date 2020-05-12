@@ -54,7 +54,6 @@ try {
         else if ($action === 'deletePet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : ''; 
             deletePet($pet_id);
-            
         } 
         else if ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
