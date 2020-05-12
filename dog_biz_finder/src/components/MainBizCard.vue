@@ -44,8 +44,7 @@
         </span>
       </div>
       <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
-        {{ selectedBiz.business.bizTel }}
+        <menu-main-biz-card />
       </div>
     </v-card-text>
     <v-card-actions class="hideDetailsBtn">
@@ -58,9 +57,13 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+import MenuMainBizCard from "./componentsWithProps/MenuMainBizCard";
 
 export default {
   name: "MainBizCard",
+  components: {
+    MenuMainBizCard,
+  },
   computed: {
     ...mapState("resultModule", {
       selectedBiz: (state) => state.selectedBiz,
@@ -68,6 +71,7 @@ export default {
     ...mapGetters({
       bizType: "resultModule/bizType",
       bizSocialMedia: "resultModule/bizSocialMedia",
+      menu: "resultModule/menu",
     }),
     bizTypeIcon() {
       const cafeRegex = /cafe/i;

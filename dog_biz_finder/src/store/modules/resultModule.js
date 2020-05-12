@@ -40,7 +40,8 @@ export default {
   getters: {
     dongs: (state) => state.dongList,
     bizSocialMedia: (state) => state.selectedBiz.business.socialMediaArr,
-    bizType: (state) => state.selectedBiz.business.bizType
+    bizType: (state) => state.selectedBiz.business.bizType,
+    menu: (state) => state.selectedBiz.business.menu
   },
   actions: {
     /**
