@@ -65,13 +65,13 @@ const mutations = {
             }
         });
     },
+    DELETE_ONE_PET(state, payload) {
+        state.pets = state.pets.filter((element) => element.id !== payload.id);
+    },
     //mutation ran when you submit the add pet form
     ADD_ONE_PET(state, payload) {
         state.pets.push(payload)
     },
-    DELETE_ONE_PET(state, payload) {
-        state.pets.splice(payload)
-    }
 };
 
 const actions = {
@@ -181,26 +181,20 @@ async function editPet({ commit }, creationParams) {
     })
 }
 //delete pet info
-async function deletePet({ commit }, creationParams) {
+async function deletePet({ commit }, pet_id) {
     const params = new URLSearchParams();
     params.append('action', 'deletePet');
-    params.append('id', creationParams.id);
-    params.append('name', creationParams.name);
-    params.append('breed', creationParams.breed);
-    params.append('size', creationParams.size);
+    params.append('id', pet_id);
     await axios.post('http://dogpeeps', params) //)
         //after the db has the new member, send the user to the home page
         .then(res => {
             console.log(res.data)
-                //creationParams.router.push('/');
+                //deletionParams.router.push('/');
         })
         .catch(err => console.log(err))
         //update the state after updating the db
     commit('DELETE_ONE_PET', {
-        id: creationParams.id,
-        name: creationParams.name,
-        breed: creationParams.breed,
-        size: creationParams.size
+        id: pet_id,
     })
 }
 

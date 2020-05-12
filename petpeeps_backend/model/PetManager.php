@@ -66,18 +66,15 @@
             $editPet->closeCursor();  
         }
 
-        public function deletePet($name,$breed,$size,$pet_id) {   
+        public function deletePet($pet_id) {  
             $deletePet = $this->_db->prepare("DELETE FROM pet WHERE id = :id");
-            // $deletePet->bindParam(':name',$name,PDO::PARAM_STR);
-            // $deletePet->bindParam(':size',$size,PDO::PARAM_STR);
-            // $deletePet->bindParam(':breed',$breed,PDO::PARAM_STR);
             $deletePet->bindParam(':id',$pet_id,PDO::PARAM_INT);
             $status = $deletePet->execute();
             if (!$status) {
                 throw new PDOException('pet not deleted');
             }
-            return "pet deleted";
             $deletePet->closeCursor();  
+            return "pet deleted";
         }
 
         public function updatePetPic($pet_id,$url){
@@ -91,9 +88,6 @@
             return "db updated";
             $editPetPic->closeCursor();  
         }
-
-        
-        
 
         // public function deleteProfile($uid) {
         //     echo($uid);

@@ -88,11 +88,11 @@
 
     }
 
-    function deletePet($name,$breed,$size,$pet_id) {
+    function deletePet($pet_id) {
         $deletePetManager = new PetManager();
-        $petChanged = $deletePetManager->deletePet($pet_id);
-        if($petChanged){
-            echo json_encode($petChanged);
+        $petDeleted = $deletePetManager->deletePet($pet_id);
+        if($petDeleted){
+            echo json_encode($petDeleted);
         } else {
             $err = array('we couldn\'t delete your pets');
             echo json_encode($err);
