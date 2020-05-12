@@ -67,7 +67,7 @@ export default {
     }),
     ...mapGetters({
       bizType: "resultModule/bizType",
-      bizSocialMedia: "resultModule/bizSocialMedia"
+      bizSocialMedia: "resultModule/bizSocialMedia",
     }),
     bizTypeIcon() {
       const cafeRegex = /cafe/i;
@@ -84,46 +84,39 @@ export default {
       const allSocialMedia = [];
       const socialMedia = this.bizSocialMedia;
       for (const social in socialMedia) {
-        switch (social) {
-          case "facebook": {
-            let fbObj = {
-              iconName: "mdi-facebook",
-              linkTo: socialMedia["facebook"],
-            };
-            allSocialMedia.push(fbObj);
-          }
-          // falls through
-          case "twitter": {
-            let twitterObj = {
-              iconName: "mdi-twitter",
-              linkTo: socialMedia["twitter"],
-            };
-            allSocialMedia.push(twitterObj);
-          }
-          // falls through
-          case "instagram": {
-            let instaObj = {
-              iconName: "mdi-instagram",
-              linkTo: socialMedia["instagram"],
-            };
-            allSocialMedia.push(instaObj);
-          }
-          // falls through
-          case "naver":
-            {
-              let naverObj = {
-                iconName: "mdi-blogger",
-                linkTo: socialMedia["naver"],
-              };
-              allSocialMedia.push(naverObj);
-            }
-          break;
-          default: {
-            allSocialMedia.push();
-          }
+        if (social === "facebook") {
+          let fbObj = {
+            iconName: "mdi-facebook",
+            linkTo: socialMedia["facebook"],
+          };
+          allSocialMedia.push(fbObj);
         }
-        return allSocialMedia;
+
+        if (social === "twitter") {
+          let twitterObj = {
+            iconName: "mdi-twitter",
+            linkTo: socialMedia["twitter"],
+          };
+          allSocialMedia.push(twitterObj);
+        }
+
+        if (social === "naver") {
+          let naverObj = {
+            iconName: "mdi-blogger",
+            linkTo: socialMedia["naver"],
+          };
+          allSocialMedia.push(naverObj);
+        }
+
+        if (social === "instagram") {
+          let instaObj = {
+            iconName: "mdi-instagram",
+            linkTo: socialMedia["instagram"],
+          };
+          allSocialMedia.push(instaObj);
+        }
       }
+      return allSocialMedia;
     },
   },
   methods: {
@@ -135,7 +128,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 a {
   text-decoration: none;
   color: black !important;
