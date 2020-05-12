@@ -6,9 +6,9 @@
           <v-btn id="animalButton" color="brown" dark v-on="on">+ Add A Pet</v-btn>
         </template>
         <v-card>
-          <v-card-title>
-            <span class="headline">Edit or Add Pet Info</span>
-          </v-card-title>
+          <!-- <v-card-title>
+            <span class="headline">Add Pet Info</span>
+          </v-card-title> -->
           <v-card-text>
             <v-container>
               <v-row>
@@ -63,7 +63,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="brown darken-1" text @click="animal = false">Cancel</v-btn>
-            <v-btn color="brown darken-1" text @click="registerPet">Edit/Add</v-btn>
+            <v-btn color="brown darken-1" text @click="registerPet">Add</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
