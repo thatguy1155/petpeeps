@@ -63,7 +63,7 @@ try {
         else if ($action === 'updateProfilePicInDB') {
             $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
-            echo $id;
+            echo ($id);
             updateProfilePic($id,$url);
         }
         else if ($action === 'deleteOldPetPic') {
