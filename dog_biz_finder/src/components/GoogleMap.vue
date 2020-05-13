@@ -61,7 +61,7 @@ export default {
         this.markers = [];
         for (let i = 0; i < this.bizList.length; i++) {
           let business = this.bizList[i];
-          geocoder.geocode({ address: business.address }, (results, status) => {
+          geocoder.geocode({ address: business.bizAddr }, (results, status) => {
             if (status === "OK") {
               let markerPosition = {
                 lat: results[0].geometry.location.lat(),
@@ -71,7 +71,7 @@ export default {
               // Create a marker object that has the method selectBiz which sets a selected business object in the Vuex store
               let marker = {
                 position: markerPosition,
-                address: business.address,
+                address: business.bizAddr,
                 selectBiz: () =>
                   this.setSelectedBiz({
                     business: this.bizList[i],
@@ -145,7 +145,7 @@ export default {
      * if so show the selected image, else show the unselected inmage
      */
     isSelected(object){
-      if(object.address ===this.selectedBiz.business.address){
+      if(object.address ===this.selectedBiz.business.bizAddr){
         return { url: require('@/assets/orange_paw_2.png')}
       } else {
         return { url: require('@/assets/brown_paw.png')}
