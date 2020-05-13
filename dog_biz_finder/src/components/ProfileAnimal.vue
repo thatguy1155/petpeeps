@@ -1,4 +1,4 @@
-<template justify="center" align="center">
+<template>
   <div>
     <v-card class="mx-auto" width="344" outlined>
       <v-list-item three-line>
