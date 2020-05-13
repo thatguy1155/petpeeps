@@ -2,7 +2,7 @@
   <!-- ADD A (ANIMAL) MODAL/PROFILE START-->
   <v-container justify="center" align="center">
     <h1>my pets</h1>
-    <v-row>
+    <v-row justify="center" align="center">
       <v-col
         justify="center"
         align="center"
