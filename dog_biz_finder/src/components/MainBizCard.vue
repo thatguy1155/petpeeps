@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card>
     <v-card-title>{{ selectedBiz.business.bizName }}</v-card-title>
     <v-card-text class="bizCardContent d-flex flex-column align-start">
       <div>
@@ -48,18 +48,11 @@
       </div>
     </v-card-text>
     <v-card-actions class="hideDetailsBtn">
-      <v-btn
-        color="orange"
-        text
-        class="hideDetailsBtn"
-        @click="
-          hideMainCard;
-          closeMoreBizInfo;
-        "
+      <v-btn color="orange" text class="hideDetailsBtn" @click="hideMainCard"
         >Hide Details</v-btn
       >
     </v-card-actions>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -71,10 +64,7 @@ export default {
   props: {
     bizKey: {
       type: Number,
-    },
-    moreBizInfo: {
-      type: Boolean,
-    },
+    }
   },
   components: {
     MenuMainBizCard,
@@ -145,10 +135,7 @@ export default {
     hideMainCard() {
       this.$emit("hide-main-card");
     },
-    closeMoreBizInfo() {
-      this.moreBizInfo = false;
-    }
-  }
+  },
 };
 </script>
 

@@ -23,7 +23,7 @@
               more info
             </v-btn>
           </template>
-          <main-biz-card :moreBizInfoDialog="moreBizInfoDialog"/>
+          <main-biz-card @hide-main-card="hideMainCard"/>
         </v-dialog>
         <EditBiz v-bind:bizInfo="bizInfo" />
       </v-card-actions>
@@ -84,6 +84,9 @@ export default {
       this.setSelectedBiz({
         business: this.bizInfo
       });
+    },
+    hideMainCard() {
+      this.moreBizInfoDialog = false;
     }
   }
 };
