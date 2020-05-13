@@ -1,4 +1,4 @@
-<template>
+<template justify="center" align="center">
   <div>
     <v-card class="mx-auto" width="344" outlined>
       <v-list-item three-line>
@@ -13,7 +13,7 @@
         </v-list-item-avatar>
       </v-list-item>
 
-      <v-card-actions justify="center" align="center">
+      <v-card-actions>
         <DeleteAnimal v-bind:petInfo="petInfo"/>
         <v-spacer></v-spacer>
         <EditAnimal v-bind:petInfo="petInfo" />
