@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { cors_getDongList } from "../ep";
+import { cors_getDongList, cors_getGuList } from "../ep";
 import axios from "axios";
 
 Vue.use(Vuex);
@@ -9,15 +9,20 @@ export default {
   namespaced: true,
   state: {
     bizList: [],
+    guList: [],
     dongList: [],
-    searchedAddr: ["서울특별시"],
+    searchedAddr: [],
     selectedBiz: null,
     mapCenter: { lat: 37.5326, lng: 127.024612 },
+    siCategory: '',
     guCategory: '',
   },
   mutations: {
     CHANGE_BIZ_LIST(state, payload) {
       state.bizList = payload;
+    },
+    CHANGE_GU_LIST(state, payload) {
+      state.guList = payload;
     },
     CHANGE_DONG_LIST(state, payload) {
       state.dongList = payload;
@@ -38,6 +43,7 @@ export default {
     },
   },
   getters: {
+    gus: (state) => state.guList,
     dongs: (state) => state.dongList,
   },
   actions: {
@@ -56,6 +62,11 @@ export default {
      */
     setMapCenter({ commit }, mapCentercoords) {
       commit("SET_MAP_CENTER", mapCentercoords);
+    },
+
+    addSi({ commit, state }, val) {
+      state.searchedAddr.splice(0, 3);
+      commit("CREATE_SEARCHED_ADDRESS", val.searchedSi);
     },
 
     /**
@@ -80,6 +91,24 @@ export default {
     addDong({ commit, state }, val) {
       state.searchedAddr.splice(2, 3);
       commit("CREATE_SEARCHED_ADDRESS", val.searchedDong);
+    },
+
+    getGuList({ commit }, val) {
+      axios
+      .get(cors_getGuList, {
+        params: {
+          menuGubun: "E",
+          srhType: "",
+          gubunCode: "LAND",
+          sidoCode: val.searchedSiCode
+        },
+      })
+      .then((list) => {
+        commit("CHANGE_GU_LIST", list.data.jsonList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     },
 
     /**
