@@ -78,7 +78,7 @@ export default {
     animal: false,
     name: '',
     breed: '',
-    rules:'',
+    // rules:'',
     menu: [],
     date: '',
     petSize: ''

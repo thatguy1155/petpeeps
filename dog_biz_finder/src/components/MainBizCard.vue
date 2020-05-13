@@ -44,11 +44,18 @@
         </span>
       </div>
       <div>
-        <menu-main-biz-card :menu="menu"/>
+        <menu-main-biz-card :menu="menu" />
       </div>
     </v-card-text>
     <v-card-actions class="hideDetailsBtn">
-      <v-btn color="orange" text class="hideDetailsBtn" @click="hideMainCard"
+      <v-btn
+        color="orange"
+        text
+        class="hideDetailsBtn"
+        @click="
+          hideMainCard;
+          closeMoreBizInfo;
+        "
         >Hide Details</v-btn
       >
     </v-card-actions>
@@ -61,12 +68,23 @@ import MenuMainBizCard from "./componentsWithProps/MenuMainBizCard";
 
 export default {
   name: "MainBizCard",
+  props: {
+    bizKey: {
+      type: Number,
+    },
+    moreBizInfo: {
+      type: Boolean,
+    },
+  },
   components: {
     MenuMainBizCard,
   },
   computed: {
     ...mapState("resultModule", {
       selectedBiz: (state) => state.selectedBiz,
+    }),
+    ...mapState("bizModule", {
+      bizList: (state) => state.bizArray,
     }),
     ...mapGetters({
       bizType: "resultModule/bizType",
@@ -127,7 +145,10 @@ export default {
     hideMainCard() {
       this.$emit("hide-main-card");
     },
-  },
+    closeMoreBizInfo() {
+      this.moreBizInfo = false;
+    }
+  }
 };
 </script>
 
