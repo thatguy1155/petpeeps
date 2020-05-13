@@ -33,7 +33,7 @@ const mutations = {
 
 const actions = {
     getBiz,
-    createBiz,
+    addBizDb,
     editBiz
 };
 
@@ -71,20 +71,22 @@ async function getBiz({ commit }) {
 
 // //create a biz
 
-async function createBiz({commit}, creationParams) {
+async function addBizDb({commit}, creationParams) {
+    console.log('creation params', creationParams);
     let currUser = firebase.auth().currentUser;
     const id = await getUserId(currUser)
     const params = new URLSearchParams();
     params.append('action', 'createBiz');
     params.append('id', id);
-    params.append('bizName', creationParams.bizName);
-    params.append('bizType', creationParams.bizType);
-    params.append('bizHrs', creationParams.bizHrs);
-    params.append('bizAddr', creationParams.bizAddr);
-    params.append('bizTel', creationParams.bizTel);
-    params.append('bizSite', creationParams.sibizSiteze);
-    params.append('socialMediaArr', creationParams.socialMediaArr);
-    params.append('menu', creationParams.menu);
+    params.append('bizInfo', creationParams);
+    // params.append('bizName', creationParams.bizName);
+    // params.append('bizType', creationParams.bizType);
+    // params.append('bizHrs', creationParams.bizHrs);
+    // params.append('bizAddr', creationParams.bizAddr);
+    // params.append('bizTel', creationParams.bizTel);
+    // params.append('bizSite', creationParams.sibizSiteze);
+    // params.append('socialMediaArr', creationParams.socialMediaArr);
+    // params.append('menu', creationParams.menu);
     await axios.post('http://dogpeeps', params) 
         .then(res => {
             console.log(res.data)
@@ -95,7 +97,7 @@ async function createBiz({commit}, creationParams) {
     commit("ADD_ONE_BIZ",{
         bizName: creationParams.bizName,
         bizType: creationParams.bizType,
-        bizHrs: thcreationParamsis.bizHrs,
+        bizHrs: creationParams.bizHrs,
         bizAddr: creationParams.bizAddr,
         bizTel: creationParams.bizTel,
         bizSite: creationParams.bizType,

@@ -27,15 +27,39 @@
                 </v-col>
 
                 <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
-                  <v-text-field label="Business Type" v-model="bizType" hint="cafe, bar, restaurant, and etc"></v-text-field>
+                    <v-select
+                      v-model="bizType"
+                      :items="bizTypeList"
+                      label="Business Type"
+                    />            
                 </v-col>
 
                 <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
-                  <v-text-field label="Business Hours" v-model="bizHrs" hint="Mon-Fri: 9:00-19:00, Sat: 10:00-21:00, Sun: Closed"></v-text-field>
+                  <v-text-field label="Business Hours" v-model="bizHrs" hint="Weekdays: 9:00-19:00, Weekend: 10:00-21:00"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
-                  <v-text-field label="Address" v-model="bizAddr" hint></v-text-field>
+                  <v-select
+                    v-model="siCategory"
+                    :items="siList"
+                    label="Search by City"
+                    @change="guListPopulate"
+                    item-text='NAME'
+                  />
+                  <v-select
+                    v-model="guCategory"
+                    :items="guList"
+                    label="Search by Gu"
+                    @change="dongListPopulate"
+                    item-text='NAME'
+                  />
+                  <v-select
+                    v-model="dongCategory"
+                    :items="dongList"
+                    label="Search by Dong"
+                    item-text='NAME'
+                  />
+                  <v-text-field label="Danji" v-model="danjiCategory" hint></v-text-field>
                 </v-col>
 
                 <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
@@ -173,6 +197,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data: () => ({
     business: false,
@@ -220,14 +245,25 @@ export default {
         sortable: false
       }
     ],
+    siList: [{"NAME":"서울특별시","CODE":"11"}],
+    siCategory: '',
+    guCategory: '',
+    dongCategory: '',
+    danjiCategory: '',
+    siCode: '',
+    guCode: '',
     bizName: '',
     bizType: '',
     bizHrs: '',
-    bizAddr: '',
     bizTel: '',
     bizSite: '',
     socialMediaArr: [],
     menu: [],
+    bizTypeList: [
+      'Cafe',
+      'Restaurant',
+      'Bar'
+    ],
     socialMediaList: [
       'facebook',
       'twitter',
@@ -262,7 +298,11 @@ export default {
     },
     formMediaTitle() {
       return this.editedMediaIndex === -1 ? "New Media" : "Edit Media";
-    }
+    },
+    ...mapGetters({
+      'guList': 'resultModule/gus',
+      'dongList': 'resultModule/dongs'
+    }),
   },
 
   watch: {
@@ -270,10 +310,27 @@ export default {
       val || this.close();
     }
   },
-  mounted() {
-    
-  },
   methods: {
+    ...mapActions({
+      'addBizDb': 'bizModule/addBizDb',
+      'getGuList': 'resultModule/getGuList',
+      'getDongList': 'resultModule/getDongList',
+      
+    }),
+    guListPopulate() {
+      this.siList.forEach(i => {
+        if(i.NAME == this.siCategory) this.siCode = i.CODE
+        return
+      })
+      this.getGuList({ searchedSiCode: this.siCode })
+    },
+    dongListPopulate() {
+      this.guList.forEach(i => {
+        if(i.NAME == this.guCategory) this.guCode = i.CODE
+        return
+      })
+      this.getDongList({ searchedGuCode: this.guCode })
+    },
     editItem(item) {
       this.editedIndex = this.menu.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -345,13 +402,19 @@ export default {
         bizName: this.bizName,
         bizType: this.bizType,
         bizHrs: this.bizHrs,
-        bizAddr: this.bizAddr,
+        bizAddr: {
+          si: this.siCategory,
+          gu: this.guCategory,
+          dong: this.dongCategory,
+          danji: this.danjiCategory
+        },
         bizTel: this.bizTel,
         bizSite: this.bizType,
         socialMediaArr: this.socialMediaArr,
         menu: this.menu,
       }
-      console.log(bizParams)
+      console.log(bizParams);
+      this.addBizDb(bizParams);
     } 
   }
 };

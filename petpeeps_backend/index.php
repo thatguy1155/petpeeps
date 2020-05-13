@@ -1,6 +1,6 @@
 <?php
-
 require("./controller/controller.php");
+
 try {
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
     $uid = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : '';
@@ -44,6 +44,8 @@ try {
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             createPet($owner_id,$name,$breed,$size);
         } else if ($action === 'createBiz') {
+            // echo 'req';
+            echo json_encode($_REQUEST['bizInfo']);
             $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $bizName = isset($_REQUEST['bizName']) ? $_REQUEST['bizName'] : '';
             $bizType = isset($_REQUEST['bizType']) ? $_REQUEST['bizType'] : '';
@@ -53,7 +55,7 @@ try {
             $bizSite = isset($_REQUEST['bizSite']) ? $_REQUEST['bizSite'] : '';
             $socialMediaArr = isset($_REQUEST['socialMediaArr']) ? $_REQUEST['socialMediaArr'] : '';
             $menu = isset($_REQUEST['menu']) ? $_REQUEST['menu'] : '';
-            createPet($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
+            // createPet($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
         }
         else if ($action === 'editPet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
