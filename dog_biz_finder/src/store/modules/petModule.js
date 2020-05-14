@@ -54,7 +54,8 @@ const mutations = {
             if(element.id === payload.id){
                 element.name = payload.name,
                 element.breed = payload.breed,
-                element.size = payload.size
+                element.size = payload.size,
+                element.age = payload.age
             }
         });
     },
@@ -133,6 +134,7 @@ async function createPet({commit}, creationParams) {
     params.append('name', creationParams.name);
     params.append('breed', creationParams.breed);
     params.append('size', creationParams.size);
+    params.append('age', creationParams.age);
     await axios.post('http://dogpeeps', params) 
         .then(res => {
             petId = res.data
@@ -145,6 +147,7 @@ async function createPet({commit}, creationParams) {
         name:creationParams.name,
         breed:creationParams.breed,
         size:creationParams.size,
+        age:creationParams.age,
         picURL: 'https://i.pinimg.com/originals/66/95/4f/66954f3cfcb3ec22e7d057bc84059a76.jpg',
         id: petId
     })
@@ -161,6 +164,7 @@ async function editPet({commit}, creationParams) {
     params.append('name', creationParams.name);
     params.append('breed', creationParams.breed);
     params.append('size', creationParams.size);
+    params.append('age', creationParams.age);
     await axios.post('http://dogpeeps', params) //)
         //after the db has the new member, send the user to the home page
         .then(res => {
@@ -173,7 +177,8 @@ async function editPet({commit}, creationParams) {
         id:creationParams.id,
         name:creationParams.name,
         breed:creationParams.breed,
-        size:creationParams.size
+        size:creationParams.size,
+        age:creationParams.age
     })
 }
 

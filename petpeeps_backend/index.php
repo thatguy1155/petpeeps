@@ -62,7 +62,8 @@ try {
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
-            editPet($name,$breed,$size,$pet_id);
+            $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : '';
+            editPet($name,$breed,$size,$pet_id,$age);
         } 
         else if ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
