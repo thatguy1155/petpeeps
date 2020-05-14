@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :flat=true>
     <v-card-title>{{ selectedBiz.business.bizName }}</v-card-title>
     <v-card-text class="bizCardContent d-flex flex-column align-start">
       <div>
