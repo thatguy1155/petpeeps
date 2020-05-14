@@ -1,46 +1,108 @@
 <template>
-  <v-col
-    cols="12" xs="12" sm="12" md="6" xl="6"
-  >
-    <v-card>
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      >
-        <v-card-title>{{ title }}</v-card-title>
-      </v-img>
-      <v-card-subtitle class="pb-0">{{ subtitle }}</v-card-subtitle>
-      <v-card-text class="text--primary">
-        <div>{{ placeName }}</div>
-        <div>{{ placeDescription }}</div>
+  <v-card class="bizCard d-flex row align-center">
+    <div id="smallCard" v-if="smallCard">
+      <v-card-title>{{ bizName }}</v-card-title>
+      <v-card-text class="d-flex flex-column align-start">
+        <div>
+          <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
+          {{ bizType }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
+          {{ bizHrs }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+          {{ bizAddr }}
+        </div>
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="orange" text>Share</v-btn>
-        <v-btn color="orange" text>Explore</v-btn>
+      <v-card-actions
+        class="detailsBtn"
+      >
+        <v-btn color="orange" text class="moreDetailsBtn" @click="showMainCard"
+          >More Details</v-btn
+        >
       </v-card-actions>
-    </v-card>
-  </v-col>
+    </div>
+    <main-biz-card v-if="mainCard" @hide-main-card="hideMainCard" />
+  </v-card>
 </template>
+
 <script>
+import MainBizCard from "@/components/MainBizCard";
+
 export default {
+  components: {
+    MainBizCard
+  },
   props: {
-    title: {
+    bizName: {
       type: String,
-      default: 'test'
+      default: "name of business",
     },
-    subtitle: {
+    bizType: {
       type: String,
-      default: 'subtitle test'
+      default: "type of business",
     },
-    placeName: {
+    bizHrs: {
       type: String,
-      default: 'Name of place'
+      default: "hours",
     },
-    placeDescription: {
+    bizAddr: {
       type: String,
-      default: 'place description'
-    }
+      default: "address",
+    },
+  },
+  data: () => ({
+    smallCard: true,
+    mainCard: false,
+  }),
+  computed: {
+    bizTypeIcon() {
+      const cafeRegex = /cafe/i;
+      const restaurantRegex = /restaurant/i;
+      if (this.bizType.match(cafeRegex)) {
+        return "mdi-coffee";
+      } else if (this.bizType.match(restaurantRegex)) {
+        return "mdi-silverware-fork-knife";
+      } else {
+        return "";
+      }
+    },
+  },
+  methods: {
+    showMainCard() {
+      this.smallCard = false;
+      this.mainCard = true;
+    },
+    hideMainCard() {
+      this.smallCard = true;
+      this.mainCard = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+
+#smallCard {
+  width: 515px;
+}
+
+@media screen and (max-width: 959px) {
+  .v-card__title {
+    font-size: 0.8em;
+    padding: 5px;
+  }
+  .v-card__text {
+    font-size: 0.6em;
+    padding: 0;
+  }
+  .moreDetailsBtn {
+    font-size: 0.8em;
+  }
+  .bizCard {
+    width: 100%;
   }
 }
-</script>
+</style>
