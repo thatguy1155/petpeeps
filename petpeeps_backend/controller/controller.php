@@ -2,6 +2,7 @@
 
     require_once("./model/MemberManager.php");
     require_once("./model/PetManager.php");
+    require_once("./model/BizManager.php");
 
     function getUserInfo($uid) {      
         $userInfoManager = new MemberManager();
@@ -64,21 +65,31 @@
 
     }
 
-    function createPet($owner_id,$name,$breed,$size) {
+    function createPet($owner_id,$name,$breed,$size,$age) {
         $makePetManager = new PetManager();
-        $petMade = $makePetManager->addPet($owner_id,$name,$breed,$size);
+        $petMade = $makePetManager->addPet($owner_id,$name,$breed,$size,$age);
         if($petMade){
             echo json_encode($petMade);
         } else {
-            $err = array('we couldn\'t retrieve your pets');
+            $err = array('we couldn\'t create an account for your pet');
             echo json_encode($err);
         }
-
     }
 
-    function editPet($name,$breed,$size,$pet_id) {
+    function createBiz($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu) {
+        $makeBizManager = new BizManager();
+        $bizMade = $makeBizManager->addBiz($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
+        if($bizMade){
+            echo json_encode($bizMade);
+        } else {
+            $err = array('we couldn\'t create an account for your business');
+            echo json_encode($err);
+        }
+    }
+
+    function editPet($name,$breed,$size,$pet_id,$age) {
         $editPetManager = new PetManager();
-        $petChanged = $editPetManager->editPet($name,$breed,$size,$pet_id);
+        $petChanged = $editPetManager->editPet($name,$breed,$size,$pet_id,$age);
         if($petChanged){
             echo json_encode($petChanged);
         } else {

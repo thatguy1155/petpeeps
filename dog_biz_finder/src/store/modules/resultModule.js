@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { cors_getDongList } from "../ep";
+import { cors_getDongList, cors_getGuList } from "../ep";
 import axios from "axios";
 
 Vue.use(Vuex);
@@ -9,15 +9,20 @@ export default {
     namespaced: true,
     state: {
         bizList: [],
+        guList: [],
         dongList: [],
-        searchedAddr: ["서울특별시"],
+        searchedAddr: [],
         selectedBiz: null,
         mapCenter: { lat: 37.5326, lng: 127.024612 },
+        siCategory: '',
         guCategory: '',
     },
     mutations: {
         CHANGE_BIZ_LIST(state, payload) {
             state.bizList = payload;
+        },
+        CHANGE_GU_LIST(state, payload) {
+            state.guList = payload;
         },
         CHANGE_DONG_LIST(state, payload) {
             state.dongList = payload;
@@ -38,7 +43,11 @@ export default {
         },
     },
     getters: {
+        gus: (state) => state.guList,
         dongs: (state) => state.dongList,
+        bizSocialMedia: (state) => state.selectedBiz.business.socialMediaArr,
+        bizType: (state) => state.selectedBiz.business.bizType,
+        menu: (state) => state.selectedBiz.business.menu
     },
     actions: {
         /**
@@ -56,6 +65,11 @@ export default {
          */
         setMapCenter({ commit }, mapCentercoords) {
             commit("SET_MAP_CENTER", mapCentercoords);
+        },
+
+        addSi({ commit, state }, val) {
+            state.searchedAddr.splice(0, 3);
+            commit("CREATE_SEARCHED_ADDRESS", val.searchedSi);
         },
 
         /**
@@ -80,6 +94,24 @@ export default {
         addDong({ commit, state }, val) {
             state.searchedAddr.splice(2, 3);
             commit("CREATE_SEARCHED_ADDRESS", val.searchedDong);
+        },
+
+        getGuList({ commit }, val) {
+            axios
+                .get(cors_getGuList, {
+                    params: {
+                        menuGubun: "E",
+                        srhType: "",
+                        gubunCode: "LAND",
+                        sidoCode: val.searchedSiCode
+                    },
+                })
+                .then((list) => {
+                    commit("CHANGE_GU_LIST", list.data.jsonList);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
 
         /**
@@ -120,71 +152,110 @@ export default {
             let cleanList = [{
                     bizName: "Woof Cafe",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 중구 을지로7가 2-1",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 을지로7가 2-1',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Safari",
                     bizType: "Restaurant",
-                    hours: "7:00 ~ 00:00",
-                    address: "서울특별시 중구 을지로6가 18-17",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 을지로6가 18-17',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { facebook: 'www.facebook.com', twitter: 'www.twitter.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "The Jungle",
                     bizType: "Restaurant",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 중구 광휘동 58-1",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 광휘동 58-1',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Animals",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 중구 저동2가 수표로 46 2층",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 저동2가 수표로 46 2층',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Sanctuary",
                     bizType: "Restaurant",
-                    hours: "7:00 ~ 00:00",
-                    address: "서울특별시 중구 명동2가 명동10길 16-1",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 명동2가 명동10길 16-1',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Habitat",
                     bizType: "Restaurant",
-                    hours: "7:00 ~ 00:00",
-                    address: "서울특별시 중구 장충동 동호로 249",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 중구 장충동 동호로 249',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Archipelago",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 동대문구 청량리동 207-42",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 동대문구 청량리동 207-42',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Dogs & Friends",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 성북구 안암동5가 산2-1",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 성북구 안암동5가 산2-1',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "People Reserve",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 동대문구 회기동 1-5",
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 동대문구 회기동 1-5',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { facebook: 'www.facebook.com', twitter: 'www.twitter.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
                 },
                 {
                     bizName: "Tropicana",
                     bizType: "Cafe",
-                    hours: "11:00 ~ 19:00",
-                    address: "서울특별시 강남구 신사동 563-21",
-                },
+                    bizHrs: 'Everyday: 11am - 9pm',
+                    bizAddr: '서울특별시 강남구 신사동 563-21',
+                    bizTel: '02-9343-3567',
+                    bizSite: 'https://www.thejunglerestaurant.co.uk',
+                    socialMediaArr: { instagram: 'www.instagram.com', naver: 'www.blog.naver.com' },
+                    menu: [{ 'item': 'pasta', 'price': '9000', 'calories': '900' }, { 'item': 'pizza', 'price': '22000', 'calories': '1500' }]
+                }
             ];
             let filteredList = [];
             let searchedAddrStr = state.searchedAddr.join(" ");
 
             filteredList = cleanList.filter((item) => {
-                return item.address.includes(searchedAddrStr);
+                return item.bizAddr.includes(searchedAddrStr);
             });
-
             commit("CHANGE_BIZ_LIST", filteredList);
 
             //when there is a new biz list, also set the first item on the new list as the selected biz 
@@ -198,6 +269,7 @@ export default {
         changeSelectedGu({ commit }, currentGu) {
             commit("CHANGE_GU_CATEGORY", currentGu);
         }
+
 
     }
 };

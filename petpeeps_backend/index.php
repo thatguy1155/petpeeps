@@ -1,6 +1,6 @@
 <?php
-
 require("./controller/controller.php");
+
 try {
     $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
     $uid = isset($_REQUEST['uid']) ? $_REQUEST['uid'] : '';
@@ -43,13 +43,27 @@ try {
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             createPet($owner_id,$name,$breed,$size);
+        } else if ($action === 'createBiz') {
+            // echo 'req';
+            echo json_encode($_REQUEST['bizInfo']);
+            $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            $bizName = isset($_REQUEST['bizName']) ? $_REQUEST['bizName'] : '';
+            $bizType = isset($_REQUEST['bizType']) ? $_REQUEST['bizType'] : '';
+            $bizHrs = isset($_REQUEST['bizHrs']) ? $_REQUEST['bizHrs'] : '';
+            $bizAddr = isset($_REQUEST['bizAddr']) ? $_REQUEST['bizAddr'] : '';
+            $bizTel = isset($_REQUEST['bizTel']) ? $_REQUEST['bizTel'] : '';
+            $bizSite = isset($_REQUEST['bizSite']) ? $_REQUEST['bizSite'] : '';
+            $socialMediaArr = isset($_REQUEST['socialMediaArr']) ? $_REQUEST['socialMediaArr'] : '';
+            $menu = isset($_REQUEST['menu']) ? $_REQUEST['menu'] : '';
+            // createPet($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
         }
         else if ($action === 'editPet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
-            editPet($name,$breed,$size,$pet_id);
+            $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : '';
+            editPet($name,$breed,$size,$pet_id,$age);
         } 
         else if ($action === 'deletePet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : ''; 
