@@ -23,6 +23,7 @@
       </v-list-item>
 
       <v-card-actions>
+        
         <EditAnimal v-bind:petInfo="petInfo"/>
         <v-spacer></v-spacer>
         <ChangePetPic v-bind:petInfo="petInfo"/>

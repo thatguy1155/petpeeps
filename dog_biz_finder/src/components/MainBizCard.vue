@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-card>
     <v-card-title>{{ selectedBiz.business.bizName }}</v-card-title>
     <v-card-text class="bizCardContent d-flex flex-column align-start">
       <div>
@@ -44,7 +44,7 @@
         </span>
       </div>
       <div>
-        <menu-main-biz-card :menu="menu"/>
+        <menu-main-biz-card :menu="menu" />
       </div>
     </v-card-text>
     <v-card-actions class="hideDetailsBtn">
@@ -52,7 +52,7 @@
         >Hide Details</v-btn
       >
     </v-card-actions>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -61,12 +61,20 @@ import MenuMainBizCard from "./componentsWithProps/MenuMainBizCard";
 
 export default {
   name: "MainBizCard",
+  props: {
+    bizKey: {
+      type: Number,
+    }
+  },
   components: {
     MenuMainBizCard,
   },
   computed: {
     ...mapState("resultModule", {
       selectedBiz: (state) => state.selectedBiz,
+    }),
+    ...mapState("bizModule", {
+      bizList: (state) => state.bizArray,
     }),
     ...mapGetters({
       bizType: "resultModule/bizType",
