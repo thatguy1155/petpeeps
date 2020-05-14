@@ -57,6 +57,7 @@ export default {
     }),
     addMarker() {
       let geocoder = new this.google.maps.Geocoder();
+      console.log('bizList', this.bizList);
       if (this.bizList) {
         this.markers = [];
         for (let i = 0; i < this.bizList.length; i++) {
