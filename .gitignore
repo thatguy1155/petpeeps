@@ -2,9 +2,20 @@
 node_modules
 /dist
 
+# composer 
+petpeeps_backend/vendor/
+petpeeps_backend/composer.lock
+
+#imgs
+petpeeps_backend/uploads/
+
 # local env files
 .env.local
 .env.*.local
+
+#composer
+/petpeeps_backend/vendor
+/petpeeps_backend/uploads
 
 # Log files
 npm-debug.log*
@@ -12,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Editor directories and files
+vendor
 .idea
 .vscode
 *.suo
