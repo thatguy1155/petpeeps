@@ -62,8 +62,26 @@
             $err = array('we couldn\'t retrieve your pets');
             echo json_encode($err);
         }
-
     }
+
+    function getBiz($userId) {
+        $bizManager = new BizManager();
+        $bizMainInfo = $bizManager->getBiz($userId);
+
+        for ($i=0; $i<count($bizMainInfo); $i++) {
+            $bizId = $bizMainInfo[$i]['id'];
+            $bizMainInfo[$i]['socialMediaArr'] = $bizManager->getBizSocMed($bizId);
+            $bizMainInfo[$i]['menu'] = $bizManager->getBizMenu($bizId);
+        }
+
+        if($bizMainInfo) {
+            echo json_encode($bizMainInfo);
+        } else {
+            $err = array('we couldn\'t retrieve the businesses');
+            echo json_encode($err);
+        }
+    }
+
 
     function createPet($owner_id,$name,$breed,$size,$age) {
         $makePetManager = new PetManager();

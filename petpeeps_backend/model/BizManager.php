@@ -84,4 +84,46 @@ class BizManager extends Manager {
     $addMenu->closeCursor();
     return "menu items were added to db";
   }
+
+  public function getBiz($userId) {
+    $biz = $this->_db->prepare("SELECT id, name, type, biz_hrs, website, tel, city, gu, dong, danji FROM pet WHERE user_id = :userId");
+    $biz->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $resp = $biz->execute();
+    if(!$resp) {
+      throw new PDOException('Unable to retrieve businesses from this user');
+    }
+    $allBiz = $biz->fetchAll();
+    return $allBiz;
+  }
+
+  public function getBizSocMed($userId) {
+    $bizSocMed = $this->_db->prepare('SELECT biz_id, platform, link FROM social_media 
+                                      FROM business b 
+                                      JOIN social_media s
+                                      ON b.id = s.biz_id
+                                      WHERE b.user_id = :userId');
+    $bizSocMed->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $resp = $bizSocMed->execute();
+    if(!$resp) {
+      throw new PDOException('Unable to retrieve social media from this business');
+    }
+    $bizSocMedItems = $bizSocMed->fetchAll();
+    return $bizSocMedItems;        
+
+  }
+
+  public function getBizMenu($userId) {
+    $bizMenu = $this->_db->prepare('SELECT item, price, calories, biz_id as bizId, user_id as userId 
+                                    FROM business b
+                                    JOIN menu m
+                                    ON b.id = m.biz_id
+                                    WHERE b.user_id = :userId');
+    $bizMenu->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $resp = $biz->execute();
+    if(!$resp) {
+      throw new PDOException('Unable to retrieve businesses from this user');
+    }
+    $bizMenuItems = $bizMenu->fetchAll();
+    return $bizMenuItems;        
+  }
 }

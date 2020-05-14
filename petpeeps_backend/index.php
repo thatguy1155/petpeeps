@@ -42,6 +42,10 @@ try {
         } else if ($action === 'getPets') {
             $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             getPets($owner_id);
+        } else if ($action === 'getBiz') {
+            $userId = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+            getBiz($userId);
+        }
         } else if ($action === 'createPet') {
             $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
