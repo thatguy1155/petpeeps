@@ -5,7 +5,7 @@
         <v-list-item-content>
           <div class="overline mb-4">{{petInfo.breed}}</div>
           <v-list-item-title class="headline mb-1">{{petInfo.name}}</v-list-item-title>
-          <v-list-item-subtitle>I love this pet</v-list-item-subtitle>
+          <v-list-item-subtitle>{{petInfo.age}}</v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-avatar tile size="80">

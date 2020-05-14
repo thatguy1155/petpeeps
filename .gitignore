@@ -13,6 +13,10 @@ petpeeps_backend/uploads/
 .env.local
 .env.*.local
 
+#composer
+/petpeeps_backend/vendor
+/petpeeps_backend/uploads
+
 # Log files
 npm-debug.log*
 yarn-debug.log*

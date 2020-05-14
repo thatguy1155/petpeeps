@@ -10,13 +10,15 @@
         } 
 
 
-        public function addPet($owner_id,$name,$breed,$size) {
+        public function addPet($owner_id,$name,$breed,$size,$age) {
             $name = htmlspecialchars($name);
-            $breed = htmlspecialchars($breed);      
-            $addPet = $this->_db->prepare("INSERT INTO pet(name, size, breed, owner_id) VALUES(:name, :size, :breed, :owner_id); SELECT SCOPE_IDENTITY() AS [scope identity]");
+            $breed = htmlspecialchars($breed);
+            $age = htmlspecialchars($age);      
+            $addPet = $this->_db->prepare("INSERT INTO pet(name, size, breed, age, owner_id) VALUES(:name, :size, :breed, :age, :owner_id)");
             $addPet->bindParam(':name',$name,PDO::PARAM_STR);
             $addPet->bindParam(':size',$size,PDO::PARAM_STR);
             $addPet->bindParam(':breed',$breed,PDO::PARAM_STR);
+            $addPet->bindParam(':age',$age,PDO::PARAM_STR);
             $addPet->bindParam(':owner_id',$owner_id,PDO::PARAM_INT);
             $status = $addPet->execute();
             if (!$status) {
@@ -28,7 +30,7 @@
         } 
 
         public function getPets($owner_id) {
-            $pets = $this->_db->prepare("SELECT id, name, size, breed,picURL FROM pet WHERE owner_id = :owner_id");
+            $pets = $this->_db->prepare("SELECT id, name, size, breed, age, picURL FROM pet WHERE owner_id = :owner_id");
             $pets->bindParam(':owner_id',$owner_id,PDO::PARAM_INT);
             $resp = $pets->execute();
             if(!$resp) {
@@ -50,13 +52,15 @@
         }
 
 
-        public function editPet($name,$breed,$size,$pet_id) { 
+        public function editPet($name,$breed,$size,$pet_id,$age) { 
             $name = htmlspecialchars($name);
-            $breed = htmlspecialchars($breed);    
-            $editPet = $this->_db->prepare("UPDATE pet SET name = :name, size = :size, breed = :breed WHERE id = :id");
+            $breed = htmlspecialchars($breed);
+            $age = htmlspecialchars($age);    
+            $editPet = $this->_db->prepare("UPDATE pet SET name = :name, size = :size, breed = :breed, age = :age WHERE id = :id");
             $editPet->bindParam(':name',$name,PDO::PARAM_STR);
             $editPet->bindParam(':size',$size,PDO::PARAM_STR);
             $editPet->bindParam(':breed',$breed,PDO::PARAM_STR);
+            $editPet->bindParam(':age',$age,PDO::PARAM_STR);
             $editPet->bindParam(':id',$pet_id,PDO::PARAM_INT);
             $status = $editPet->execute();
             if (!$status) {

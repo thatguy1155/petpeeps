@@ -64,9 +64,9 @@
 
     }
 
-    function createPet($owner_id,$name,$breed,$size) {
+    function createPet($owner_id,$name,$breed,$size,$age) {
         $makePetManager = new PetManager();
-        $petMade = $makePetManager->addPet($owner_id,$name,$breed,$size);
+        $petMade = $makePetManager->addPet($owner_id,$name,$breed,$size,$age);
         if($petMade){
             echo json_encode($petMade);
         } else {
@@ -76,9 +76,9 @@
 
     }
 
-    function editPet($name,$breed,$size,$pet_id) {
+    function editPet($name,$breed,$size,$pet_id,$age) {
         $editPetManager = new PetManager();
-        $petChanged = $editPetManager->editPet($name,$breed,$size,$pet_id);
+        $petChanged = $editPetManager->editPet($name,$breed,$size,$pet_id,$age);
         if($petChanged){
             echo json_encode($petChanged);
         } else {
