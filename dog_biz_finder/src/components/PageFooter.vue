@@ -45,28 +45,24 @@ export default {
         return {
             icons: [
                 {
-                    iconName: 'mdi-facebook',
-                    linkTo: 'https://facebook.com/'
+                  iconName: 'mdi-facebook',
+                  linkTo: 'https://facebook.com/'
                 },
                 {
-                    iconName: 'mdi-twitter',
-                    linkTo: 'https://twitter.com'
+                  iconName: 'mdi-twitter',
+                  linkTo: 'https://twitter.com'
                 },
                 {
-                    iconName: 'mdi-google-plus',
-                    linkTo: 'https://google.com/'
-                },
-                {
-                    iconName: 'mdi-linkedin',
-                    linkTo: 'https://linkedin.com'
+                  iconName: 'mdi-linkedin',
+                  linkTo: 'https://linkedin.com'
                 }, 
                 {
-                    iconName: 'mdi-instagram',
-                    linkTo: 'https://instagram.com'
+                  iconName: 'mdi-instagram',
+                  linkTo: 'https://instagram.com'
                 },
                 {
-                    iconName: 'mdi-blogger',
-                    linkTo: 'https://blog.naver.com'
+                  iconName: 'mdi-blogger',
+                  linkTo: 'https://blog.naver.com'
                 }, 
             ]
         }
