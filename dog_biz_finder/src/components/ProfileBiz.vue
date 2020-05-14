@@ -25,7 +25,7 @@
           </template>
           <main-biz-card @hide-main-card="hideMainCard"/>
         </v-dialog>
-        <EditBiz v-bind:bizInfo="bizInfo" />
+        <!-- <EditBiz v-bind:bizInfo="bizInfo" /> -->
       </v-card-actions>
     </v-card>
   </div>
@@ -33,7 +33,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import EditBiz from "@/components/EditBiz.vue";
+// import EditBiz from "@/components/EditBiz.vue";
 import MainBizCard from "@/components/MainBizCard.vue";
 
 export default {
@@ -73,7 +73,7 @@ export default {
     };
   },
   components: {
-    EditBiz,
+    // EditBiz,
     MainBizCard,
   },
   methods: {

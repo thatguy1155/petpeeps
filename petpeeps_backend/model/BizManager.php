@@ -54,7 +54,7 @@ class BizManager extends Manager {
     $media = htmlspecialchars($media);
     $link = htmlspecialchars($link);
 
-    $addSocMed = $this->_db->prepare("INSERT INTO social_media(biz_id, platform, link) VALUES(:bizId, :media, :link)");
+    $addSocMed = $this->_db->prepare("INSERT INTO social_media (biz_id, platform, link) VALUES (:bizId, :media, :link)");
     $addSocMed->bindParam(':bizId',$bizId,PDO::PARAM_INT);
     $addSocMed->bindParam(':media',$media,PDO::PARAM_STR);
     $addSocMed->bindParam(':link',$link,PDO::PARAM_STR);
@@ -85,24 +85,30 @@ class BizManager extends Manager {
     return "menu items were added to db";
   }
 
-  public function getBiz($userId) {
-    $biz = $this->_db->prepare("SELECT id, name, type, biz_hrs, website, tel, city, gu, dong, danji FROM pet WHERE user_id = :userId");
+  public function getAllBiz($userId) {
+    $biz = $this->_db->prepare("SELECT id, name, type, biz_hrs, website, tel, city, gu, dong, danji FROM business ");
     $biz->bindParam(':userId', $userId, PDO::PARAM_INT);
     $resp = $biz->execute();
     if(!$resp) {
       throw new PDOException('Unable to retrieve businesses from this user');
     }
-    $allBiz = $biz->fetchAll();
+
+    $allBiz = array();
+
+    while ($bizRow = $biz->fetch()) {
+      $bizSocialMedia = $this->getProfileBizSocMed($bizRow["id"]);
+      $bizMenu = $this->getProfileBizMenu($bizRow["id"]);
+      $bizRow["socialMediaArr"] = $bizSocialMedia;
+      $bizRow["menu"] = $bizMenu;
+      array_push($allBiz, $bizRow);
+    };
+
     return $allBiz;
   }
 
-  public function getBizSocMed($userId) {
-    $bizSocMed = $this->_db->prepare('SELECT biz_id, platform, link FROM social_media 
-                                      FROM business b 
-                                      JOIN social_media s
-                                      ON b.id = s.biz_id
-                                      WHERE b.user_id = :userId');
-    $bizSocMed->bindParam(':userId', $userId, PDO::PARAM_INT);
+  public function getProfileBizSocMed($bizId) {
+    $bizSocMed = $this->_db->prepare('SELECT biz_id, platform, link FROM social_media WHERE biz_id = :bizId');
+    $bizSocMed->bindParam(':bizId', $bizId, PDO::PARAM_INT);
     $resp = $bizSocMed->execute();
     if(!$resp) {
       throw new PDOException('Unable to retrieve social media from this business');
@@ -112,14 +118,10 @@ class BizManager extends Manager {
 
   }
 
-  public function getBizMenu($userId) {
-    $bizMenu = $this->_db->prepare('SELECT item, price, calories, biz_id as bizId, user_id as userId 
-                                    FROM business b
-                                    JOIN menu m
-                                    ON b.id = m.biz_id
-                                    WHERE b.user_id = :userId');
-    $bizMenu->bindParam(':userId', $userId, PDO::PARAM_INT);
-    $resp = $biz->execute();
+  public function getProfileBizMenu($bizId) {
+    $bizMenu = $this->_db->prepare('SELECT item, price, calories, biz_id FROM menu WHERE biz_id = :bizId');
+    $bizMenu->bindParam(':bizId', $bizId, PDO::PARAM_INT);
+    $resp = $bizMenu->execute();
     if(!$resp) {
       throw new PDOException('Unable to retrieve businesses from this user');
     }

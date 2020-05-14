@@ -66,16 +66,10 @@
 
     function getBiz($userId) {
         $bizManager = new BizManager();
-        $bizMainInfo = $bizManager->getBiz($userId);
+        $allBiz = $bizManager->getAllBiz($userId);
 
-        for ($i=0; $i<count($bizMainInfo); $i++) {
-            $bizId = $bizMainInfo[$i]['id'];
-            $bizMainInfo[$i]['socialMediaArr'] = $bizManager->getBizSocMed($bizId);
-            $bizMainInfo[$i]['menu'] = $bizManager->getBizMenu($bizId);
-        }
-
-        if($bizMainInfo) {
-            echo json_encode($bizMainInfo);
+        if ($allBiz) {
+            echo json_encode($allBiz);
         } else {
             $err = array('we couldn\'t retrieve the businesses');
             echo json_encode($err);
@@ -108,8 +102,8 @@
             $menuDb = $bizManager->addBizMenu($bizId['id'], $menuArray[$i]['name'], $menuArray[$i]['price'], $menuArray[$i]['calories']);
         }
 
-        if($bizInfo){
-            echo json_encode($bizInfo);
+        if($bizMade AND $socialMediaDb AND $menuDb){
+            echo json_encode($bizMade);
         } else {
             $err = array('we couldn\'t create an account for your business');
             echo json_encode($err);
