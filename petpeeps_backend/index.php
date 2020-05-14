@@ -42,14 +42,16 @@ try {
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
-            createPet($owner_id,$name,$breed,$size);
+            $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : '';
+            createPet($owner_id,$name,$breed,$size,$age);
         }
         else if ($action === 'editPet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
-            editPet($name,$breed,$size,$pet_id);
+            $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : '';
+            editPet($name,$breed,$size,$pet_id,$age);
         } 
         else if ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';

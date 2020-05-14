@@ -1,29 +1,40 @@
 <template>
   <v-card class="bizCard d-flex row align-center">
-    <v-card-title>{{ bizName }}</v-card-title>
-    <v-card-text class="d-flex flex-column align-start">
-      <div>
-        <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
-        {{ bizType }}
-      </div>
-      <div>
-        <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
-        {{ hours }}
-      </div>
-      <div>
-        <v-icon color="#8D6E63">mdi-map-marker</v-icon>
-        {{ address }}
-      </div>
-    </v-card-text>
-    <v-card-actions
-      class="d-flex row mr-2 justify-md-end justify-lg-end justfy-sm-start justfy-xs-start"
-    >
-      <v-btn color="orange" text class="moreDetailsBtn">More Details</v-btn>
-    </v-card-actions>
+    <div id="smallCard" v-if="smallCard">
+      <v-card-title>{{ bizName }}</v-card-title>
+      <v-card-text class="d-flex flex-column align-start">
+        <div>
+          <v-icon color="#8D6E63">{{ bizTypeIcon }}</v-icon>
+          {{ bizType }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-calendar-clock</v-icon>
+          {{ bizHrs }}
+        </div>
+        <div>
+          <v-icon color="#8D6E63">mdi-map-marker</v-icon>
+          {{ bizAddr }}
+        </div>
+      </v-card-text>
+      <v-card-actions
+        class="detailsBtn"
+      >
+        <v-btn color="orange" text class="moreDetailsBtn" @click="showMainCard"
+          >More Details</v-btn
+        >
+      </v-card-actions>
+    </div>
+    <main-biz-card v-if="mainCard" @hide-main-card="hideMainCard" />
   </v-card>
 </template>
+
 <script>
+import MainBizCard from "@/components/MainBizCard";
+
 export default {
+  components: {
+    MainBizCard
+  },
   props: {
     bizName: {
       type: String,
@@ -33,30 +44,51 @@ export default {
       type: String,
       default: "type of business",
     },
-    hours: {
+    bizHrs: {
       type: String,
       default: "hours",
     },
-    address: {
+    bizAddr: {
       type: String,
       default: "address",
     },
   },
+  data: () => ({
+    smallCard: true,
+    mainCard: false,
+  }),
   computed: {
     bizTypeIcon() {
-      if (this.bizType === "Cafe") {
+      const cafeRegex = /cafe/i;
+      const restaurantRegex = /restaurant/i;
+      if (this.bizType.match(cafeRegex)) {
         return "mdi-coffee";
-      } else if (this.bizType === "Restaurant") {
+      } else if (this.bizType.match(restaurantRegex)) {
         return "mdi-silverware-fork-knife";
       } else {
         return "";
       }
     },
-  }
+  },
+  methods: {
+    showMainCard() {
+      this.smallCard = false;
+      this.mainCard = true;
+    },
+    hideMainCard() {
+      this.smallCard = true;
+      this.mainCard = false;
+    },
+  },
 };
 </script>
 
 <style scoped>
+
+#smallCard {
+  width: 515px;
+}
+
 @media screen and (max-width: 959px) {
   .v-card__title {
     font-size: 0.8em;
@@ -67,7 +99,10 @@ export default {
     padding: 0;
   }
   .moreDetailsBtn {
-    font-size: 0.7em;
+    font-size: 0.8em;
+  }
+  .bizCard {
+    width: 100%;
   }
 }
 </style>
