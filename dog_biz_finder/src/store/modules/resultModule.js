@@ -156,7 +156,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 을지로7가 2-1',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -166,7 +166,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 을지로6가 18-17',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -176,7 +176,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 광휘동 58-1',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -186,7 +186,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 저동2가 수표로 46 2층',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -196,7 +196,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 명동2가 명동10길 16-1',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -206,7 +206,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 중구 장충동 동호로 249',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -216,7 +216,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 동대문구 청량리동 207-42',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -226,7 +226,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 성북구 안암동5가 산2-1',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -236,7 +236,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 동대문구 회기동 1-5',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         },
@@ -246,7 +246,7 @@ export default {
           bizHrs: 'Everyday: 11am - 9pm',
           bizAddr: '서울특별시 강남구 신사동 563-21',
           bizTel: '02-9343-3567',
-          bizSite: 'www.thejunglerestaurant.co.uk',
+          bizSite: 'https://www.thejunglerestaurant.co.uk',
           socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
           menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
         }
