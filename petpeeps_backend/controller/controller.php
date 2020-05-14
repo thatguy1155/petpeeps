@@ -76,11 +76,22 @@
         }
     }
 
-    function createBiz($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu) {
-        $makeBizManager = new BizManager();
-        $bizMade = $makeBizManager->addBiz($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
-        if($bizMade){
-            echo json_encode($bizMade);
+    function createBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray) {
+        $bizManager = new BizManager();
+
+        $bizMade = $bizManager->addBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite);
+        $bizId = $bizManager->getBizId($user_id);
+
+        for ($i=0; $i<count($socialMediaArr); $i++) {
+            $socialMediaDb = $bizManager->addBizSocMedia($bizId['id'], $socialMediaArr[$i]['media'], $socialMediaArr[$i]['link']);
+        }
+
+        for ($i=0; $i<count($menuArray); $i++) {
+            $menuDb = $bizManager->addBizMenu($bizId['id'], $menuArray[$i]['name'], $menuArray[$i]['price'], $menuArray[$i]['calories']);
+        }
+
+        if($bizInfo){
+            echo json_encode($bizInfo);
         } else {
             $err = array('we couldn\'t create an account for your business');
             echo json_encode($err);

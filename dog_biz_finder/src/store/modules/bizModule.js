@@ -72,37 +72,31 @@ async function getBiz({ commit }) {
 // //create a biz
 
 async function addBizDb({commit}, creationParams) {
-    console.log('creation params', creationParams);
+    
     let currUser = firebase.auth().currentUser;
-    const id = await getUserId(currUser)
-    const params = new URLSearchParams();
-    params.append('action', 'createBiz');
-    params.append('id', id);
-    params.append('bizInfo', creationParams);
-    // params.append('bizName', creationParams.bizName);
-    // params.append('bizType', creationParams.bizType);
-    // params.append('bizHrs', creationParams.bizHrs);
-    // params.append('bizAddr', creationParams.bizAddr);
-    // params.append('bizTel', creationParams.bizTel);
-    // params.append('bizSite', creationParams.sibizSiteze);
-    // params.append('socialMediaArr', creationParams.socialMediaArr);
-    // params.append('menu', creationParams.menu);
-    await axios.post('http://dogpeeps', params) 
+    const id = await getUserId(currUser);
+    creationParams['id'] = id;
+    creationParams['action'] = 'createBiz';
+
+    console.log('creation params', creationParams);
+
+    await axios.post('http://dogpeeps/', creationParams )
         .then(res => {
+            console.log(res)
             console.log(res.data)
         })
         .catch(err => console.log(err))
     //after the info has been added to the db, then make a new object in state.pets
     //this will need to be updated when we implement age
     commit("ADD_ONE_BIZ",{
-        bizName: creationParams.bizName,
-        bizType: creationParams.bizType,
-        bizHrs: creationParams.bizHrs,
-        bizAddr: creationParams.bizAddr,
-        bizTel: creationParams.bizTel,
-        bizSite: creationParams.bizType,
-        socialMediaArr: creationParams.socialMediaArr,
-        menu: creationParams.menu,
+        // bizName: creationParams.bizName,
+        // bizType: creationParams.bizType,
+        // bizHrs: creationParams.bizHrs,
+        // bizAddr: creationParams.bizAddr,
+        // bizTel: creationParams.bizTel,
+        // bizSite: creationParams.bizType,
+        // socialMediaArr: creationParams.socialMediaArr,
+        // menu: creationParams.menu,
     })
 
 }

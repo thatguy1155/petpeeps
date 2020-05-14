@@ -9,10 +9,15 @@ try {
     //it sends an array of info along with the file including the file name, type etc.,
     //here we're designating $filename as the name of the file which we designated as 'file' back in the frontend
     $filename = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
+
+    header('Content-type: application/json');
+    // if (header('Content-type: application/json')) {
+        $createBizJsonStr = file_get_contents('php://input');
+        $createBizJsonObj = json_decode($createBizJsonStr, true);
+    // }
     
 
-    
-    if (isset($_REQUEST['action'])) {
+    if (isset($_REQUEST['action']) || $createBizJsonObj) {
         if ($action === 'getUserInfo') {
             getUserInfo($uid); 
         } else if ($action === 'updateAccountType') {
@@ -43,19 +48,18 @@ try {
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             createPet($owner_id,$name,$breed,$size);
-        } else if ($action === 'createBiz') {
-            // echo 'req';
-            echo json_encode($_REQUEST['bizInfo']);
-            $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
-            $bizName = isset($_REQUEST['bizName']) ? $_REQUEST['bizName'] : '';
-            $bizType = isset($_REQUEST['bizType']) ? $_REQUEST['bizType'] : '';
-            $bizHrs = isset($_REQUEST['bizHrs']) ? $_REQUEST['bizHrs'] : '';
-            $bizAddr = isset($_REQUEST['bizAddr']) ? $_REQUEST['bizAddr'] : '';
-            $bizTel = isset($_REQUEST['bizTel']) ? $_REQUEST['bizTel'] : '';
-            $bizSite = isset($_REQUEST['bizSite']) ? $_REQUEST['bizSite'] : '';
-            $socialMediaArr = isset($_REQUEST['socialMediaArr']) ? $_REQUEST['socialMediaArr'] : '';
-            $menu = isset($_REQUEST['menu']) ? $_REQUEST['menu'] : '';
-            // createPet($owner_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menu);
+        }
+        else if ($createBizJsonObj['action'] === 'createBiz') {
+            $user_id = isset($createBizJsonObj['id']) ? $createBizJsonObj['id'] : '';
+            $bizName = isset($createBizJsonObj['genInfo']['bizName']) ? $createBizJsonObj['genInfo']['bizName'] : '';
+            $bizType = isset($createBizJsonObj['genInfo']['bizType']) ? $createBizJsonObj['genInfo']['bizType'] : '';
+            $bizHrs = isset($createBizJsonObj['genInfo']['bizHrs']) ? $createBizJsonObj['genInfo']['bizHrs'] : '';
+            $bizAddr = isset($createBizJsonObj['genInfo']['bizAddr']) ? $createBizJsonObj['genInfo']['bizAddr'] : '';
+            $bizTel = isset($createBizJsonObj['genInfo']['bizTel']) ? $createBizJsonObj['genInfo']['bizTel'] : '';
+            $bizSite = isset($createBizJsonObj['genInfo']['bizSite']) ? $createBizJsonObj['genInfo']['bizSite'] : '';
+            $socialMediaArr = isset($createBizJsonObj['socialMediaArr']) ? $createBizJsonObj['socialMediaArr'] : '';
+            $menuArray = isset($createBizJsonObj['menu']) ? $createBizJsonObj['menu'] : '';
+            createBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray);
         }
         else if ($action === 'editPet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
@@ -90,7 +94,8 @@ try {
             echo 'deleted:' .$link['picURL'];
         }
         //if there's a set filename, hence a file submitted...
-    } else if (isset($filename)) {
+    } 
+    else if (isset($filename)) {
         //username was appended to form data seperately from the file so it comes to us via $_request
         $name = isset($_REQUEST['username']) ? $_REQUEST['username'] : '';
         //we use $name here to direct us to the eponymous directory inside the uploads folder
@@ -126,7 +131,7 @@ try {
                 echo "loading error";
             }
         }else{
-        echo 0;
+        // echo 0;
         }   
     }
 }
