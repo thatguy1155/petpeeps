@@ -38,27 +38,33 @@
                   <v-text-field label="Business Hours" v-model="bizHrs" hint="Weekdays: 9:00-19:00, Weekend: 10:00-21:00"></v-text-field>
                 </v-col>
 
-                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
+                <v-col cols="4" xs="4" sm="4" md="4" lg="4" xl="4" no-gutter>
                   <v-select
                     v-model="siCategory"
                     :items="siList"
-                    label="Search by City"
+                    label="City"
                     @change="guListPopulate"
                     item-text='NAME'
                   />
+                </v-col>
+                <v-col cols="4" xs="4" sm="4" md="4" lg="4" xl="4" no-gutter>
                   <v-select
                     v-model="guCategory"
                     :items="guList"
-                    label="Search by Gu"
+                    label="Gu"
                     @change="dongListPopulate"
                     item-text='NAME'
                   />
+                </v-col>
+                <v-col cols="4" xs="4" sm="4" md="4" lg="4" xl="4" no-gutter>
                   <v-select
                     v-model="dongCategory"
                     :items="dongList"
-                    label="Search by Dong"
+                    label="Dong"
                     item-text='NAME'
                   />
+                </v-col>
+                <v-col cols="12" xs="12" sm="12" md="12" lg="12" xl="12" no-gutter>
                   <v-text-field label="Danji" v-model="danjiCategory" hint></v-text-field>
                 </v-col>
 
@@ -399,22 +405,24 @@ export default {
     },
     addBiz() {
       let bizParams = {
-        bizName: this.bizName,
-        bizType: this.bizType,
-        bizHrs: this.bizHrs,
-        bizAddr: {
-          si: this.siCategory,
-          gu: this.guCategory,
-          dong: this.dongCategory,
-          danji: this.danjiCategory
+        genInfo: {
+          bizName: this.bizName,
+          bizType: this.bizType,
+          bizHrs: this.bizHrs,
+          bizTel: this.bizTel,
+          bizSite: this.bizSite,
+          bizAddr: {
+            si: this.siCategory,
+            gu: this.guCategory,
+            dong: this.dongCategory,
+            danji: this.danjiCategory
+          }
         },
-        bizTel: this.bizTel,
-        bizSite: this.bizType,
         socialMediaArr: this.socialMediaArr,
         menu: this.menu,
       }
-      console.log(bizParams);
       this.addBizDb(bizParams);
+      this.business = false;
     } 
   }
 };
