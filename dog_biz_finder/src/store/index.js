@@ -4,6 +4,7 @@ import authModule from './modules/authModule'
 import resultModule from './modules/resultModule'
 import profileModule from './modules/profileModule'
 import petModule from './modules/petModule'
+import bizModule from './modules/bizModule'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     authModule,
     resultModule,
     profileModule,
-    petModule
+    petModule,
+    bizModule
   }
 })
