@@ -54,6 +54,7 @@ export default {
       setSelectedBiz: "resultModule/setSelectedBiz",
       setMapCenter: "resultModule/setMapCenter",
       changeSelectedGu: "resultModule/changeSelectedGu",
+      changeSelectedSi: "resultModule/changeSelectedSi",
     }),
     addMarker() {
       let geocoder = new this.google.maps.Geocoder();
@@ -107,7 +108,11 @@ export default {
     
     searchLocal(){
       let self = this //crucial for accessing outside functions 
-      this.getLocationData(function(locationData) {  //function accessing the callback from getlocation data. 
+      this.getLocationData(function(locationData) {  //function accessing the callback from getlocation data.
+        let cityResult = /Seoul/.exec(locationData) 
+        if(cityResult){
+          cityResult = '서울특별시'
+        }
         let result = /\b\w*-gu\w*\b/g.exec(locationData);   //regex extracting words with -gu
         let guTranslate = {
           'Gangnam-gu':"강남구",
@@ -137,6 +142,7 @@ export default {
           'Jungnang-gu':"중랑구",
         }
         self.changeSelectedGu(guTranslate[result[0]]) //send gu in korean to the result module to update the searchbar
+        self.changeSelectedSi(cityResult)
       })
     },
     /**
