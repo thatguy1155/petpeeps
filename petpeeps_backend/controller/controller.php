@@ -153,14 +153,6 @@
 
     function getSearchRes($si, $gu, $dong, $danji) {
         $searchManager = new BizManager();
-
         $searchResBizInfo = $searchManager->getSearchResults($si, $gu, $dong, $danji);
-        for ($i=0; $i<count($searchResBizInfo); $i++) {
-            $searchResBizSocMedia = $searchManager->getSearchBizSocMed($searchResBizInfo[$i]['id']);
-            $searchResBizMenu = $searchManager->getSearchBizMenu($searchResBizInfo[$i]['id']);
-
-            $searchResBizInfo[$i]['socialMediaArr'] = $searchResBizSocMedia;
-            $searchResBizInfo[$i]['menu'] = $searchResBizMenu;
-        }
         echo json_encode($searchResBizInfo);
     }

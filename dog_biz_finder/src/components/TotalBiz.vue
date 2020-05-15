@@ -9,7 +9,7 @@
           :key="index"
           max-width="434"
         >
-          <profile-biz :bizInfo="biz" :bizKey="index" />
+          <profile-biz :bizInfo="biz" :bizKey="index" v-if="bizList.length > 0"/>
         </v-card>
         <div>
           <v-flex xs2>
