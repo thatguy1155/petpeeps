@@ -86,7 +86,7 @@ class BizManager extends Manager {
   }
 
   public function getAllBiz($userId) {
-    $biz = $this->_db->prepare("SELECT id, name, type, biz_hrs, website, tel, city, gu, dong, danji FROM business ");
+    $biz = $this->_db->prepare("SELECT id, name, type, biz_hrs, website, tel, city, gu, dong, danji FROM business WHERE user_id = :userId");
     $biz->bindParam(':userId', $userId, PDO::PARAM_INT);
     $resp = $biz->execute();
     if(!$resp) {

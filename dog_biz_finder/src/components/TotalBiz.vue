@@ -9,7 +9,7 @@
           :key="index"
           max-width="434"
         >
-          <profile-biz v-bind:bizInfo="biz" :bizKey="index" />
+          <profile-biz :bizInfo="biz" :bizKey="index" />
         </v-card>
         <div>
           <v-flex xs2>
@@ -41,14 +41,14 @@ export default {
       bizList: (state) => state.bizArray,
     }),
   },
+  mounted() {
+    this.getBiz();
+    console.log("bizList", this);
+  },
   watch: {
     bizList: function() {
       this.getBiz();
     },
-  },
-  mounted() {
-    this.getBiz();
-    console.log("bizlist in biz profile", this.bizList);
   },
 };
 </script>

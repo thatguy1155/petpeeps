@@ -89,18 +89,19 @@ function getUserId(user) {
 async function getBiz({ commit }) {
   let currUser = firebase.auth().currentUser;
   const id = await getUserId(currUser);
+  // console.log('id', id);
   const response = await axios.get(`http://dogpeeps?action=getBiz&id=${id}`);
-  const allBizList = [];
+  const allBizList = []
   for (let i=0; i<response.data.length; i++) {
     let respData = response.data[i];
     let fullAddress = respData.city + ' ' + respData.gu + ' ' + respData.dong;
     allBizList.push({
       bizName: respData.name,
       bizType: respData.type,
-      bizHrs: respData.hours,
+      bizHrs: respData.biz_hrs,
       bizAddr: fullAddress,
-      bizTel: respData.bizTel,
-      bizSite: respData.bizType,
+      bizTel: respData.tel,
+      bizSite: respData.website,
       socialMediaArr: respData.socialMediaArr,
       menu: respData.menu
     });

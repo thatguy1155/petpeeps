@@ -84,6 +84,7 @@ export default {
       this.setSelectedBiz({
         business: this.bizInfo
       });
+      console.log('this.bizInfo', this.bizInfo);
     },
     hideMainCard() {
       this.moreBizInfoDialog = false;

@@ -95,6 +95,7 @@ export default {
     socialMediaIcons() {
       const allSocialMedia = [];
       const socialMedia = this.bizSocialMedia;
+
       for (const social in socialMedia) {
         if (social === "facebook") {
           let fbObj = {
