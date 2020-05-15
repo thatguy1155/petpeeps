@@ -11,11 +11,11 @@ try {
     $filename = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
 
     header('Content-type: application/json');
+    
     // if (header('Content-type: application/json')) {
         $createBizJsonStr = file_get_contents('php://input');
         $createBizJsonObj = json_decode($createBizJsonStr, true);
     // }
-    
 
     if (isset($_REQUEST['action']) || $createBizJsonObj) {
         if ($action === 'getUserInfo') {
@@ -29,6 +29,12 @@ try {
             createUser($login,$email,$uid);
         } elseif ($action === 'removeAccount') {
             removeAccount($uid);
+        } elseif ($action === 'getSearchResults') {
+            $si = isset($_REQUEST['si']) ? $_REQUEST['si'] : '';
+            $gu = isset($_REQUEST['gu']) ? $_REQUEST['gu'] : '';
+            $dong = isset($_REQUEST['dong']) ? $_REQUEST['dong'] : '';
+            $danji = isset($_REQUEST['danji']) ? $_REQUEST['danji'] : '';
+            getSearchRes($si, $gu, $dong, $danji);
         } elseif ($action === 'makeDirectory') {
             //function to make the directory
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';

@@ -9,9 +9,10 @@ class BizManager extends Manager {
     parent::__construct();
   }
 
-  public function getBizId($user_id) {
-    $bizId = $this->_db->prepare("SELECT id FROM business WHERE user_id = :userId");
+  public function get_biz_id($user_id,$bizAddr) {
+    $bizId = $this->_db->prepare("SELECT id FROM business WHERE user_id = :userId AND danji = :danji");
     $bizId->bindParam(':userId',$user_id,PDO::PARAM_STR);
+    $bizId->bindParam(':danji',$bizAddr['danji'],PDO::PARAM_STR);
     $res = $bizId->execute();
     if(!$res) {
         throw new PDOException('Impossible to get business ID!');
@@ -19,7 +20,7 @@ class BizManager extends Manager {
     return $bizId->fetch(PDO::FETCH_ASSOC);
   }
 
-  public function addBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite) {
+  public function add_biz_gen_info($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite) {
     $name = htmlspecialchars($bizName);
     $type = htmlspecialchars($bizType);
     $bizHrs = htmlspecialchars($bizHrs);
@@ -46,10 +47,9 @@ class BizManager extends Manager {
       throw new PDOException('Impossible to add business!');
     }
     $addBiz->closeCursor();
-    return "biz created";  
   }
 
-  public function addBizSocMedia($bizId, $media, $link) {
+  public function add_biz_soc_media($bizId, $media, $link) {
     $bizId = htmlspecialchars($bizId);
     $media = htmlspecialchars($media);
     $link = htmlspecialchars($link);
@@ -63,10 +63,9 @@ class BizManager extends Manager {
       throw new PDOException('Impossible to add social media!');
     }
     $addSocMed->closeCursor();
-    return "social media was added to db";
   }
 
-  public function addBizMenu($bizId, $menuItem, $price, $calories) {
+  public function add_biz_menu($bizId, $menuItem, $price, $calories) {
     $bizId = htmlspecialchars($bizId);
     $menuItem = htmlspecialchars($menuItem);
     $price = htmlspecialchars($price);
@@ -82,7 +81,6 @@ class BizManager extends Manager {
       throw new PDOException('Impossible to add menu!');
     }
     $addMenu->closeCursor();
-    return "menu items were added to db";
   }
 
   public function getAllBiz($userId) {
@@ -128,4 +126,63 @@ class BizManager extends Manager {
     $bizMenuItems = $bizMenu->fetchAll();
     return $bizMenuItems;        
   }
+  
+  public function addBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray) {
+    $bizMade = $this->add_biz_gen_info($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite);
+    $bizId = $this->get_biz_id($user_id,$bizAddr);
+
+    for ($i=0; $i<count($socialMediaArr); $i++) {
+        $socialMediaDb = $this->add_biz_soc_media($bizId['id'], $socialMediaArr[$i]['media'], $socialMediaArr[$i]['link']);
+    }
+
+    for ($i=0; $i<count($menuArray); $i++) {
+        $menuDb = $this->add_biz_menu($bizId['id'], $menuArray[$i]['name'], $menuArray[$i]['price'], $menuArray[$i]['calories']);
+    }
+    return 'business account created';
+  }
+
+  public function getSearchResults($si, $gu, $dong, $danji) {
+    $si = htmlspecialchars($si);
+    $gu = htmlspecialchars($gu);
+    $dong = htmlspecialchars($dong);
+    // $danji = htmlspecialchars($danji);
+    if ($si AND $gu) {
+      $searchReq = $this->_db->prepare("SELECT * FROM business WHERE city = :si AND gu = :gu");
+      $searchReq->bindParam(':si',$si,PDO::PARAM_STR);
+      $searchReq->bindParam(':gu',$gu,PDO::PARAM_INT);
+    } elseif ($si AND $gu AND $dong) {
+      $searchReq = $this->_db->prepare("SELECT * FROM business WHERE city = :si AND gu = :gu AND dong = :dong");
+      $searchReq->bindParam(':si',$si,PDO::PARAM_STR);
+      $searchReq->bindParam(':gu',$gu,PDO::PARAM_INT);
+      $searchReq->bindParam(':dong',$dong,PDO::PARAM_INT);
+    }
+    
+    // $searchReq->bindParam(':danji',$danji,PDO::PARAM_INT);
+    $status = $searchReq->execute();
+    if (!$status) {
+      throw new PDOException('Impossible to add locations!');
+    }
+    return $searchReq->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getSearchBizSocMed($searchBizId) {
+    $bizSocMed = $this->_db->prepare("SELECT platform, link FROM social_media WHERE biz_id = :bizId");
+    $bizSocMed->bindParam(':bizId',$searchBizId,PDO::PARAM_STR);
+    $res = $bizSocMed->execute();
+    if(!$res) {
+      throw new PDOException('Impossible to get business social media!');
+    }
+    return $bizSocMed->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function getSearchBizMenu($searchBizId) {
+    $bizMenu = $this->_db->prepare("SELECT item, price, calories FROM menu WHERE biz_id = :bizId");
+    $bizMenu->bindParam(':bizId',$searchBizId,PDO::PARAM_STR);
+    $res = $bizMenu->execute();
+    if(!$res) {
+      throw new PDOException('Impossible to get business menu!');
+    }
+    return $bizMenu->fetch(PDO::FETCH_ASSOC);
+  }
 }
+

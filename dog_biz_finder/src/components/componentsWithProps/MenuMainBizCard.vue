@@ -37,7 +37,7 @@ export default {
   name: "MenuMainBizCard",
   props: {
     menu: {
-      type: Array,
+      // type: Object,
       default() {
         return [
           {
