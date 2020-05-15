@@ -11,25 +11,31 @@ try {
     $filename = isset($_FILES['file']['name']) ? $_FILES['file']['name'] : '';
 
     header('Content-type: application/json');
+    
     // if (header('Content-type: application/json')) {
         $createBizJsonStr = file_get_contents('php://input');
         $createBizJsonObj = json_decode($createBizJsonStr, true);
     // }
-    
 
     if (isset($_REQUEST['action']) || $createBizJsonObj) {
         if ($action === 'getUserInfo') {
             getUserInfo($uid); 
-        } else if ($action === 'updateAccountType') {
+        } elseif ($action === 'updateAccountType') {
             $accountType = isset($_REQUEST['accType']) ? $_REQUEST['accType'] : '';
             updateAccountType($accountType,$uid);
-        } else if ($action === 'createUser') {
+        } elseif ($action === 'createUser') {
             $login = isset($_REQUEST['login']) ? $_REQUEST['login'] : '';
             $email= isset($_REQUEST['email']) ? $_REQUEST['email'] : '';
             createUser($login,$email,$uid);
-        } else if ($action === 'removeAccount') {
+        } elseif ($action === 'removeAccount') {
             removeAccount($uid);
-        } else if ($action === 'makeDirectory') {
+        } elseif ($action === 'getSearchResults') {
+            $si = isset($_REQUEST['si']) ? $_REQUEST['si'] : '';
+            $gu = isset($_REQUEST['gu']) ? $_REQUEST['gu'] : '';
+            $dong = isset($_REQUEST['dong']) ? $_REQUEST['dong'] : '';
+            $danji = isset($_REQUEST['danji']) ? $_REQUEST['danji'] : '';
+            getSearchRes($si, $gu, $dong, $danji);
+        } elseif ($action === 'makeDirectory') {
             //function to make the directory
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $name = htmlspecialchars($name);
@@ -39,17 +45,17 @@ try {
             } else {
                 echo 'directory exists';
             }
-        } else if ($action === 'getPets') {
+        } elseif ($action === 'getPets') {
             $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             getPets($owner_id);
-        } else if ($action === 'createPet') {
+        } elseif ($action === 'createPet') {
             $owner_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
             $size = isset($_REQUEST['size']) ? $_REQUEST['size'] : '';
             createPet($owner_id,$name,$breed,$size);
         }
-        else if ($createBizJsonObj['action'] === 'createBiz') {
+        elseif ($createBizJsonObj['action'] === 'createBiz') {
             $user_id = isset($createBizJsonObj['id']) ? $createBizJsonObj['id'] : '';
             $bizName = isset($createBizJsonObj['genInfo']['bizName']) ? $createBizJsonObj['genInfo']['bizName'] : '';
             $bizType = isset($createBizJsonObj['genInfo']['bizType']) ? $createBizJsonObj['genInfo']['bizType'] : '';
@@ -61,7 +67,7 @@ try {
             $menuArray = isset($createBizJsonObj['menu']) ? $createBizJsonObj['menu'] : '';
             createBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray);
         }
-        else if ($action === 'editPet') {
+        elseif ($action === 'editPet') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $name = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
             $breed = isset($_REQUEST['breed']) ? $_REQUEST['breed'] : '';
@@ -69,25 +75,25 @@ try {
             $age = isset($_REQUEST['age']) ? $_REQUEST['age'] : '';
             editPet($name,$breed,$size,$pet_id,$age);
         } 
-        else if ($action === 'updatePetPicInDB') {
+        elseif ($action === 'updatePetPicInDB') {
             $pet_id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
             updatePetPic($pet_id,$url);
         }
-        else if ($action === 'updateProfilePicInDB') {
+        elseif ($action === 'updateProfilePicInDB') {
             $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $url = isset($_REQUEST['url']) ? $_REQUEST['url'] : '';
             echo $id;
             updateProfilePic($id,$url);
         }
-        else if ($action === 'deleteOldPetPic') {
+        elseif ($action === 'deleteOldPetPic') {
             $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $link = getPetPicLink($id);
             $newLink = str_replace("http://dogpeeps",'.',$link['picURL']); //since we're doing this locally instead of via a server, replace the server url w relative path
             unlink($newLink);
             echo 'deleted:' .$link['picURL'];
         }
-        else if ($action === 'deleteOldProfilePic') {
+        elseif ($action === 'deleteOldProfilePic') {
             $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
             $link = getProfilePicLink($id);
             $newLink = str_replace("http://dogpeeps",'.',$link['profile_pic']); //since we're doing this locally instead of via a server, replace the server url w relative path
@@ -96,7 +102,7 @@ try {
         }
         //if there's a set filename, hence a file submitted...
     } 
-    else if (isset($filename)) {
+    elseif (isset($filename)) {
         //username was appended to form data seperately from the file so it comes to us via $_request
         $name = isset($_REQUEST['username']) ? $_REQUEST['username'] : '';
         //we use $name here to direct us to the eponymous directory inside the uploads folder
