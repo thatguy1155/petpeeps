@@ -160,7 +160,7 @@ export default {
           .then(res => {
               let filteredList = [];
               for (let i=0, bizObj; i<res.data.length; i++) {
-                console.log(res.data[i]);
+                // console.log(res.data[i]);
                 bizObj = {
                   bizName: res.data[i]['name'],
                   bizType: res.data[i]['type'],
@@ -171,10 +171,11 @@ export default {
                   socialMediaArr: res.data[i]['socialMediaArr'],
                   menu: res.data[i]['menu'],
                 }
-                console.log(bizObj);
+                // console.log(bizObj);
                 filteredList.push(bizObj);
               }
               console.log(filteredList);
+              state.bizList.splice(0, 3);
               commit("CHANGE_BIZ_LIST", filteredList);
               commit("SET_SELECTED_BIZ", { business: filteredList[0] });
           })

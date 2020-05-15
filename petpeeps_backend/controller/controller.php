@@ -80,16 +80,6 @@
         $bizManager = new BizManager();
 
         $bizMade = $bizManager->addBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray);
-        // $bizMade = $bizManager->addBizGenInfo($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite);
-        // $bizId = $bizManager->getBizId($user_id,$bizAddr);
-
-        // for ($i=0; $i<count($socialMediaArr); $i++) {
-        //     $socialMediaDb = $bizManager->addBizSocMedia($bizId['id'], $socialMediaArr[$i]['media'], $socialMediaArr[$i]['link']);
-        // }
-
-        // for ($i=0; $i<count($menuArray); $i++) {
-        //     $menuDb = $bizManager->addBizMenu($bizId['id'], $menuArray[$i]['name'], $menuArray[$i]['price'], $menuArray[$i]['calories']);
-        // }
 
         if($bizMade){
             echo json_encode($bizMade);
@@ -151,14 +141,6 @@
 
     function getSearchRes($si, $gu, $dong, $danji) {
         $searchManager = new BizManager();
-
         $searchResBizInfo = $searchManager->getSearchResults($si, $gu, $dong, $danji);
-        for ($i=0; $i<count($searchResBizInfo); $i++) {
-            $searchResBizSocMedia = $searchManager->getSearchBizSocMed($searchResBizInfo[$i]['id']);
-            $searchResBizMenu = $searchManager->getSearchBizMenu($searchResBizInfo[$i]['id']);
-
-            $searchResBizInfo[$i]['socialMediaArr'] = $searchResBizSocMedia;
-            $searchResBizInfo[$i]['menu'] = $searchResBizMenu;
-        }
         echo json_encode($searchResBizInfo);
     }

@@ -94,36 +94,37 @@ export default {
     },
     socialMediaIcons() {
       const allSocialMedia = [];
-      const socialMedia = this.bizSocialMedia;
-      for (const social in socialMedia) {
-        if (social === "facebook") {
-          let fbObj = {
+      const socialMedia = this.selectedBiz.business.socialMediaArr;
+      // for (const social in socialMedia) {
+      for (let i=0,fbObj,twitterObj,naverObj,instaObj; i<socialMedia.length; i++) {
+        if (socialMedia[i]['platform'] === "facebook") {
+          fbObj = {
             iconName: "mdi-facebook",
-            linkTo: socialMedia["facebook"],
+            linkTo: socialMedia[i]['link'],
           };
           allSocialMedia.push(fbObj);
         }
 
-        if (social === "twitter") {
-          let twitterObj = {
+        if (socialMedia[i]['platform'] === "twitter") {
+          twitterObj = {
             iconName: "mdi-twitter",
-            linkTo: socialMedia["twitter"],
+            linkTo: socialMedia[i]['link'],
           };
           allSocialMedia.push(twitterObj);
         }
 
-        if (social === "naver") {
-          let naverObj = {
+        if (socialMedia[i]['platform'] === "naver") {
+          naverObj = {
             iconName: "mdi-blogger",
-            linkTo: socialMedia["naver"],
+            linkTo: socialMedia[i]['link'],
           };
           allSocialMedia.push(naverObj);
         }
 
-        if (social === "instagram") {
-          let instaObj = {
+        if (socialMedia[i]['platform'] === "instagram") {
+          instaObj = {
             iconName: "mdi-instagram",
-            linkTo: socialMedia["instagram"],
+            linkTo: socialMedia[i]['link'],
           };
           allSocialMedia.push(instaObj);
         }
