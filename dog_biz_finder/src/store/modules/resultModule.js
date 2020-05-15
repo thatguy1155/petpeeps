@@ -149,119 +149,48 @@ export default {
      *                         the pre-existing array of addresses for match
      */
     getBizList({ commit, state }) {
-      let cleanList = [
-        {
-          bizName: "Woof Cafe",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 을지로7가 2-1',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Safari",
-          bizType: "Restaurant",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 을지로6가 18-17',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "The Jungle",
-          bizType: "Restaurant",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 광휘동 58-1',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Animals",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 저동2가 수표로 46 2층',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Sanctuary",
-          bizType: "Restaurant",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 명동2가 명동10길 16-1',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Habitat",
-          bizType: "Restaurant",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 중구 장충동 동호로 249',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Archipelago",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 동대문구 청량리동 207-42',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Dogs & Friends",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 성북구 안암동5가 산2-1',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com', facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "People Reserve",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 동대문구 회기동 1-5',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {facebook: 'www.facebook.com', twitter: 'www.twitter.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        },
-        {
-          bizName: "Tropicana",
-          bizType: "Cafe",
-          bizHrs: 'Everyday: 11am - 9pm',
-          bizAddr: '서울특별시 강남구 신사동 563-21',
-          bizTel: '02-9343-3567',
-          bizSite: 'https://www.thejunglerestaurant.co.uk',
-          socialMediaArr: {instagram: 'www.instagram.com', naver: 'www.blog.naver.com'},
-          menu: [{'item': 'pasta', 'price': '9000', 'calories': '900'}, {'item': 'pizza', 'price': '22000', 'calories': '1500'}]
-        }
-      ];
-      let filteredList = [];
-      let searchedAddrStr = state.searchedAddr.join(" ");
+    // getBizList({ state }) {
+      const params = new URLSearchParams();
+      params.append('action', 'getSearchResults');
+      params.append('si', state.searchedAddr[0]);
+      params.append('gu', state.searchedAddr[1]);
+      params.append('dong', state.searchedAddr[2]);
+      params.append('danji', state.searchedAddr[3]);
+      axios.post('http://dogpeeps', params) 
+          .then(res => {
+              let filteredList = [];
+              for (let i=0, bizObj; i<res.data.length; i++) {
+                console.log(res.data[i]);
+                bizObj = {
+                  bizName: res.data[i]['name'],
+                  bizType: res.data[i]['type'],
+                  bizHrs: res.data[i]['biz_hrs'],
+                  bizAddr: res.data[i]['city']+' '+res.data[i]['gu']+' '+res.data[i]['dong']+' '+res.data[i]['danji'],
+                  bizTel: res.data[i]['tel'],
+                  bizSite: res.data[i]['website'],
+                  socialMediaArr: res.data[i]['socialMediaArr'],
+                  menu: res.data[i]['menu'],
+                }
+                console.log(bizObj);
+                filteredList.push(bizObj);
+              }
+              console.log(filteredList);
+              commit("CHANGE_BIZ_LIST", filteredList);
+              commit("SET_SELECTED_BIZ", { business: filteredList[0] });
+          })
+          .catch(err => console.log(err))
 
-      filteredList = cleanList.filter((item) => {
-        return item.bizAddr.includes(searchedAddrStr);
-      });
+      // let filteredList = [];
+      // let searchedAddrStr = state.searchedAddr.join(" ");
 
-      commit("CHANGE_BIZ_LIST", filteredList);
+      // filteredList = cleanList.filter((item) => {
+      //   return item.bizAddr.includes(searchedAddrStr);
+      // });
+
+      // commit("CHANGE_BIZ_LIST", filteredList);
       
       //when there is a new biz list, also set the first item on the new list as the selected biz 
-      commit("SET_SELECTED_BIZ", { business: filteredList[0] });
+      // commit("SET_SELECTED_BIZ", { business: filteredList[0] });
     },
     /**
      *
