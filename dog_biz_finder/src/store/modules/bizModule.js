@@ -7,38 +7,6 @@ Vue.use(Vuex);
 
 const state = {
   bizArray: [
-    // {
-    //     bizName: "Woof Cafe",
-    //     bizType: "Cafe",
-    //     bizHrs: "Everyday: 11am - 9pm",
-    //     bizAddr: "서울특별시 중구 을지로7가 2-1",
-    //     bizTel: "02-9343-3567",
-    //     bizSite: "www.thejunglerestaurant.co.uk",
-    //     socialMediaArr: {
-    //         instagram: "www.instagram.com",
-    //         naver: "www.blog.naver.com",
-    //     },
-    //     menu: [
-    //         { item: "pasta", price: "9000", calories: "900" },
-    //         { item: "pizza", price: "22000", calories: "1500" },
-    //     ],
-    // },
-    // {
-    //     bizName: "Safari",
-    //     bizType: "Restaurant",
-    //     bizHrs: "Everyday: 11am - 9pm",
-    //     bizAddr: "서울특별시 중구 을지로6가 18-17",
-    //     bizTel: "02-9343-3567",
-    //     bizSite: "www.thejunglerestaurant.co.uk",
-    //     socialMediaArr: {
-    //         facebook: "www.facebook.com",
-    //         twitter: "www.twitter.com",
-    //     },
-    //     menu: [
-    //         { item: "pasta", price: "9000", calories: "900" },
-    //         { item: "pizza", price: "22000", calories: "1500" },
-    //     ],
-    // },
   ],
 };
 
@@ -91,22 +59,24 @@ async function getBiz({ commit }) {
   const id = await getUserId(currUser);
   // console.log('id', id);
   const response = await axios.get(`http://dogpeeps?action=getBiz&id=${id}`);
-  const allBizList = []
-  for (let i=0; i<response.data.length; i++) {
-    let respData = response.data[i];
-    let fullAddress = respData.city + ' ' + respData.gu + ' ' + respData.dong;
-    allBizList.push({
-      bizName: respData.name,
-      bizType: respData.type,
-      bizHrs: respData.biz_hrs,
-      bizAddr: fullAddress,
-      bizTel: respData.tel,
-      bizSite: respData.website,
-      socialMediaArr: respData.socialMediaArr,
-      menu: respData.menu
-    });
+  const allBizList = [];
+  if (response.data.length) {
+    for (let i = 0; i < response.data.length; i++) {
+      let respData = response.data[i];
+      let fullAddress = respData.city + " " + respData.gu + " " + respData.dong;
+      allBizList.push({
+        bizName: respData.name,
+        bizType: respData.type,
+        bizHrs: respData.biz_hrs,
+        bizAddr: fullAddress,
+        bizTel: respData.tel,
+        bizSite: respData.website,
+        socialMediaArr: respData.socialMediaArr,
+        menu: respData.menu,
+      });
+    }
+    commit("SET_BIZ", allBizList);
   }
-  commit("SET_BIZ", allBizList);
 }
 
 // //create a biz

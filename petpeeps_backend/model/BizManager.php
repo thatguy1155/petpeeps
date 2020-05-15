@@ -185,20 +185,6 @@ class BizManager extends Manager {
     return $bizMenu->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function addBiz($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite,$socialMediaArr,$menuArray) {
-    $bizMade = $this->add_biz_gen_info($user_id,$bizName,$bizType,$bizHrs,$bizAddr,$bizTel,$bizSite);
-    $bizId = $this->get_biz_id($user_id,$bizAddr);
-
-    for ($i=0; $i<count($socialMediaArr); $i++) {
-        $socialMediaDb = $this->add_biz_soc_media($bizId['id'], $socialMediaArr[$i]['media'], $socialMediaArr[$i]['link']);
-    }
-
-    for ($i=0; $i<count($menuArray); $i++) {
-        $menuDb = $this->add_biz_menu($bizId['id'], $menuArray[$i]['name'], $menuArray[$i]['price'], $menuArray[$i]['calories']);
-    }
-    return 'business account created';
-  }
-
   public function getSearchResults($si, $gu, $dong, $danji) {
     $searchResBizInfo = $this->get_search_biz_info($si, $gu, $dong, $danji);
     for ($i=0; $i<count($searchResBizInfo); $i++) {

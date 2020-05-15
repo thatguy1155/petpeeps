@@ -46,7 +46,6 @@
         if($accDeath){
             echo json_encode($accDeath);
         } else {
-            $err = array('our backend failed to remove a user');
             echo json_encode($err);
         }
 
@@ -71,8 +70,7 @@
         if ($allBiz) {
             echo json_encode($allBiz);
         } else {
-            $err = array('we couldn\'t retrieve the businesses');
-            echo json_encode($err);
+            echo 0;
         }
     }
 

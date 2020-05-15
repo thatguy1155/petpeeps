@@ -162,21 +162,24 @@ export default {
       axios.post('http://dogpeeps', params) 
           .then(res => {
               let filteredList = [];
-              for (let i=0, bizObj; i<res.data.length; i++) {
-                // console.log(res.data[i]);
-                bizObj = {
-                  bizName: res.data[i]['name'],
-                  bizType: res.data[i]['type'],
-                  bizHrs: res.data[i]['biz_hrs'],
-                  bizAddr: res.data[i]['city']+' '+res.data[i]['gu']+' '+res.data[i]['dong']+' '+res.data[i]['danji'],
-                  bizTel: res.data[i]['tel'],
-                  bizSite: res.data[i]['website'],
-                  socialMediaArr: res.data[i]['socialMediaArr'],
-                  menu: res.data[i]['menu'],
+              if (res.data.length > 0) {
+                for (let i=0, bizObj; i<res.data.length; i++) {
+                  // console.log(res.data[i]);
+                  bizObj = {
+                    bizName: res.data[i]['name'],
+                    bizType: res.data[i]['type'],
+                    bizHrs: res.data[i]['biz_hrs'],
+                    bizAddr: res.data[i]['city']+' '+res.data[i]['gu']+' '+res.data[i]['dong']+' '+res.data[i]['danji'],
+                    bizTel: res.data[i]['tel'],
+                    bizSite: res.data[i]['website'],
+                    socialMediaArr: res.data[i]['socialMediaArr'],
+                    menu: res.data[i]['menu'],
+                  }
+                  // console.log(bizObj);
+                  filteredList.push(bizObj);
                 }
-                // console.log(bizObj);
-                filteredList.push(bizObj);
               }
+              
               console.log(filteredList);
               state.bizList.splice(0, 3);
               commit("CHANGE_BIZ_LIST", filteredList);
