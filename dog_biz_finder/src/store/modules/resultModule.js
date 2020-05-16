@@ -32,6 +32,9 @@ export default {
     CHANGE_GU_CATEGORY(state, payload) {
       state.guCategory = payload;
     },
+    CHANGE_SI_CATEGORY(state, payload) {
+      state.siCategory = payload;
+    },
     CREATE_SEARCHED_ADDRESS(state, payload) {
       state.searchedAddr.push(payload);
     },
@@ -200,6 +203,9 @@ export default {
      */
     changeSelectedGu({commit},currentGu){
       commit("CHANGE_GU_CATEGORY", currentGu);
+    },
+    changeSelectedSi({commit},currentSi){
+      commit("CHANGE_SI_CATEGORY", currentSi);
     }
     
   }
